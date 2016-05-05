@@ -23,6 +23,11 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="https://cdn.jsdelivr.net/vue/latest/vue.js"></script>
+  <!-- Firebase -->
+  <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+  <!-- VueFire -->
+  <script src="https://cdn.jsdelivr.net/vuefire/1.0.0/vuefire.min.js"></script>
 
 </head>
 
@@ -207,11 +212,11 @@
                 <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
                             <img src="../img/campfire.jpg" alt="">
-                            <div class="caption">
-                                <h6 class="pull-right">Katherin19Brooks<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
-                                <h4><a href="#">Go camping</a>
+                            <div class="caption" id="app" v-for="item in items">
+                                <h6 class="pull-right" >{{item.user}}<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
+                                <h4><a href="#">{{item.title}}</a>
                                 </h4>
-                                <p>Campfires, marshmallows, songs. A night to remember. <a href="#"><font size="4">[...]</font></a></p>
+                                <p>{{item.info}}<a href="#"><font size="4">[...]</font></a></p>
                             </div>
                             <div class="ratings">
                                 <p class="pull-right"><a href="#" style="color:#B40404">26 comments</a></p>
@@ -338,6 +343,16 @@
         </footer>
 
     </div>
+    <script>
+var itemsRef = new Firebase("blistering-inferno-3222.firebaseIO.com");
+var vm = new Vue({
+  el: "#app",
+  firebase: {
+    // can bind to either a direct Firebase reference or a query
+    items: itemsRef.limitToLast(1)
+  }
+});
+    </script>
     <!-- /.container -->
 
     <!-- jQuery -->
