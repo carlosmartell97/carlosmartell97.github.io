@@ -344,12 +344,12 @@
 
     </div>
     <script>
-var itemsRef = new Firebase("karmics.firebaseio.com/");
+var itemsRef = new Firebase("https://karmics.firebaseio.com/");
 var vm = new Vue({
   el: "#app",
   firebase: {
     // can bind to either a direct Firebase reference or a query
-    items: itemsRef.limitToLast(3)
+    items: itemsRef.limitToLast(1)
   }
 });
     </script>
