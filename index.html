@@ -12,22 +12,10 @@
     <title>Karmics</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">    
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="css/landing-page.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-
-    <!-- Custom styles for this template -->
-    <link href="log-in/signin.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://anijs.github.io/lib/anicollection/anicollection.css">
-    <script src="jquery.js"></script>
-    <script src="anijs-min.js"></script>
-    <script src="helpers/scrollreveal/anijs-helper-scrollreveal-min.js"></script>
-
+    <link href="css/shop-homepage.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,24 +23,19 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    <script src="https://cdn.jsdelivr.net/vue/latest/vue.js"></script>
+  <!-- Firebase -->
+  <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+  <!-- VueFire -->
+  <script src="https://cdn.jsdelivr.net/vuefire/1.0.0/vuefire.min.js"></script>
 
-  ga('create', 'UA-76165424-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
 </head>
 
 <body>
 
-
     <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
-        <div class="container topnav">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -61,22 +44,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand topnav" href="#">KARMICS</a>
+                <a class="navbar-brand" href="#">Home</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav">
                     <li>
-                        <a href="#services">Our goal</a>
+                        <a href="#">Chat</a>
                     </li>
                     <li>
-                        <a href="#contact">Contact</a>
+                        <a href="#">My Profile</a>
                     </li>
                     <li>
-                        <a href="log-in/log-in.html">LOG IN</a>
-                    </li>
-                    <li>
-                        <a href="sign-up/sign-up.html">SIGN UP</a>
+                        <a href="#">Settings</a>
                     </li>
                 </ul>
             </div>
@@ -85,226 +65,367 @@
         <!-- /.container -->
     </nav>
 
+    <!-- Page Content -->
+    <div class="container">
 
-    <!-- Header -->
-    <a name="about"></a>
-    <div class="intro-header">
-        <div class="container">
+        <div class="row">
 
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="intro-message">
-                        <h1 data-anijs="if: DOMContentLoaded, on: document, do: flipInY animated">Karmics</h1>
-                        <h3>Outside your self</h3>
-                        <hr class="intro-divider">
-                        <ul class="list-inline intro-social-buttons">
-                            <li>
-                                <a href="https://www.youtube.com/embed/VrJ14_z14LY"><button type="button" class="btn btn-lg btn-success">...Why?</button></a>
-                            </li>
-                            <li>
-                                <a href="log-in/log-in.html"><button type="button" class="btn btn-lg btn-default">LOG IN</button></a>
-                            </li>
-                            <li>
-                                <a href="sign-up/sign-up.html"><button type="button" class="btn btn-lg btn-default">SIGN UP</button></a>
-                            </li>
-                        </ul>
+            <div class="col-md-3">
+                <p class="lead">What your friends have done.</p>
+                <div class="list-group">
+                    <a href="#" class="list-group-item">Feed</a>
+                    <a href="tasks/tasks.html" class="list-group-item">My tasks</a>
+                    <a href="#" class="list-group-item">Worldwide</a>
+                </div>
+            </div>
+/////////////////////////////////
+            <div class="col-md-9">
+
+                <div class="row carousel-holder">
+
+                    <div class="col-md-12">
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <a href=""><img class="slide-image" src="../img/carrousel1.jpg" alt=""></a>
+                                </div>
+                                <div class="item">
+                                    <a href=""><img class="slide-image" src="../img/carrousel2.jpg" alt=""></a>
+                                </div>
+                                <div class="item">
+                                    <a href=""><img class="slide-image" src="../img/carrousel3.jpg" alt=""></a>
+                                </div>
+                            </div>
+                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <span id="posts">
+
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="../img/mycake.jpg" alt="">
+                            <div class="caption">
+                                <h6 class="pull-right">Sarah_hart88<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
+                                <h4><a href="#">Cook your<br>neighbor something</a>
+                                </h4>
+                                <p>I loved this. He had a girl I knew nothing about. <a href="#"><font size="4">[...]</font></a></p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right"><a href="#" style="color:#B40404">15 comments</a></p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="../img/myconcert.jpg" alt="">
+                            <div class="caption">
+                                <h6 class="pull-right">Mark-Jung<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
+                                <h4><a href="#">Attend a concert</a>
+                                </h4>
+                                <p>We went to a local festival with some great bands. Jake Nichols joined the stage! <a href="#"><font size="4">[...]</font></a></p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right"><a href="#" style="color:#B40404">4 comments</a></p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="../img/forest.jpg" alt="">
+                            <div class="caption">
+                                <h6 class="pull-right">JakeNichols1<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
+                                
+                                <h4><a href="#">Get lost in the<br>woods</a>
+                                </h4>
+                                
+                                <p>Going mapless got us very cool spots. In the end, we foud the road. <a href="#"><font size="4">[...]</font></a></p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right"><a href="#" style="color:#B40404">21 comments</a></p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="../img/you.jpg" alt="">
+                            <div class="caption">
+                                <h6 class="pull-right">AlexSms<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
+                                <h4><a href="#">Travel as light as<br>possible</a>
+                                </h4>
+                                <p>One backpack was more than enough. 2 fun weeks around the East Coast! <a href="#"><font size="4">[...]</font></a></p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right"><a href="#" style="color:#B40404">15 comments</a></p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                
+                
+          
+                
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="../img/campfire.jpg" alt="">
+                            <div class="caption" id="app" v-for="item in items">
+                                <h6 class="pull-right" >{{item.user}}<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
+                                <h4><a href="#">{{item.title}}</a>
+                                </h4>
+                                <p>{{item.info}}<a href="#"><font size="4">[...]</font></a></p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right"><a href="#" style="color:#B40404">26 comments</a></p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+            
+            
+            
+    <div class="col-sm-4 col-lg-4 col-md-4">
+        <div class="thumbnail">
+            <img src="../img/you.jpg" alt="">
+            <div class="caption">
+                <h6 class="pull-right">test_user<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
+                    <h4><a href="#">test_title</a></h4>
+                        <p>test_info <a href="#"><font size="4">[...]</font></a></p>
+            </div>
+            <div class="ratings">
+                <p class="pull-right"><a href="#" style="color:#B40404">15 comments</a></p>
+                    <p>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                    </p>
+            </div>
+        </div>
+    </div>
+    </span>
+    </div>
+<script>
+            // CHILD ADDED__________________________________________
+            // Get a database reference to our posts
+            var ref = new Firebase("https://karmics.firebaseio.com/");
+
+            // Retrieve new posts as they are added to our database
+            ref.on("child_added", function(snapshot, prevChildKey) {
+                var newPost = snapshot.val();
+                console.log("CHILD_ADDED"); console.log("User: " + newPost.user); console.log("Title: " + newPost.title); console.log("Info: " + newPost.info);
+                console.log("Previous Post ID: " + prevChildKey);
+                
+                    var div = document.createElement('div'); div.id = "postDiv";
+                        var place = document.getElementById('posts');
+                    div.innerHTML = '<div>New usrname: '+newPost.user+'</div><br><br>';
+                        place.appendChild(div);
+                    document.body.appendChild(div);
+                    console.log(newPost.url);
+                    $("#posts").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="'+newPost.url+'" alt=""><div class="caption"><h6 class="pull-right">'+newPost.user+'<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6><h4><a href="#">'+newPost.title+'</a></h4><p>'+newPost.info+'<a href="#"><font size="4">[...]</font></a></p></div><div class="ratings"><p class="pull-right"><a href="#" style="color:#B40404">'+newPost.comments+' comments</a></p><p><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></p></div></div></div><br><br>'); console.log("___");
+            });
+            
+            // CHILD CHANGED__________________________________________
+            // Get the data on a post that has changed
+            ref.on("child_changed", function(snapshot) {
+                var changedPost = snapshot.val();
+                console.log("CHILD_CHANGED"); console.log("The updated post user is '" + changedPost.user+"'"); console.log("The updated post title is " + changedPost.title); console.log("___");
+            });
+            
+            // CHILD REMOVED_________________________________________
+            // Get the data on a post that has been removed
+            ref.on("child_removed", function(snapshot) {
+                var deletedPost = snapshot.val();
+                console.log("CHILD_REMOVED"); console.log("The blog post titled '" + deletedPost.title + "' has been deleted by '" + deletedPost.user +"'"); console.log("___");
+            });
+            
+            //var div = document.createElement('div');
+            //document.body.appendChild(div);
+            //div.innerHTML = '<span class="msg">Hello world.</span>';
+</script>
+            
+            
+                    
+                <!--
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="../img/cake.jpg" alt="">
+                            <div class="caption">
+                                <h6 class="pull-right">Sarah_hart88</h6>
+                                <h4><a href="#">Cook your<br>neighbor something</a>
+                                </h4>
+                                <p>I loved this. I now have a friend living right next to me! <a href="#"><font size="4">[...]</font></a></p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right"><a href="#" style="color:#B40404">15 comments</a></p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="../img/cake.jpg" alt="">
+                            <div class="caption">
+                                <h6 class="pull-right">Sarah_hart88</h6>
+                                <h4><a href="#">Cook your<br>neighbor something</a>
+                                </h4>
+                                <p>I loved this. I now have a friend living right next to me! <a href="#"><font size="4">[...]</font></a></p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right"><a href="#" style="color:#B40404">15 comments</a></p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="../img/cake.jpg" alt="">
+                            <div class="caption">
+                                <h6 class="pull-right">Sarah_hart88</h6>
+                                <h4><a href="#">Cook your<br>neighbor something</a>
+                                </h4>
+                                <p>I loved this. I now have a friend living right next to me! <a href="#"><font size="4">[...]</font></a></p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right"><a href="#" style="color:#B40404">15 comments</a></p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="../img/cake.jpg" alt="">
+                            <div class="caption">
+                                <h6 class="pull-right">Sarah_hart88</h6>
+                                <h4><a href="#">Cook your<br>neighbor something</a>
+                                </h4>
+                                <p>I loved this. I now have a friend living right next to me! <a href="#"><font size="4">[...]</font></a></p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right"><a href="#" style="color:#B40404">15 comments</a></p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+-->
             </div>
 
         </div>
-        <!-- /.container -->
 
-    </div>
-    <!-- /.intro-header -->
-
-    <!-- Page Content -->
-
-	<a  name="services"></a>
-    <div class="content-section-a" data-anijs="if: scroll, on: window, do: bounceInLeft animated, after: holdAnimClass">
-
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-5 col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">It's time to enjoy today<br>and share the joy with others</h2>
-                    <p class="lead">Experience what it means to <a target="_blank" href="#"> engage with those around you</a>. Through simple tasks and colaborative goals, you'll be leaving a mark on those you come close to, and discover your self in the process.</p>
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6" data-anijs="if: click, on: img, do: flipInY animated">
-                    <img class="img-responsive" src="img/mountain.jpg" alt="">
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.content-section-a -->
     
-    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-  
-        
-        
-        
-        <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-  </ol>
+    <!-- /.container -->
 
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner" role="listbox">
-    <div class="item active">
-      <img src="img/collage1.jpg" width="1500px" alt="...">
-      <div class="carousel-caption">
-      </div>
-    </div>
-    <div class="item">
-      <img src="img/collage2.jpg" width = "1500px" alt="...">
-      <div class="carousel-caption">
-      </div>
-    </div>
-    <div class="item">
-      <img src="img/collage3.jpg" width = "1500px" alt="...">
-      <div class="carousel-caption">
-      </div>
-    </div>
-  </div>
+    <div class="container">
 
-  <!-- Controls -->
-  <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
-<nav data-anijs="if: scroll, on: window, do: bounceInLeft animated, after: holdAnimClass">
-    <div class="content-section-b">
+        <hr>
 
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">Enjoy the worldwide community</h2>
-                    <p class="lead">There are plenty of people with your same desires, waiting for the right situation to take action. KARMICS creates that situation for you! Get in touch, get doing, get moving the world around.</p>
-                </div>
-                <div class="col-lg-5 col-sm-pull-6  col-sm-6">                    
-                    
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.content-section-b -->
-</nav>
-    <div class="content-section-a" data-anijs="if: scroll, on: window, do: bounceInLeft animated, after: holdAnimClass">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-5 col-sm-6">
-                    <hr class="section-heading-spacer">
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">Do what you like</h2>
-                    <p class="lead">Exit the rush of the day-to-day, have fun with others and be more aware of the <a target="_blank" href="#">opporunities</a> around you.</a></p>
-                </div>
-                <div class="col-lg-5 col-lg-offset-2 col-sm-6" data-anijs="if: click, on: img, do: flipInY animated">
-                    <img class="img-responsive" src="img/rush.jpg" alt="">
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.content-section-a -->
-
-	<a  name="contact"></a>
-    <div class="banner" data-anijs="if: scroll, on: window, do: bounceInLeft animated, after: holdAnimClass">
-
-        <div class="container">
-
-            <div class="row">
-                <div class="col-lg-6">
-                    <h2>We're on social media:</h2>
-                </div>
-                <div class="col-lg-6">
-                    <ul class="list-inline banner-social-buttons">
-                        <li>
-                            <a href="#"><button type="button" class="btn btn-lg btn-info">Twitter</button></a>
-                        </li>
-                        <li>
-                            <a href="#"><button type="button" class="btn btn-lg btn-primary">Facebook</button></a>
-                        </li>
-                        <li>
-                            <a href="#"><button type="button" class="btn btn-lg btn-danger">Youtube</button></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-        </div>
-        <!-- /.container -->
-
-    </div>
-    <!-- /.banner -->
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
+        <!-- Footer -->
+        <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <ul class="list-inline">
-                        <li>
-                            <a href="process/index.html">HOW was this website created?</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="#">Legal</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="#">Services</a>
-                        </li>
-                        <li class="footer-menu-divider">&sdot;</li>
-                        <li>
-                            <a href="#contact">Contact</a>
-                        </li>
-                    </ul>
-                    <p class="copyright text-muted small">Karmics &copy; 2016. All Rights Reserved</p>
+                    <p>Copyright &copy; Your Website 2014</p>
                 </div>
             </div>
-        </div>
-    </footer>
+        </footer>
+
+    </div>
+     
+    <script>
+var itemsRef = new Firebase("https://karmics.firebaseio.com/");
+var vm = new Vue({
+  el: "#app",
+  firebase: {
+    // can bind to either a direct Firebase reference or a query
+    items: itemsRef.limitToLast(1)
+  }
+});
+    </script>
+
+    <!-- /.container -->
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-    
-    <script src="anijs-min.js"></script>
-    
-    <script src="http://anijs.github.io/lib/anijs/anijs-min.js"></script> 
-  
-  <!-- Include to use $addClass, $toggleClass or $removeClass -->
-  <script src="http://anijs.github.io/lib/anijs/helpers/dom/anijs-helper-dom-min.js"></script>
-  
-	<!-- AniJS Core File -->
-    <script src="bower_components/anijs/dist/anijs-min.js"></script>
-    <!-- ScrollReveal Helper -->
-    <script src="bower_components/anijs/dist/helpers/scrollreveal/anijs-helper-scrollreveal-min.js"></script>
-    
-    
+
 </body>
 
 </html>
