@@ -7,29 +7,29 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+    <!-- <link rel="icon" href="../../favicon.ico"> -->
 
-    <title>Karmics - Log in</title>
+    <title>Karmics - Sign Up</title>
 
    <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">    
       
       <!-- Bootstrap core CSS -->
-    <link href="../bootstrap-3.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="../bootstrap-3.3.6/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 
     <!-- Custom styles for this template -->
     <link href="signin.css" rel="stylesheet">
       
       <!-- Custom CSS -->
-    <link href="css/landing-page.css" rel="stylesheet">
+    <!-- <link href="css/landing-page.css" rel="stylesheet"> -->
 
     <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+    <!--  <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -47,7 +47,7 @@
       <form class="form-signin">
         <h2 class="form-signin-heading">Please sign up</h2>
         <input type="email" id="inputEmail" class="form-control" placeholder="email" required autofocus>
-        <input type="text" id="inputUsername" class="form-control" placeholder="username" required>
+        <input type="text" id="inputUsername" class="form-control" placeholder="username" onkeypress="Change()" required>
         <input type="password" id="inputPassword1" class="form-control" placeholder="password" required>
           <input type="password" id="inputPassword2" class="form-control" placeholder="password again" required>
         
@@ -57,30 +57,60 @@
           </label>
         </div>
           <!-- realmente el href de abajo debería de ser este: ../Feed/feed.html -->
-        <a href="#"><button type="button" class="btn btn-lg btn-default" onclick="myFunction()">Sign up</button></a>
+    <button id="SignUpBtn" type="button" class="btn btn-lg btn-default" onclick="myFunction()">Sign up</button>
           <!-- realmente el href de arriba debería de ser este: ../Feed/feed.html -->
       </form>
 
     </div> <!-- /container -->
       
       <script>
+          var errorUsername=false;
             function myFunction() {
+                
                 // Get a database reference to our posts
                 var ref = new Firebase("https://karmics.firebaseio.com/");
 
                 //WRITING DATA WITH SET
                 var usersRef = ref.child("users");
-                usersRef.set({
-                        "test": {
-                        "email": document.getElementById("inputEmail").value,
+                    var username=document.getElementById("inputEmail").value;
+                usersRef.push({
+                        //document.getElementById("inputUsername").value
+                        
+                        "email": document.getElementById("inputEmail").value, "username":document.getElementById("inputUsername").value,
                         "password": document.getElementById("inputPassword1").value,
                         "friends":{"1":"no one"}
-                    }
+                    
                 });
                         console.log("email: "+document.getElementById("inputEmail").value);
                         console.log("pass: "+document.getElementById("inputPassword1").value);
-            }
+                        //window.location.href = "../Feed/feed.html";
+                        Change();
+            };
+          
+          function Change(){
+                var url="https://karmics.firebaseio.com/users/.json";
+            $.getJSON( url, function( data ) {
+                
+                $.each(data,function(key,val){
+                    console.log(val.username);
+                    if(val.username==document.getElementById("inputUsername").value){
+                        console.log("coincidencia");
+                        errorUsername=true;
+                        document.getElementById("inputUsername").style.backgroundColor="#F75D59";
+                    }
+                    else{
+                        if(!errorUsername){
+                            document.getElementById("inputUsername").style.backgroundColor="white";    
+                        }
+                        errorUsername=false;
+                    }
+                });
+            });
+                
+             console.log("------"); 
+          };
         </script>
-
+        
+        <script src="js/jquery.js"></script>
   </body>
 </html>
