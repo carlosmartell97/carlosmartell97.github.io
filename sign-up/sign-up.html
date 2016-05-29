@@ -46,10 +46,10 @@
 
       <form class="form-signin">
         <h2 class="form-signin-heading">Please sign up</h2>
-        <input type="email" id="inputEmail" class="form-control" placeholder="email" required autofocus>
+        <input type="email" id="inputEmail" class="form-control" placeholder="email" onkeypress="Change()" required autofocus>
         <input type="text" id="inputUsername" class="form-control" placeholder="username" onkeypress="Change()" required>
-        <input type="password" id="inputPassword1" class="form-control" placeholder="password" required>
-          <input type="password" id="inputPassword2" class="form-control" placeholder="password again" required>
+        <input type="password" id="inputPassword1" class="form-control" placeholder="password" onkeypress="Change()" required>
+          <input type="password" id="inputPassword2" class="form-control" placeholder="password again" onkeypress="Change()" required>
         
         <div class="checkbox">
           <label>
@@ -64,9 +64,44 @@
     </div> <!-- /container -->
       
       <script>
+          document.getElementById("SignUpBtn").disabled=true;
           var errorUsername=false;
+          var errorEmail=false;
+          var errorPassword=false;
             function myFunction() {
+                var url="https://karmics.firebaseio.com/users/.json";
+                $.getJSON( url, function( data ) {
                 
+                $.each(data,function(key,val){
+                ///////////////// EMAIL
+                    if(val.email==document.getElementById("inputEmail").value){
+                        console.log("coincidenciaEmail");
+                        errorEmail=true;
+                        document.getElementById("inputEmail").style.backgroundColor="#F75D59";
+                    }
+                    else{
+                        if(!errorEmail){
+                            document.getElementById("inputEmail").style.backgroundColor="white";    
+                        }
+                        errorEmail=false;
+                    }
+                    /////////////////// PASSWORD
+                    if(document.getElementById("inputPassword1").value!=document.getElementById("inputPassword2").value){
+                        console.log("errorPassword");
+                        errorPassword=true;
+                        document.getElementById("inputPassword1").style.backgroundColor="#F75D59";
+                        document.getElementById("inputPassword2").style.backgroundColor="#F75D59";
+                    }
+                    else{
+                        if(!errorPassword){
+                            document.getElementById("inputPassword1").style.backgroundColor="white";
+                            document.getElementById("inputPassword2").style.backgroundColor="white";
+                        }
+                        errorPassword=false;
+                    }
+                });
+            });
+                if(!(errorUsername && errorEmail && errorPassword)){
                 // Get a database reference to our posts
                 var ref = new Firebase("https://karmics.firebaseio.com/");
 
@@ -84,6 +119,7 @@
                         console.log("email: "+document.getElementById("inputEmail").value);
                         console.log("pass: "+document.getElementById("inputPassword1").value);
                         //window.location.href = "../Feed/feed.html";
+            }
             };
           
           function Change(){
@@ -91,9 +127,9 @@
             $.getJSON( url, function( data ) {
                 
                 $.each(data,function(key,val){
-                    console.log(val.username);
+                    ///////////////// USERNAME
                     if(val.username==document.getElementById("inputUsername").value){
-                        console.log("coincidencia");
+                        console.log("coincidenciaUsername");
                         errorUsername=true;
                         document.getElementById("inputUsername").style.backgroundColor="#F75D59";
                     }
@@ -103,10 +139,18 @@
                         }
                         errorUsername=false;
                     }
+                    
                 });
             });
                 
              console.log("------"); 
+              
+              if((document.getElementById("inputEmail").value!="")&&(document.getElementById("inputUsername").value!="")&&(document.getElementById("inputPassword1").value!="")&&(document.getElementById("inputPassword2").value!="")){
+                  document.getElementById("SignUpBtn").disabled=false;
+              }
+              else{
+                  document.getElementById("SignUpBtn").disabled=true;
+              }
           };
         </script>
         
