@@ -65,26 +65,81 @@
       
       <script>
           document.getElementById("SignUpBtn").disabled=true;
+          document.getElementById("inputUsername").addEventListener("keydown", Change);
+          document.getElementById("inputEmail").addEventListener("keydown", Change);
+          document.getElementById("inputPassword1").addEventListener("keydown", Change);
+          document.getElementById("inputPassword2").addEventListener("keydown", Change);
           var errorUsername=false;
+          //var errorUsername2=false;
           var errorEmail=false;
           var errorPassword=false;
+          //window.setTimeout("Checking();", 200);
+          setInterval(Checking, 10);
             function myFunction() {
                 var url="https://karmics.firebaseio.com/users/.json";
-                $.getJSON( url, function( data ) {
                 
+                
+                // Get a database reference to our posts
+                var ref = new Firebase("https://karmics.firebaseio.com/");
+
+                //WRITING DATA WITH SET
+                var usersRef = ref.child("users");
+                    var username=document.getElementById("inputEmail").value;
+                usersRef.push({
+                        //document.getElementById("inputUsername").value
+                        
+                        "email": document.getElementById("inputEmail").value, "username":document.getElementById("inputUsername").value,
+                        "password": document.getElementById("inputPassword1").value,
+                        "friends":{"1":"no one"}
+                    
+                }, function(error) {
+                    if (error) {
+                        console.log("Data could not be saved." + error);
+                    } else {
+                        console.log("Data saved successfully.");
+                        window.location.href = "../Feed/feed.html";
+                    }
+                });
+                        console.log("email: "+document.getElementById("inputEmail").value);
+                        console.log("pass: "+document.getElementById("inputPassword1").value);
+                        
+                
+            };
+          
+          function Change(){
+                var url="https://karmics.firebaseio.com/users/.json";
+            $.getJSON( url, function( data ) {
+                /*
                 $.each(data,function(key,val){
-                ///////////////// EMAIL
-                    if(val.email==document.getElementById("inputEmail").value){
-                        console.log("coincidenciaEmail");
-                        errorEmail=true;
-                        document.getElementById("inputEmail").style.backgroundColor="#F75D59";
+                    ///////////////// USERNAME
+                    if(val.username==document.getElementById("inputUsername").value){
+                        console.log("coincidenciaUsername");
+                        errorUsername=true;
+                        document.getElementById("inputUsername").style.backgroundColor="#F75D59";
                     }
                     else{
-                        if(!errorEmail){
-                            document.getElementById("inputEmail").style.backgroundColor="white";    
+                        if(!errorUsername){
+                            document.getElementById("inputUsername").style.backgroundColor="white";    
                         }
-                        errorEmail=false;
+                        errorUsername=false;
+                        
+                        
+                        
                     }
+                    
+                });
+                */
+                
+                $.each(data,function(key,val){
+                    ///////////////// USERNAME
+                    if(val.username==document.getElementById("inputUsername").value){
+                        console.log("coincidenciaUsername");
+                        errorUsername=true; //errorUsername2=true;                       
+                    }
+                    /*else{
+                        errorUsername2=false;
+                    }*/
+                    
                     /////////////////// PASSWORD
                     if(document.getElementById("inputPassword1").value!=document.getElementById("inputPassword2").value){
                         console.log("errorPassword");
@@ -99,58 +154,49 @@
                         }
                         errorPassword=false;
                     }
-                });
-            });
-                if(!(errorUsername && errorEmail && errorPassword)){
-                // Get a database reference to our posts
-                var ref = new Firebase("https://karmics.firebaseio.com/");
-
-                //WRITING DATA WITH SET
-                var usersRef = ref.child("users");
-                    var username=document.getElementById("inputEmail").value;
-                usersRef.push({
-                        //document.getElementById("inputUsername").value
-                        
-                        "email": document.getElementById("inputEmail").value, "username":document.getElementById("inputUsername").value,
-                        "password": document.getElementById("inputPassword1").value,
-                        "friends":{"1":"no one"}
                     
-                });
-                        console.log("email: "+document.getElementById("inputEmail").value);
-                        console.log("pass: "+document.getElementById("inputPassword1").value);
-                        //window.location.href = "../Feed/feed.html";
-            }
-            };
-          
-          function Change(){
-                var url="https://karmics.firebaseio.com/users/.json";
-            $.getJSON( url, function( data ) {
-                
-                $.each(data,function(key,val){
-                    ///////////////// USERNAME
-                    if(val.username==document.getElementById("inputUsername").value){
-                        console.log("coincidenciaUsername");
-                        errorUsername=true;
-                        document.getElementById("inputUsername").style.backgroundColor="#F75D59";
+                    ///////////////// EMAIL
+                    if(val.email==document.getElementById("inputEmail").value){
+                        console.log("coincidenciaEmail");
+                        errorEmail=true;
+                        document.getElementById("inputEmail").style.backgroundColor="#F75D59";
                     }
                     else{
-                        if(!errorUsername){
-                            document.getElementById("inputUsername").style.backgroundColor="white";    
+                        if(!errorEmail){
+                            document.getElementById("inputEmail").style.backgroundColor="white";    
                         }
-                        errorUsername=false;
+                        errorEmail=false;
                     }
-                    
                 });
+                if(errorUsername){
+                            document.getElementById("inputUsername").style.backgroundColor="#F75D59";
+                            errorUsername=false;
+                        }
+                else{
+                    document.getElementById("inputUsername").style.backgroundColor="white";
+                    
+                }
+                
+                
+                
             });
                 
              console.log("------"); 
               
-              if((document.getElementById("inputEmail").value!="")&&(document.getElementById("inputUsername").value!="")&&(document.getElementById("inputPassword1").value!="")&&(document.getElementById("inputPassword2").value!="")){
-                  document.getElementById("SignUpBtn").disabled=false;
-              }
-              else{
-                  document.getElementById("SignUpBtn").disabled=true;
-              }
+              
+              
+              Checking();
+          };
+          function Checking(){
+              console.log("Checking...");
+              
+              if((!(errorPassword) && (document.getElementById("inputUsername").style.backgroundColor=="white") && !(errorEmail))&&((document.getElementById("inputEmail").value!="")&&(document.getElementById("inputUsername").value!="")&&(document.getElementById("inputPassword1").value!="")&&(document.getElementById("inputPassword2").value!=""))){ 
+                    
+                        document.getElementById("SignUpBtn").disabled=false;
+                    
+              }else{
+                        document.getElementById("SignUpBtn").disabled=true;
+                    }
           };
         </script>
         
