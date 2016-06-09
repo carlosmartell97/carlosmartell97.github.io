@@ -46,10 +46,10 @@
 
       <form class="form-signin">
         <h2 class="form-signin-heading">Please sign up</h2>
-        <input type="email" id="inputEmail" class="form-control" placeholder="email" onkeypress="Change()" required autofocus>
-        <input type="text" id="inputUsername" class="form-control" placeholder="username" onkeypress="Change()" required>
-        <input type="password" id="inputPassword1" class="form-control" placeholder="password" onkeypress="Change()" required>
-          <input type="password" id="inputPassword2" class="form-control" placeholder="password again" onkeypress="Change()" required>
+        <input type="email" id="inputEmail" class="form-control" placeholder="email" onkeyup="Change()" required autofocus>
+        <input type="text" id="inputUsername" class="form-control" placeholder="username" onkeyup="Change()" required>
+        <input type="password" id="inputPassword1" class="form-control" placeholder="password" onkeyup="Checking(Change())" required>
+          <input type="password" id="inputPassword2" class="form-control" placeholder="password again" onkeyup="Change()" required>
         
         <div class="checkbox">
           <label>
@@ -65,16 +65,16 @@
       
       <script>
           document.getElementById("SignUpBtn").disabled=true;
-          document.getElementById("inputUsername").addEventListener("keydown", Change);
-          document.getElementById("inputEmail").addEventListener("keydown", Change);
-          document.getElementById("inputPassword1").addEventListener("keydown", Change);
-          document.getElementById("inputPassword2").addEventListener("keydown", Change);
-          var errorUsername=false;
-          //var errorUsername2=false;
-          var errorEmail=false;
-          var errorPassword=false;
+          //document.getElementById("inputUsername").addEventListener("keydown", Change);
+          //document.getElementById("inputEmail").addEventListener("keydown", Change);
+          //document.getElementById("inputPassword1").addEventListener("keydown", Change);
+          //document.getElementById("inputPassword2").addEventListener("keydown", Change);
+          var errorUsername=false;  var errorUsername2=false;
+          var errorEmail=false;     var errorEmail2 = false;
+          var errorPassword=false;  var errorPassword2 = false;
+          var x=1; var y=1;
           //window.setTimeout("Checking();", 200);
-          setInterval(Checking, 10);
+          //setInterval(Checking, 10);
             function myFunction() {
                 var url="https://karmics.firebaseio.com/users/.json";
                 
@@ -107,47 +107,38 @@
             };
           
           function Change(){
+              console.log("change");
+              console.log("text: "+document.getElementById("inputUsername").value);
                 var url="https://karmics.firebaseio.com/users/.json";
             $.getJSON( url, function( data ) {
-                /*
+                x=1;
+                y=1;
                 $.each(data,function(key,val){
                     ///////////////// USERNAME
-                    if(val.username==document.getElementById("inputUsername").value){
-                        console.log("coincidenciaUsername");
-                        errorUsername=true;
-                        document.getElementById("inputUsername").style.backgroundColor="#F75D59";
-                    }
-                    else{
-                        if(!errorUsername){
-                            document.getElementById("inputUsername").style.backgroundColor="white";    
+                    if(x==1){
+                        if(val.username==document.getElementById("inputUsername").value){
+                            console.log("coincidenciaUsername");
+                            //errorUsername=true; 
+                            errorUsername2=true;
+                            document.getElementById("inputUsername").style.backgroundColor="#F75D59";
+                                //errorUsername=false;
+                            x=0;
                         }
-                        errorUsername=false;
-                        
-                        
-                        
+                        else{
+                            errorUsername2=false;
+                            document.getElementById("inputUsername").style.backgroundColor="white";
+                        }
                     }
-                    
-                });
-                */
-                
-                $.each(data,function(key,val){
-                    ///////////////// USERNAME
-                    if(val.username==document.getElementById("inputUsername").value){
-                        console.log("coincidenciaUsername");
-                        errorUsername=true; //errorUsername2=true;                       
-                    }
-                    /*else{
-                        errorUsername2=false;
-                    }*/
-                    
                     /////////////////// PASSWORD
                     if(document.getElementById("inputPassword1").value!=document.getElementById("inputPassword2").value){
-                        console.log("errorPassword");
-                        errorPassword=true;
+                        //console.log("errorPassword");
+                        
+                        errorPassword=true; errorPassword2=true;
                         document.getElementById("inputPassword1").style.backgroundColor="#F75D59";
                         document.getElementById("inputPassword2").style.backgroundColor="#F75D59";
                     }
                     else{
+                        errorPassword2=false;
                         if(!errorPassword){
                             document.getElementById("inputPassword1").style.backgroundColor="white";
                             document.getElementById("inputPassword2").style.backgroundColor="white";
@@ -156,43 +147,47 @@
                     }
                     
                     ///////////////// EMAIL
-                    if(val.email==document.getElementById("inputEmail").value){
-                        console.log("coincidenciaEmail");
-                        errorEmail=true;
-                        
-                    }
-                    
-                });
-                if(errorUsername){
-                            document.getElementById("inputUsername").style.backgroundColor="#F75D59";
-                            errorUsername=false;
+                    if(y==1){
+                        if(val.email==document.getElementById("inputEmail").value){
+                            console.log("coincidenciaEmail");
+                            errorEmail=true; errorEmail2=true;
+                            document.getElementById("inputEmail").style.backgroundColor="#F75D59";
+                            errorEmail=false; 
+                            y=0;
                         }
-                else{
-                    document.getElementById("inputUsername").style.backgroundColor="white";
-                    
-                }
-                if(errorEmail){
+                        else{
+                            errorEmail2=false;
+                            document.getElementById("inputEmail").style.backgroundColor="white";
+                        }
+                    }
+                });
+                /*if(errorEmail){
                     document.getElementById("inputEmail").style.backgroundColor="#F75D59";
                     errorEmail=false;
                 }
                 else{
                     document.getElementById("inputEmail").style.backgroundColor="white";
-                }
+                }*/
                 
                 
-                
+                console.log(errorEmail2); 
+                Checking();
             });
-                
+               
              console.log("------"); 
               
               
               
-              Checking();
           };
           function Checking(){
+              //Change();
               console.log("Checking...");
+              //console.log("###");
+              //console.log("email: "+errorEmail); console.log("username: "+errorUsername); 
+              console.log("email: "+errorEmail2);
+              //console.log("###");
               
-              if((!(errorPassword) && (document.getElementById("inputUsername").style.backgroundColor=="white") && (document.getElementById("inputEmail").style.backgroundColor=="white"))&&((document.getElementById("inputEmail").value!="")&&(document.getElementById("inputUsername").value!="")&&(document.getElementById("inputPassword1").value!="")&&(document.getElementById("inputPassword2").value!=""))){ 
+              if((!(errorPassword2) && !(errorUsername2) && !(errorEmail2))&&((document.getElementById("inputEmail").value!="")&&(document.getElementById("inputUsername").value!="")&&(document.getElementById("inputPassword1").value!="")&&(document.getElementById("inputPassword2").value!=""))){ 
                     
                         document.getElementById("SignUpBtn").disabled=false;
                     
