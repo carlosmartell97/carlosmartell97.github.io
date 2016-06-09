@@ -62,7 +62,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="tagline" id="title" contenteditable="true" contenteditable="true" style="border:1px; border-style:solid; border-color:#FF0000;" onkeypress="this.style.backgroundColor='green'; this.style.removeProperty('border');">Type here a title for what you're committing to</h1>
+                    <h1 class="tagline" id="title" contenteditable="true" contenteditable="true" style="border:1px; border-style:solid; border-color:#FF0000;" onkeyup="this.style.backgroundColor='green'; this.style.removeProperty('border'); approveTitle=true; Checking();" onclick='this.innerHTML = ""; this.onclick=null;'>Type here a title for what you're committing to</h1>
                 </div>
             </div>
         </div>
@@ -76,11 +76,11 @@
         <div class="row">
             <div class="col-sm-8">
                 <h2>Description</h2>
-                <p id="description" contenteditable="true" style="border:1px; border-style:solid; border-color:#FF0000;" onkeypress="this.style.backgroundColor='green'; this.style.removeProperty('border');">Type here a clear description of what you're trying to accomplish. What, how, where?</p>
+                <p id="description" contenteditable="true" style="border:1px; border-style:solid; border-color:#FF0000;" onkeyup="this.style.backgroundColor='green'; this.style.removeProperty('border'); approveDescription=true; Checking();" onclick='this.innerHTML = ""; this.onclick=null;' >Type here a clear description of what you're trying to accomplish. What, how, where?</p>
             </div>
             <div class="col-sm-4">
                 <h2>Set a deadline</h2>
-                <p>Date: <input id="date" type="text" id="datepicker" style="border:1px; border-style:solid; border-color:#FF0000;" onchange="this.style.backgroundColor='green'; this.style.removeProperty('border');"></p>
+                <p>Date: <input id="date" type="text" id="datepicker" style="border:1px; border-style:solid; border-color:#FF0000;" onchange="this.style.backgroundColor='green'; this.style.removeProperty('border'); approveDate=true; Checking();"></p>
             </div>
         </div>
         <!-- /.row -->
@@ -91,17 +91,17 @@
             <div class="col-sm-4">
                 <img class="img-circle img-responsive img-center" src="http://placehold.it/300x300" alt="">
                 <h2>Achievement #1</h2>
-                <p id="achievement1" contenteditable="true" contenteditable="true" style="border:1px; border-style:solid; border-color:#FF0000;" onkeypress="this.style.backgroundColor='green'; this.style.removeProperty('border');">Type here why this task should earn you this achievement.</p>
+                <p id="achievement1" contenteditable="true" contenteditable="true" style="border:1px; border-style:solid; border-color:#FF0000;" onkeyup="this.style.backgroundColor='green'; this.style.removeProperty('border'); approveAchievement1=true; Checking();" onclick='this.innerHTML = ""; this.onclick=null;'>Type here why this task should earn you this achievement.</p>
             </div>
             <div class="col-sm-4">
                 <img class="img-circle img-responsive img-center" src="http://placehold.it/300x300" alt="">
                 <h2>Achievement #2</h2>
-                <p id="achievement2" contenteditable="true" contenteditable="true" style="border:1px; border-style:solid; border-color:#FF0000;" onkeypress="this.style.backgroundColor='green'; this.style.removeProperty('border');">Type here why this task should earn you this achievement.</p>
+                <p id="achievement2" contenteditable="true" contenteditable="true" style="border:1px; border-style:solid; border-color:#FF0000;" onkeyup="this.style.backgroundColor='green'; this.style.removeProperty('border'); approveAchievement2=true; Checking();" onclick='this.innerHTML = ""; this.onclick=null;'>Type here why this task should earn you this achievement.</p>
             </div>
             <div class="col-sm-4">
                 <img class="img-circle img-responsive img-center" src="http://placehold.it/300x300" alt="">
                 <h2>Achievement #3</h2>
-                <p id="achievement3" contenteditable="true" style="border:1px; border-style:solid; border-color:#FF0000;" onkeypress="this.style.backgroundColor='green'; this.style.removeProperty('border');">Type here why this task should earn you this achievement.</p>
+                <p id="achievement3" contenteditable="true" style="border:1px; border-style:solid; border-color:#FF0000;" onkeyup="this.style.backgroundColor='green'; this.style.removeProperty('border'); approveAchievement3=true; Checking();" onclick='this.innerHTML = ""; this.onclick=null;'>Type here why this task should earn you this achievement.</p>
             </div>
             <p>
                     <button id="CommitBtn" type="button" class="btn btn-lg btn-default" onclick="myFunction()">COMMIT! &raquo;</button>
@@ -128,9 +128,15 @@
 
     
         <script>
+            var approveTitle=false;
+            var approveDescription=false;
+            var approveDate=false;
+            var approveAchievement1=false;
+            var approveAchievement2=false;
+            var approveAchievement3=false;
             //document.getElementById("achievement3").style.backgroundColor="green";
         document.getElementById("CommitBtn").disabled=true;
-        setInterval(Checking, 1000);
+        //setInterval(Checking, 1000);
         function myFunction() {
                 var url="https://karmics.firebaseio.com/tasks/.json";
                 
@@ -164,7 +170,7 @@
         function Checking(){
               console.log("Checking...");
               
-                  if((document.getElementById("title").style.backgroundColor=="green")&&(document.getElementById("description").style.backgroundColor=="green")&&(document.getElementById("date").style.backgroundColor=="green")&&(document.getElementById("achievement1").style.backgroundColor=="green")&&(document.getElementById("achievement2").style.backgroundColor=="green")&&(document.getElementById("achievement3").style.backgroundColor=="green"))
+                  if((approveTitle)&&(approveDescription)&&(approveDate)&&(approveAchievement1)&&(approveAchievement2)&&(approveAchievement3))
                     {
                         document.getElementById("CommitBtn").disabled=false;
                     
