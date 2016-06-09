@@ -130,7 +130,7 @@
         <script>
             //document.getElementById("achievement3").style.backgroundColor="green";
         document.getElementById("CommitBtn").disabled=true;
-        setInterval(Checking, 2000);
+        setInterval(Checking, 1000);
         function myFunction() {
                 var url="https://karmics.firebaseio.com/tasks/.json";
                 
@@ -143,9 +143,13 @@
                 usersRef.push({
                         //document.getElementById("inputUsername").value
                         
-                        "uno": "eins",
-                        "dos": "zwei",
-                        "tres":{"3":"drei"}
+                        "title": document.getElementById("title").innerHTML,
+                        "description": document.getElementById("description").innerHTML,
+                        "date": document.getElementById("date").value,
+                        "achievement1": document.getElementById("achievement1").innerHTML,
+                        "achievement2": document.getElementById("achievement2").innerHTML,
+                        "achievement3": document.getElementById("achievement3").innerHTML,
+                        "completions":0
                     
                 }, function(error) {
                     if (error) {
@@ -160,13 +164,11 @@
         function Checking(){
               console.log("Checking...");
               
-                  if((document.getElementById("title").style.backgroundColor=="green")&&(document.getElementById("description").style.backgroundColor=="green")&&(document.getElementById("date").style.backgroundColor=="green")&&(document.getElementById("achievement1").style.backgroundColor=="green")&&(document.getElementById("achievement2").style.backgroundColor=="green")&&(document.getElementById("achievement3").style.backgroundColor=="green")){
-                  
-                  
-                        console.log("true");
+                  if((document.getElementById("title").style.backgroundColor=="green")&&(document.getElementById("description").style.backgroundColor=="green")&&(document.getElementById("date").style.backgroundColor=="green")&&(document.getElementById("achievement1").style.backgroundColor=="green")&&(document.getElementById("achievement2").style.backgroundColor=="green")&&(document.getElementById("achievement3").style.backgroundColor=="green"))
+                    {
                         document.getElementById("CommitBtn").disabled=false;
                     
-              }else{
+                    }else{
                         document.getElementById("CommitBtn").disabled=true;
                     }
           };
