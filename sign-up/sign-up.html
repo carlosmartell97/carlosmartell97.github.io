@@ -97,7 +97,7 @@
                         console.log("Data could not be saved." + error);
                     } else {
                         console.log("Data saved successfully.");
-                        window.location.href = "../feed/feed.html";
+                        window.location.href = "../Feed/feed.html";
                     }
                 });
                         console.log("email: "+document.getElementById("inputEmail").value);
@@ -159,14 +159,9 @@
                     if(val.email==document.getElementById("inputEmail").value){
                         console.log("coincidenciaEmail");
                         errorEmail=true;
-                        document.getElementById("inputEmail").style.backgroundColor="#F75D59";
+                        
                     }
-                    else{
-                        if(!errorEmail){
-                            document.getElementById("inputEmail").style.backgroundColor="white";    
-                        }
-                        errorEmail=false;
-                    }
+                    
                 });
                 if(errorUsername){
                             document.getElementById("inputUsername").style.backgroundColor="#F75D59";
@@ -175,6 +170,13 @@
                 else{
                     document.getElementById("inputUsername").style.backgroundColor="white";
                     
+                }
+                if(errorEmail){
+                    document.getElementById("inputEmail").style.backgroundColor="#F75D59";
+                    errorEmail=false;
+                }
+                else{
+                    document.getElementById("inputEmail").style.backgroundColor="white";
                 }
                 
                 
@@ -190,7 +192,7 @@
           function Checking(){
               console.log("Checking...");
               
-              if((!(errorPassword) && (document.getElementById("inputUsername").style.backgroundColor=="white") && !(errorEmail))&&((document.getElementById("inputEmail").value!="")&&(document.getElementById("inputUsername").value!="")&&(document.getElementById("inputPassword1").value!="")&&(document.getElementById("inputPassword2").value!=""))){ 
+              if((!(errorPassword) && (document.getElementById("inputUsername").style.backgroundColor=="white") && (document.getElementById("inputEmail").style.backgroundColor=="white"))&&((document.getElementById("inputEmail").value!="")&&(document.getElementById("inputUsername").value!="")&&(document.getElementById("inputPassword1").value!="")&&(document.getElementById("inputPassword2").value!=""))){ 
                     
                         document.getElementById("SignUpBtn").disabled=false;
                     
