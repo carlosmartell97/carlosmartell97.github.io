@@ -23,6 +23,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <!-- Firebase -->
+  <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
 
 </head>
 
@@ -76,144 +78,49 @@
 
             <div class="col-md-9">
 
-                <div class="row">
+                <div id="tasks" class="row">
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="../../img/stars.jpg" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">3 days left</h4>
-                                <h4><a href="#">Teach somebody<br>the constellations</a>
-                                </h4>
-                                <p>Learn them first, then go lay with somebody and show them the beauty above us all. <a href="#"><font size="4">[...]</font></a></p></div>
-                            <div class="ratings">
-                                <p class="pull-right"><a href="#" style="color:#0B610B">17 completions</a></p>
-                                <p>
-                                    <button type="button" class="btn btn-default">Complete</button>
-                                </p>
-                            </div>
-                        </div>
+                        <a href="new-task/new-task.html"><img src="../../img/add-icon.png" style="width:170px; height:170px"></a>
                     </div>
+                    
+                    
+                
+                <script>
+                    // CHILD ADDED__________________________________________
+            // Get a database reference to our posts
+            var ref = new Firebase("https://karmics.firebaseio.com/tasks/");
 
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="../../img/friend.jpeg" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">2 weeks left</h4>
-                                <h4><a href="#">Get back in<br>touch w/an old friend</a>
-                                </h4>
-                                <p>Discussions are stupid. Forgive, forget, or simply get back in touch again. <a href="#"><font size="4">[...]</font></a></p></div>
-                            <div class="ratings">
-                                <p class="pull-right"><a href="#" style="color:#0B610B">32 completions</a></p>
-                                <p>
-                                    <button type="button" class="btn btn-default">Complete</button>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
+            // Retrieve new posts as they are added to our database
+            ref.on("child_added", function(snapshot, prevChildKey) {
+                var newTask = snapshot.val();
+                console.log("CHILD_ADDED"); console.log("avh1: " + newTask.achievement1); console.log("ach2: " + newTask.achievement2); console.log("ach3: " + newTask.achievement3); console.log("comp: " + newTask.completions); console.log("date: " + newTask.date); console.log("desc: " + newTask.description); console.log("title: " + newTask.title);
+                console.log("Previous Post ID: " + prevChildKey);
                     
-                    
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="../../img/concert.jpg" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">2 weeks left</h4>
-                                <h4><a href="#">Attend a concert</a>
-                                </h4>
-                                <p>Go enjoy the music! There's always one nearby. <a href="#"><font size="4">[...]</font></a></p></div>
-                            <div class="ratings">
-                                <p class="pull-right"><a href="#" style="color:#0B610B">9 completions</a></p>
-                                <p>
-                                    <button type="button" class="btn btn-default">Complete</button>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    
+                        //var div = document.createElement('div'); div.id = "postDiv";
+                        //var place = document.getElementById('posts');
+                        //div.innerHTML = '<div>New usrname: '+newPost.user+'</div><br><br>';
+                        //place.appendChild(div);
+                        //document.body.appendChild(div);  
+                $("#tasks").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="../../img/watch.jpg" alt=""><div class="caption"><h4 class="pull-right">'+newTask.date+'</h4><h4><a href="#">'+newTask.title+'</a></h4><p>'+newTask.description+'<a href="#"><font size="4">[...]</font></a></p></div><div class="ratings"><p class="pull-right"><a href="#" style="color:#0B610B">'+newTask.completions+' completions</a></p><p><button type="button" class="btn btn-default">Complete</button></p></div></div></div>'); console.log("_____");
+            });
+            
+            // CHILD CHANGED__________________________________________
+            // Get the data on a post that has changed
+            ref.on("child_changed", function(snapshot) {
+                var changedPost = snapshot.val();
+                console.log("CHILD_CHANGED"); console.log("The updated post user is '" + changedPost.user+"'"); console.log("The updated post title is " + changedPost.title); console.log("___");
+            });
+            
+            // CHILD REMOVED_________________________________________
+            // Get the data on a post that has been removed
+            ref.on("child_removed", function(snapshot) {
+                var deletedPost = snapshot.val();
+                console.log("CHILD_REMOVED"); console.log("The blog post titled '" + deletedPost.title + "' has been deleted by '" + deletedPost.user +"'"); console.log("___");
+            });
+                </script>
+                
                 </div>
-                    
-                    
-                
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="../../img/random.jpg" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">1 month left</h4>
-                                <h4><a href="#">Be random</a>
-                                </h4>
-                                <p>It's time to go do that random thing you've always wanted to do.<a href="#"><font size="4">[...]</font></a></p></div>
-                            <div class="ratings">
-                                <p class="pull-right"><a href="#" style="color:#0B610B">12 completions</a></p>
-                                <p>
-                                    <button type="button" class="btn btn-default">Complete</button>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="../../img/mytrip.jpg" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">1 month left</h4>
-                                <h4><a href="#">Travel as light<br>as possible</a>
-                                </h4>
-                                <p>A trip, anywhere. With as little things as possible, and the most people.<a href="#"><font size="4">[...]</font></a></p></div>
-                            <div class="ratings">
-                                <p class="pull-right"><a href="#" style="color:#0B610B">12 completions</a></p>
-                                <p>
-                                    <button type="button" class="btn btn-default">Complete</button>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="../../img/cake.jpg" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">2 months left</h4>
-                                <h4><a href="#">Cook your<br>neighbor something</a>
-                                </h4>
-                                <p>Surely you hardly even know them. Prepare something nice and have a nice chat. <a href="#"><font size="4">[...]</font></a></p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right"><a href="#" style="color:#0B610B">15 completions</a></p>
-                                <p>
-                                    <button type="button" class="btn btn-default">Complete</button>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                
-           
-                
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="../../img/watch.jpg" alt="">
-                            <div class="caption">
-                                <h4 class="pull-right">No date</h4>
-                                <h4><a href="#">Go 1 day<br>without a watch</a>
-                                </h4>
-                                <p>Live each moment for what it is, for as long or short as it is. <a href="#"><font size="4">[...]</font></a></p></div>
-                            <div class="ratings">
-                                <p class="pull-right"><a href="#" style="color:#0B610B">2 completions</a></p>
-                                <p>
-                                    <button type="button" class="btn btn-default">Complete</button>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                
-
-                    
-                
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                    <a href="new-task/new-task.html"><img src="../../img/add-icon.png" style="width:170px; height:170px"></a>
-                </div>
-                
-
 
                 </div>
 
@@ -221,7 +128,7 @@
 
         </div>
 
-    </div>
+    
     <!-- /.container -->
 
     <div class="container">
