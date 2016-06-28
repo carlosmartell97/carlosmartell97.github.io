@@ -27,7 +27,7 @@
 
       <form class="form-signin">
         <h2 class="form-signin-heading">Login</h2>
-        <input type="email" id="inputUsername" class="form-control" placeholder="username" onkeyup="Change()" required autofocus>
+        <input type="email" id="inputUsername" class="form-control" placeholder="username or email" onkeyup="Change()" required autofocus>
         <input type="password" id="inputPassword" class="form-control" placeholder="password" onkeyup="Change()" required>
         
         <div class="checkbox">
@@ -61,7 +61,7 @@
                 $.each(data,function(key,val){
                     ///////////////// USERNAME
                     if(x==1){
-                        if(val.username==document.getElementById("inputUsername").value){
+                        if((val.username==document.getElementById("inputUsername").value)||(val.email==document.getElementById("inputUsername").value)){
                             console.log("coincidenciaUsername");
                             //errorUsername=true; 
                             errorUsername2=true;
@@ -78,7 +78,7 @@
                     }
                     /////////////////// PASSWORD
                     if(y==1){
-                    if(val.password==document.getElementById("inputPassword").value){
+                    if((val.password==document.getElementById("inputPassword").value)&&(((val.username==document.getElementById("inputUsername").value)||(val.email==document.getElementById("inputUsername").value)))){
                         //console.log("errorPassword");
                         
                         errorPassword=true;
