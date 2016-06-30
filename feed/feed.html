@@ -72,8 +72,8 @@
             <div class="col-md-3">
                 <p class="lead">What your friends have done.</p>
                 <div class="list-group">
-                    <a href="#" class="list-group-item">Feed</a>
-                    <a href="tasks/tasks.html" class="list-group-item">My tasks</a>
+                    <a onclick="feed()" class="list-group-item">Feed</a>
+                    <a onclick="MyTasks()" class="list-group-item">My tasks</a>
                     <a href="#" class="list-group-item">Worldwide</a>
                 </div>
             </div>
@@ -256,7 +256,7 @@
             var user;
             window.onload = function parseURL() {
                 var url = document.location.href;
-                var urlP = url.replace(/^\?/, '').split('&');
+                var urlP = url.replace(/#^\?/, '').split('&');
                 for( i = 0; i < urlP.length; i++ ) {
                     split = urlP[i].split('=');
                     window.user=split[1];
@@ -300,6 +300,14 @@
                 var deletedPost = snapshot.val();
                 console.log("CHILD_REMOVED"); console.log("The blog post titled '" + deletedPost.title + "' has been deleted by '" + deletedPost.user +"'"); console.log("___");
             });
+    
+            var MyTasks = function(){
+                window.location.href ="tasks/tasks.html?u="+user;
+            };
+    
+            var feed = function(){
+                window.location.href ="feed.html?u="+user; 
+            };
             
             //var div = document.createElement('div');
             //document.body.appendChild(div);
