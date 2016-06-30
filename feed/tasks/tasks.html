@@ -55,6 +55,9 @@
                     <li>
                         <a href="#">Settings</a>
                     </li>
+                    <li id="user">
+                         <div></div>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -70,8 +73,8 @@
             <div class="col-md-3">
                 <p class="lead">What will you accomplish today, John?</p>
                 <div class="list-group">
-                    <a href="../feed.html" class="list-group-item">Feed</a>
-                    <a href="#" class="list-group-item">My tasks</a>
+                    <a onclick="feed()" class="list-group-item">Feed</a>
+                    <a onclick="MyTasks()" class="list-group-item">My tasks</a>
                     <a href="#" class="list-group-item">Worldwide</a>
                 </div>
             </div>
@@ -81,12 +84,26 @@
                 <div id="tasks" class="row">
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
-                        <a href="new-task/new-task.html"><img src="../../img/add-icon.png" style="width:170px; height:170px"></a>
+                        <img onclick="newTask()" src="../../img/add-icon.png" style="width:170px; height:170px">
                     </div>
                     
                     
                 
                 <script>
+                    window.onload = function parseURL() {
+                var url = document.location.href;
+                var urlP = url.replace(/#^\?/, '').split('&');
+                for( i = 0; i < urlP.length; i++ ) {
+                    split = urlP[i].split('=');
+                    window.user=split[1];
+                }
+            document.getElementById('user').innerHTML = user;
+            document.getElementById('user').style.fontSize = "x-large";
+            document.getElementById('user').style.left = "100%";
+            //document.getElementById('user').style.up = "100%";
+            document.getElementById('user').style.color="#E5E4E2";
+            }
+                    
                     var url=""; var date=""; var title=""; var description=""; var completions=0;
                     function myFunction(url,date,title,description,completions){
                         // Get a database reference to our posts
@@ -149,6 +166,18 @@
                 var deletedPost = snapshot.val();
                 console.log("CHILD_REMOVED"); console.log("The blog post titled '" + deletedPost.title + "' has been deleted by '" + deletedPost.user +"'"); console.log("___");
             });
+                    
+            var newTask = function(){
+                window.location.href ="new-task/new-task.html?u="+user;
+            }
+            
+            var MyTasks = function(){
+                window.location.href ="tasks.html?u="+user;
+            };
+    
+            var feed = function(){
+                window.location.href ="../feed.html?u="+user; 
+            };
                 </script>
                 
                 </div>
