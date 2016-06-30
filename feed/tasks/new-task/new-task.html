@@ -47,7 +47,14 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <a class="navbar-brand">Create a new task to commit to!</a>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="navbar-brand">Create a new task to commit to!</a>
+                    </li>
+                    <li id="user">
+                        <div></div>
+                    </li>
+                </ul>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             
@@ -128,6 +135,20 @@
 
     
         <script>
+            window.onload = function parseURL() {
+                var url = document.location.href;
+                var urlP = url.replace(/#^\?/, '').split('&');
+                for( i = 0; i < urlP.length; i++ ) {
+                    split = urlP[i].split('=');
+                    window.user=split[1];
+                }
+            document.getElementById('user').innerHTML = user;
+            document.getElementById('user').style.fontSize = "x-large";
+            document.getElementById('user').style.left = "100%";
+            //document.getElementById('user').style.up = "100%";
+            document.getElementById('user').style.color="#E5E4E2";
+            }
+            
             var approveTitle=false;
             var approveDescription=false;
             var approveDate=false;
@@ -163,7 +184,7 @@
                         console.log("Data could not be saved." + error);
                     } else {
                         console.log("Data saved successfully.");
-                        window.location.href = "../tasks.html";
+                        window.location.href = "../tasks.html?u="+user;
                     }
                 });     
                 
