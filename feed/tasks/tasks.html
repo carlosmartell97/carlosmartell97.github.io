@@ -41,19 +41,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Home</a>
+                <a onclick="Home()" class="navbar-brand">Home</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">Chat</a>
+                        <a href="">Chat</a>
                     </li>
                     <li>
-                        <a href="#">My Profile</a>
+                        <a onclick="MyProfile()">My Profile</a>
                     </li>
                     <li>
-                        <a href="#">Settings</a>
+                        <a href="">Settings</a>
                     </li>
                     <li id="user">
                          <div></div>
@@ -75,7 +75,7 @@
                 <div class="list-group">
                     <a onclick="feed()" class="list-group-item">Feed</a>
                     <a onclick="MyTasks()" class="list-group-item">My tasks</a>
-                    <a href="#" class="list-group-item">Worldwide</a>
+                    <a href="" class="list-group-item">Worldwide</a>
                 </div>
             </div>
 
@@ -150,7 +150,7 @@
                         //place.appendChild(div);
                         //document.body.appendChild(div);  
                 console.log("0000: "+title); console.log("11: "+date);
-                $("#tasks").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="'+newTask.url+'" alt=""><div class="caption"><h4 class="pull-right">'+newTask.date+'</h4><h4><a href="#">'+newTask.title+'</a></h4><p>'+newTask.description+'<a href="#"><font size="4">[...]</font></a></p></div><div class="ratings"><p class="pull-right"><a href="#" style="color:#0B610B">'+newTask.completions+' completions</a></p><p><button type="button" class="btn btn-default" onclick="myFunction(url,date,title,description,completions)">Complete</button></p></div></div></div>'); console.log("_____");
+                $("#tasks").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="'+newTask.url+'" alt=""><div class="caption"><h4 class="pull-right">'+newTask.date+'</h4><h4><a href="">'+newTask.title+'</a></h4><p>'+newTask.description+'<a href=""><font size="4">[...]</font></a></p></div><div class="ratings"><p class="pull-right"><a href="" style="color:#0B610B">'+newTask.completions+' completions</a></p><p><button type="button" class="btn btn-default" onclick="myFunction(url,date,title,description,completions)">Complete</button></p></div></div></div>'); console.log("_____");
             });
             
             // CHILD CHANGED__________________________________________
@@ -177,6 +177,14 @@
     
             var feed = function(){
                 window.location.href ="../feed.html?u="+user; 
+            };
+            
+            var MyProfile = function(){
+                window.location.href ="../profile/profile.html?u="+user; 
+            };
+                    
+            var Home = function(){
+                window.location.href ="../../feed/feed.html?u="+user; 
             };
                 </script>
                 
