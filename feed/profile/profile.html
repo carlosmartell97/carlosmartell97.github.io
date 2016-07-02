@@ -129,7 +129,9 @@
              console.log("------");
             };
         
-        
+            var Home = function(){
+                window.location.href ="../../feed/feed.html?u="+user; 
+            };
     </script>
     <style>
 .ct-chart .ct-series.ct-series-a .ct-line {
@@ -164,19 +166,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Home</a>
+                <a onclick="Home()" class="navbar-brand">Home</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">Chat</a>
+                        <a href="">Chat</a>
                     </li>
                     <li>
-                        <a href="#">My Profile</a>
+                        <a href="">My Profile</a>
                     </li>
                     <li>
-                        <a href="#">Settings</a>
+                        <a href="">Settings</a>
                     </li>
                     <li>
                          <div></div>
@@ -221,7 +223,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -243,7 +245,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -265,7 +267,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -287,7 +289,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <a href="">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -383,14 +385,14 @@
                                                     <i class="fa fa-gear"></i>  <span class="caret"></span>
                                                 </button>
                                                 <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="#">Action</a>
+                                                    <li><a href="">Action</a>
                                                     </li>
-                                                    <li><a href="#">Another action</a>
+                                                    <li><a href="">Another action</a>
                                                     </li>
-                                                    <li><a href="#">Something else here</a>
+                                                    <li><a href="">Something else here</a>
                                                     </li>
                                                     <li class="divider"></li>
-                                                    <li><a href="#">Separated link</a>
+                                                    <li><a href="">Separated link</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -434,54 +436,54 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="list-group">
-                                <a href="#" class="list-group-item">
+                                <a href="" class="list-group-item">
                                     <i class="fa fa-comment fa-fw"></i> New Comment
                                     <span class="pull-right text-muted small"><em>4 minutes ago</em>
                                     </span>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a href="" class="list-group-item">
                                     <i class="fa fa-twitter fa-fw"></i> 3 New Followers
                                     <span class="pull-right text-muted small"><em>12 minutes ago</em>
                                     </span>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a href="" class="list-group-item">
                                     <i class="fa fa-envelope fa-fw"></i> Message Sent
                                     <span class="pull-right text-muted small"><em>27 minutes ago</em>
                                     </span>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a href="" class="list-group-item">
                                     <i class="fa fa-tasks fa-fw"></i> New Task
                                     <span class="pull-right text-muted small"><em>43 minutes ago</em>
                                     </span>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a href="" class="list-group-item">
                                     <i class="fa fa-upload fa-fw"></i> Server Rebooted
                                     <span class="pull-right text-muted small"><em>11:32 AM</em>
                                     </span>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a href="" class="list-group-item">
                                     <i class="fa fa-bolt fa-fw"></i> Server Crashed!
                                     <span class="pull-right text-muted small"><em>11:13 AM</em>
                                     </span>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a href="" class="list-group-item">
                                     <i class="fa fa-warning fa-fw"></i> Server Not Responding
                                     <span class="pull-right text-muted small"><em>10:57 AM</em>
                                     </span>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a href="" class="list-group-item">
                                     <i class="fa fa-shopping-cart fa-fw"></i> New Order Placed
                                     <span class="pull-right text-muted small"><em>9:49 AM</em>
                                     </span>
                                 </a>
-                                <a href="#" class="list-group-item">
+                                <a href="" class="list-group-item">
                                     <i class="fa fa-money fa-fw"></i> Payment Received
                                     <span class="pull-right text-muted small"><em>Yesterday</em>
                                     </span>
                                 </a>
                             </div>
                             <!-- /.list-group -->
-                            <a href="#" class="btn btn-default btn-block">View All Alerts</a>
+                            <a href="" class="btn btn-default btn-block">View All Alerts</a>
                         </div>
                         <!-- /.panel-body -->
                     </div>
@@ -506,28 +508,28 @@
                                 </button>
                                 <ul class="dropdown-menu slidedown">
                                     <li>
-                                        <a href="#">
+                                        <a href="">
                                             <i class="fa fa-refresh fa-fw"></i> Refresh
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a href="">
                                             <i class="fa fa-check-circle fa-fw"></i> Available
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a href="">
                                             <i class="fa fa-times fa-fw"></i> Busy
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a href="">
                                             <i class="fa fa-clock-o fa-fw"></i> Away
                                         </a>
                                     </li>
                                     <li class="divider"></li>
                                     <li>
-                                        <a href="#">
+                                        <a href="">
                                             <i class="fa fa-sign-out fa-fw"></i> Sign Out
                                         </a>
                                     </li>
