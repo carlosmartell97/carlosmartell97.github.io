@@ -40,19 +40,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Home</a>
+                <a class="navbar-brand" >Home</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">Chat</a>
+                        <a >Chat</a>
                     </li>
                     <li>
-                        <a href="#">My Profile</a>
+                        <a onclick="MyProfile()">My Profile</a>
                     </li>
                     <li>
-                        <a href="#">Settings</a>
+                        <a >Settings</a>
                     </li>
                     <li id="user">
                          <div></div>
@@ -74,7 +74,7 @@
                 <div class="list-group">
                     <a onclick="feed()" class="list-group-item">Feed</a>
                     <a onclick="MyTasks()" class="list-group-item">My tasks</a>
-                    <a href="#" class="list-group-item">Worldwide</a>
+                    <a class="list-group-item">Worldwide</a>
                 </div>
             </div>
             <div class="col-md-9">
@@ -116,12 +116,12 @@
                             <img src="../img/mycake.jpg" alt="">
                             <div class="caption">
                                 <h6 class="pull-right">Sarah_hart88<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
-                                <h4><a href="#">Cook your<br>neighbor something</a>
+                                <h4><a >Cook your<br>neighbor something</a>
                                 </h4>
-                                <p>I loved this. He had a girl I knew nothing about. <a href="#"><font size="4">[...]</font></a></p>
+                                <p>I loved this. He had a girl I knew nothing about. <a ><font size="4">[...]</font></a></p>
                             </div>
                             <div class="ratings">
-                                <p class="pull-right"><a href="#" style="color:#B40404">15 comments</a></p>
+                                <p class="pull-right"><a  style="color:#B40404">15 comments</a></p>
                                 <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -138,12 +138,12 @@
                             <img src="../img/myconcert.jpg" alt="">
                             <div class="caption">
                                 <h6 class="pull-right">Mark-Jung<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
-                                <h4><a href="#">Attend a concert</a>
+                                <h4><a >Attend a concert</a>
                                 </h4>
-                                <p>We went to a local festival with some great bands. Jake Nichols joined the stage! <a href="#"><font size="4">[...]</font></a></p>
+                                <p>We went to a local festival with some great bands. Jake Nichols joined the stage! <a ><font size="4">[...]</font></a></p>
                             </div>
                             <div class="ratings">
-                                <p class="pull-right"><a href="#" style="color:#B40404">4 comments</a></p>
+                                <p class="pull-right"><a  style="color:#B40404">4 comments</a></p>
                                 <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -161,13 +161,13 @@
                             <div class="caption">
                                 <h6 class="pull-right">JakeNichols1<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
                                 
-                                <h4><a href="#">Get lost in the<br>woods</a>
+                                <h4><a >Get lost in the<br>woods</a>
                                 </h4>
                                 
-                                <p>Going mapless got us very cool spots. In the end, we foud the road. <a href="#"><font size="4">[...]</font></a></p>
+                                <p>Going mapless got us very cool spots. In the end, we foud the road. <a ><font size="4">[...]</font></a></p>
                             </div>
                             <div class="ratings">
-                                <p class="pull-right"><a href="#" style="color:#B40404">21 comments</a></p>
+                                <p class="pull-right"><a  style="color:#B40404">21 comments</a></p>
                                 <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -185,12 +185,12 @@
                             <img src="../img/you.jpg" alt="">
                             <div class="caption">
                                 <h6 class="pull-right">AlexSms<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
-                                <h4><a href="#">Travel as light as<br>possible</a>
+                                <h4><a >Travel as light as<br>possible</a>
                                 </h4>
-                                <p>One backpack was more than enough. 2 fun weeks around the East Coast! <a href="#"><font size="4">[...]</font></a></p>
+                                <p>One backpack was more than enough. 2 fun weeks around the East Coast! <a ><font size="4">[...]</font></a></p>
                             </div>
                             <div class="ratings">
-                                <p class="pull-right"><a href="#" style="color:#B40404">15 comments</a></p>
+                                <p class="pull-right"><a  style="color:#B40404">15 comments</a></p>
                                 <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -210,12 +210,12 @@
                             <img src="../img/campfire.jpg" alt="">
                             <div class="caption" id="app" v-for="item in items">
                                 <h6 class="pull-right" >{{item.user}}<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
-                                <h4><a href="#">{{item.title}}</a>
+                                <h4><a >{{item.title}}</a>
                                 </h4>
-                                <p>{{item.info}}<a href="#"><font size="4">[...]</font></a></p>
+                                <p>{{item.info}}<a ><font size="4">[...]</font></a></p>
                             </div>
                             <div class="ratings">
-                                <p class="pull-right"><a href="#" style="color:#B40404">26 comments</a></p>
+                                <p class="pull-right"><a  style="color:#B40404">26 comments</a></p>
                                 <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -235,11 +235,11 @@
             <img src="../img/you.jpg" alt="">
             <div class="caption">
                 <h6 class="pull-right">test_user<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
-                    <h4><a href="#">test_title</a></h4>
-                        <p>test_info <a href="#"><font size="4">[...]</font></a></p>
+                    <h4><a >test_title</a></h4>
+                        <p>test_info <a ><font size="4">[...]</font></a></p>
             </div>
             <div class="ratings">
-                <p class="pull-right"><a href="#" style="color:#B40404">15 comments</a></p>
+                <p class="pull-right"><a  style="color:#B40404">15 comments</a></p>
                     <p>
                         <span class="glyphicon glyphicon-star"></span>
                         <span class="glyphicon glyphicon-star"></span>
@@ -284,7 +284,7 @@
                         place.appendChild(div);
                     document.body.appendChild(div);*/
                     console.log(newPost.url);
-                    $("#posts").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="'+newPost.url+'" alt=""><div class="caption"><h6 class="pull-right">'+newPost.user+'<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6><h4><a href="#">'+newPost.title+'</a></h4><p>'+newPost.info+'<a href="#"><font size="4">[...]</font></a></p></div><div class="ratings"><p class="pull-right"><a href="#" style="color:#B40404">'+newPost.comments+' comments</a></p><p><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></p></div></div></div><br><br>'); console.log("___");
+                    $("#posts").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="'+newPost.url+'" alt=""><div class="caption"><h6 class="pull-right">'+newPost.user+'<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6><h4><a >'+newPost.title+'</a></h4><p>'+newPost.info+'<a ><font size="4">[...]</font></a></p></div><div class="ratings"><p class="pull-right"><a  style="color:#B40404">'+newPost.comments+' comments</a></p><p><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></p></div></div></div><br><br>'); console.log("___");
             });
             
             // CHILD CHANGED__________________________________________
@@ -308,6 +308,10 @@
             var feed = function(){
                 window.location.href ="feed.html?u="+user; 
             };
+    
+            var MyProfile = function(){
+                window.location.href ="profile/profile.html?u="+user; 
+            };
             
             //var div = document.createElement('div');
             //document.body.appendChild(div);
@@ -322,12 +326,12 @@
                             <img src="../img/cake.jpg" alt="">
                             <div class="caption">
                                 <h6 class="pull-right">Sarah_hart88</h6>
-                                <h4><a href="#">Cook your<br>neighbor something</a>
+                                <h4><a >Cook your<br>neighbor something</a>
                                 </h4>
-                                <p>I loved this. I now have a friend living right next to me! <a href="#"><font size="4">[...]</font></a></p>
+                                <p>I loved this. I now have a friend living right next to me! <a ><font size="4">[...]</font></a></p>
                             </div>
                             <div class="ratings">
-                                <p class="pull-right"><a href="#" style="color:#B40404">15 comments</a></p>
+                                <p class="pull-right"><a  style="color:#B40404">15 comments</a></p>
                                 <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -344,12 +348,12 @@
                             <img src="../img/cake.jpg" alt="">
                             <div class="caption">
                                 <h6 class="pull-right">Sarah_hart88</h6>
-                                <h4><a href="#">Cook your<br>neighbor something</a>
+                                <h4><a >Cook your<br>neighbor something</a>
                                 </h4>
-                                <p>I loved this. I now have a friend living right next to me! <a href="#"><font size="4">[...]</font></a></p>
+                                <p>I loved this. I now have a friend living right next to me! <a ><font size="4">[...]</font></a></p>
                             </div>
                             <div class="ratings">
-                                <p class="pull-right"><a href="#" style="color:#B40404">15 comments</a></p>
+                                <p class="pull-right"><a  style="color:#B40404">15 comments</a></p>
                                 <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -366,12 +370,12 @@
                             <img src="../img/cake.jpg" alt="">
                             <div class="caption">
                                 <h6 class="pull-right">Sarah_hart88</h6>
-                                <h4><a href="#">Cook your<br>neighbor something</a>
+                                <h4><a >Cook your<br>neighbor something</a>
                                 </h4>
-                                <p>I loved this. I now have a friend living right next to me! <a href="#"><font size="4">[...]</font></a></p>
+                                <p>I loved this. I now have a friend living right next to me! <a ><font size="4">[...]</font></a></p>
                             </div>
                             <div class="ratings">
-                                <p class="pull-right"><a href="#" style="color:#B40404">15 comments</a></p>
+                                <p class="pull-right"><a  style="color:#B40404">15 comments</a></p>
                                 <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
@@ -388,12 +392,12 @@
                             <img src="../img/cake.jpg" alt="">
                             <div class="caption">
                                 <h6 class="pull-right">Sarah_hart88</h6>
-                                <h4><a href="#">Cook your<br>neighbor something</a>
+                                <h4><a >Cook your<br>neighbor something</a>
                                 </h4>
-                                <p>I loved this. I now have a friend living right next to me! <a href="#"><font size="4">[...]</font></a></p>
+                                <p>I loved this. I now have a friend living right next to me! <a ><font size="4">[...]</font></a></p>
                             </div>
                             <div class="ratings">
-                                <p class="pull-right"><a href="#" style="color:#B40404">15 comments</a></p>
+                                <p class="pull-right"><a  style="color:#B40404">15 comments</a></p>
                                 <p>
                                     <span class="glyphicon glyphicon-star"></span>
                                     <span class="glyphicon glyphicon-star"></span>
