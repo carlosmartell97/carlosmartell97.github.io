@@ -90,6 +90,8 @@
                     
                 
                 <script>
+                    var user;
+                    var snapshotkey;
                     window.onload = function parseURL() {
                 var url = document.location.href;
                 var urlP = url.replace(/#^\?/, '').split('&');
@@ -129,6 +131,40 @@
                                 console.log("Data saved successfully.");
                             }
                         });
+                        
+                            console.log("loading profile...");
+                            var url="https://karmics.firebaseio.com/users/.json";
+                            $.getJSON( url, function( data ) {
+                                x=1; y=1;
+                                $.each(data,function(key,val){
+                                    ///////////////// USERNAME
+                                    if(x==1){
+                                        if(val.username==user){
+                                            console.log("username encontrado");
+                                            
+                                            // Get a database reference to our posts
+                                            var usersRef = new Firebase("https://karmics.firebaseio.com/users");
+                                            var urlquery=usersRef.orderByChild("username").equalTo("CarlsJR").on("child_added", function(snapshot) {
+                                            snapshotkey = snapshot.key();
+                                            });
+                                            var usersRef = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey);
+
+                                            usersRef.update({
+                                                    //document.getElementById("inputUsername").value
+                                                    "completions":1000
+
+                                            }, function(error) {
+                                                if (error) {
+                                                    console.log("Data could not be saved." + error);
+                                                } else {
+                                                    console.log("Data updated successfully.");
+                                                }
+                                            });
+                                            x=0;
+                                        }
+                                    }
+                                });
+                            });
                     };
                     
                     // CHILD ADDED__________________________________________
