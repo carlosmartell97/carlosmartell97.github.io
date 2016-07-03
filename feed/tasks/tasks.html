@@ -91,7 +91,7 @@
                 
                 <script>
                     var user;
-                    var snapshotkey;
+                    var snapshotkey="";
                     window.onload = function parseURL() {
                 var url = document.location.href;
                 var urlP = url.replace(/#^\?/, '').split('&');
@@ -104,6 +104,11 @@
             document.getElementById('user').style.left = "100%";
             //document.getElementById('user').style.up = "100%";
             document.getElementById('user').style.color="#E5E4E2";
+                        
+                        var urlinicial = new Firebase("https://karmics.firebaseio.com/users");
+                        var ObtenerSnapshotkey=urlinicial.orderByChild("username").equalTo("CarlsJR").on("child_added", function(snapshot) {
+                                            window.snapshotkey = snapshot.key(); 
+                                            });
             }
                     
                     var url=""; var date=""; var title=""; var description=""; var completions=0;
@@ -145,13 +150,28 @@
                                             // Get a database reference to our posts
                                             var usersRef = new Firebase("https://karmics.firebaseio.com/users");
                                             var urlquery=usersRef.orderByChild("username").equalTo("CarlsJR").on("child_added", function(snapshot) {
-                                            snapshotkey = snapshot.key();
+                                            window.snapshotkey = snapshot.key(); 
                                             });
+                                            
                                             var usersRef = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey);
-
-                                            usersRef.update({
+                                            var date = new Date();var m_names = ['January', 'February', 'March', 
+                                            'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                            var month = m_names[date.getMonth()]; var year = date.getFullYear();
+                                            var fulldate=month+"_"+year;
+                                            var act=val.activity[fulldate].karmics+500;
+                                            
+                                           
+                                            var usersRef = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey);
+                                            var objToWrite = new Object();
+                                            objToWrite.activity = {};
+                                            objToWrite.activity[fulldate] = new Object();
+                                            objToWrite.activity[fulldate].karmics=act;
+                                            //console.log("$$$");console.log(usersRef);console.log("$$$");
+                                            usersRef.update(objToWrite);
+                                            
+                                            /*usersRef.update({
                                                     //document.getElementById("inputUsername").value
-                                                    "completions":1000
+                                                    "activity":activity
 
                                             }, function(error) {
                                                 if (error) {
@@ -159,7 +179,7 @@
                                                 } else {
                                                     console.log("Data updated successfully.");
                                                 }
-                                            });
+                                            });*/
                                             x=0;
                                         }
                                     }
