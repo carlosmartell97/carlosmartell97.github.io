@@ -71,7 +71,7 @@
         <div class="row">
 
             <div class="col-md-3">
-                <p class="lead">What will you accomplish today, John?</p>
+                <p id="userr" class="lead">What will you accomplish today, John?</p>
                 <div class="list-group">
                     <a onclick="feed()" class="list-group-item">Feed</a>
                     <a onclick="MyTasks()" class="list-group-item">My tasks</a>
@@ -118,6 +118,7 @@
 
                         //WRITING DATA WITH SET
                         var usersRef = ref.child("posts");
+                        /*
                         usersRef.push({
                                 //document.getElementById("inputUsername").value
 
@@ -136,7 +137,7 @@
                                 console.log("Data saved successfully.");
                             }
                         });
-                        
+                        */
                             console.log("loading profile...");
                             var url="https://karmics.firebaseio.com/users/.json";
                             $.getJSON( url, function( data ) {
@@ -157,17 +158,65 @@
                                             var date = new Date();var m_names = ['January', 'February', 'March', 
                                             'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
                                             var month = m_names[date.getMonth()]; var year = date.getFullYear();
-                                            var fulldate=month+"_"+year;
-                                            var act=val.activity[fulldate].karmics+500;
+                                            var fulldate=month+"-"+year;
                                             
                                            
-                                            var usersRef = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey);
+                                            var usersRef = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey+"/activity");
                                             var objToWrite = new Object();
-                                            objToWrite.activity = {};
-                                            objToWrite.activity[fulldate] = new Object();
-                                            objToWrite.activity[fulldate].karmics=act;
-                                            //console.log("$$$");console.log(usersRef);console.log("$$$");
-                                            usersRef.update(objToWrite);
+                                            //var fulldate="August-2017";
+                                            objToWrite[fulldate] = new Object();
+                                            usersRef.once("value", function(snapshot) {
+                                                
+                                                if(snapshot.hasChild(fulldate)){
+                                                    console.log("has child true");
+                                                    var act=val.activity[fulldate].karmics+500;
+                                                    objToWrite[fulldate].karmics=act;
+                                                    objToWrite[fulldate].completions=val.activity[fulldate].completions;
+                                                    objToWrite[fulldate].awards=val.activity[fulldate].awards;
+                                                    objToWrite[fulldate].sustainability=val.activity[fulldate].sustainability;
+                                                    usersRef.update(objToWrite,function(error) {
+                                                        if (error) {
+                                                            console.log("Data could not be saved." + error);
+                                                        } else {
+                                                            console.log("Data saved successfully.");
+                                                            window.location.href ="../profile/profile.html?u="+user; 
+                                                        }
+                                                    });
+                                                }
+                                                else{
+                                                    
+                                                    console.log("has child FALSE");
+                                                    var objToWrite2 = new Object();
+                                                    objToWrite2[fulldate] = new Object();
+                                                    objToWrite2[fulldate].karmics=500;
+                                                    objToWrite2[fulldate].completions=0;
+                                                    objToWrite2[fulldate].awards=0;
+                                                    objToWrite2[fulldate].sustainability=0;
+                                                    usersRef.update(objToWrite2,function(error) {
+                                                        if (error) {
+                                                            console.log("Data could not be saved." + error);
+                                                        } else {
+                                                            console.log("Data saved successfully.");
+                                                            window.location.href ="../profile/profile.html?u="+user; 
+                                                        }
+                                                    });
+                                                    
+                                                }
+                                            });
+                                            console.log(objToWrite);
+                                             document.getElementById('userr').innerHTML = JSON.stringify(objToWrite);
+                                            
+                                            /*
+                                            usersRef.update({
+                                                "August-2016":{
+                                                    "karmics":500,
+                                                    "completions":600,
+                                                    "awards":700,
+                                                    "sustainability":800
+                                                }
+                                            });
+                                            */
+                                            
                                             
                                             /*usersRef.update({
                                                     //document.getElementById("inputUsername").value
