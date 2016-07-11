@@ -65,6 +65,7 @@
     </div> <!-- /container -->
       
       <script>
+          var snapshotkey="";
           document.getElementById("SignUpBtn").disabled=true;
           //document.getElementById("inputUsername").addEventListener("keydown", Change);
           //document.getElementById("inputEmail").addEventListener("keydown", Change);
@@ -95,14 +96,62 @@
                         "karmics":0,
                         "completions":0,
                         "awards":0,
-                        "sustainability":0
+                        "sustainability":0,
+                        "mind":1,
+                        "body":1,
+                        "spirit":1
                     
                 }, function(error) {
                     if (error) {
                         console.log("Data could not be saved." + error);
                     } else {
                         console.log("Data saved successfully.");
-                        window.location.href = "../feed/feed.html?u="+document.getElementById("inputUsername").value;
+                        
+                        
+                        
+                        
+                        ////////////////////////////////////
+                            var url="https://karmics.firebaseio.com/users/.json";
+                            $.getJSON( url, function( data ) {
+                                x=1; y=1;
+                                $.each(data,function(key,val){
+                                    ///////////////// USERNAME
+                                    if(x==1){
+                                        if(val.username==document.getElementById("inputUsername").value){
+                                            console.log("username encontrado");
+                                            
+                                            // Get a database reference to our posts
+                                            var usersRef = new Firebase("https://karmics.firebaseio.com/users");
+                                            var urlquery=usersRef.orderByChild("username").equalTo(document.getElementById("inputUsername").value).on("child_added", function(snapshot) {
+                                                window.snapshotkey = snapshot.key(); console.log(snapshotkey);
+                                                
+                                            var usersRef = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey);
+                                            var date = new Date();var m_names = ['January', 'February', 'March', 
+                                            'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                            var month = m_names[date.getMonth()]; var year = date.getFullYear();
+                                            var fulldate=month+"-"+year;
+                                           
+                                            var objToWrite = new Object();
+                                            objToWrite.activity = {};
+                                            objToWrite.activity[fulldate] = new Object();
+                                            //usersRef.update(objToWrite);
+                                            objToWrite.activity[fulldate].karmics=0;
+                                            objToWrite.activity[fulldate].completions=0;
+                                            objToWrite.activity[fulldate].awards=0;
+                                            objToWrite.activity[fulldate].sustainability=0;
+                                            usersRef.update(objToWrite);
+                                            });
+                                            x=0;
+                                        }
+                                    }
+                                });
+                            });
+                        
+                        ////////////////////////////////////
+                        
+                        
+                            
+                        //window.location.href = "../feed/feed.html?u="+document.getElementById("inputUsername").value;
                     }
                 });
                         console.log("email: "+document.getElementById("inputEmail").value);
