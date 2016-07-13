@@ -21,103 +21,160 @@
     <link rel="stylesheet"href="css/chartist.min.css">
     <script src="js/chartist.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Oxygen:300' rel='stylesheet' type='text/css'>
+    <!-- Firebase -->
+  <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
 
 </head>
 
 <body>
-    
+    <script src="../../js/jquery.js"></script>
     <script>
         
-        var user;
-        var karmics;
-            window.onload = function parseURL() {
+        var user; var snapshotkey="";
+        var karmics; var completions; var awards; var sustainability;
+                $(document).ready(function() {
+                    console.log("READY");
                 var url = document.location.href;
                 var urlP = url.replace(/#^\?/, '').split('&');
                 for( i = 0; i < urlP.length; i++ ) {
                     split = urlP[i].split('=');
                     window.user=split[1];
                 }
+                    var usersRef = new Firebase("https://karmics.firebaseio.com/users");
+                    var urlquery=usersRef.orderByChild("username").equalTo(user).on("child_added", function(snapshot) {
+                        window.snapshotkey = snapshot.key();  console.log(snapshotkey);
+                    });
             document.getElementById('user').style.fontSize = "xxx-large";
             //document.getElementById('user').style.left = "100%";
             //document.getElementById('user').style.up = "100%";
             //document.getElementById('user').style.color="#E5E4E2";
-                
-            console.log("loading profile...");
-            var url="https://karmics.firebaseio.com/users/.json";
-            $.getJSON( url, function( data ) {
-                x=1; y=1;
-                $.each(data,function(key,val){
-                    ///////////////// USERNAME
-                    if(x==1){
-                        if(val.username==user){
-                            console.log("username encontrado");
-                            document.getElementById('user').innerHTML = user;
-                            var date = new Date();var m_names = ['January', 'February', 'March', 
-                            'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-                            var month = m_names[date.getMonth()]; var year = date.getFullYear();
-                            var fulldate=month+"-"+year;
-                            karmics=val.activity[fulldate].karmics;
-                            document.getElementById('karmics').innerHTML = karmics;
-                            document.getElementById('completions').innerHTML = val.completions;
-                            document.getElementById('awards').innerHTML = val.awards;
-                            document.getElementById('sustainability').innerHTML = val.sustainability;
-                            //errorUsername=true; 
-                            errorUsername2=true;
-                                //errorUsername=false;
-                            
-                            ////LAST 30 DAYS
-                            new Chartist.Line('.ct-chart', {
-                                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-                                series: [
-                                    [0, 100, 620, 402, karmics],
-                                    [0, 50, 200, 500, val.completions],
-                                    [0, 200, 210, 215, val.awards],
-                                    [0, 300, 500, 250, val.sustainability]
-                                ]
-                            },{
-                                width: 500,
-                                height: 300,
-                                showPoint: false
-                                });
-                            
-                            //PREFERRED CATEGORIES
-                            var data = {
-                                labels: ['Mind', 'Body', 'Spirit'],
-                                series: [val.mind, val.body, val.spirit]
-                            };
-
-                            var options = {
-                                labelInterpolationFnc: function(value) {
-                                    return value[0]
-                                }
-                            };
-
-                            var responsiveOptions = [
-                                ['screen and (min-width: 640px)', {
-                                    chartPadding: 30,
-                                    labelOffset: 100,
-                                    labelDirection: 'explode',
-                                    labelInterpolationFnc: function(value) {
-                                        return value;
-                                    }
-                                }],['screen and (min-width: 1024px)', {
-                                    labelOffset: 0,
-                                    chartPadding: 0
-                                }]
-                            ];
-                            new Chartist.Pie('.ct-pie', data, options, responsiveOptions);
-                            
-                            x=0;
-                        }
-                        else{
-                            errorUsername2=false;
-                        }
-                    }
-                });
-            });
                
              console.log("------");
-            };
+                    console.log("loading profile...");
+                    
+                });
+        
+        
+            //window.onload = function parseURL() {
+                    //////////////////////////////////
+        
+                $(window).load(function() {
+                    console.log("LOAD");
+                var url="https://karmics.firebaseio.com/users/.json";
+                    $.getJSON( url, function( data ) {
+                        x=1; y=1;
+                        $.each(data,function(key,val){
+                            ///////////////// USERNAME
+                            if(x==1){
+                                if(val.username==user){
+                                    console.log("username encontrado");
+
+                                    console.log(snapshotkey);
+
+                                    document.getElementById('user').innerHTML = user;
+                                    var date = new Date();var m_names = ['January', 'February', 'March', 
+                                    'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                    var month = m_names[date.getMonth()]; var year = date.getFullYear();
+                                    var fulldate=month+"-"+year;
+                                    karmics=val.activity[fulldate].karmics;
+                                    completions=val.activity[fulldate].completions;
+                                    awards=val.activity[fulldate].awards;
+                                    sustainability=val.activity[fulldate].sustainability;
+                                        document.getElementById('karmics').innerHTML = karmics;
+                                        document.getElementById('completions').innerHTML = completions;
+                                        document.getElementById('awards').innerHTML = awards;
+                                        document.getElementById('sustainability').innerHTML = sustainability;
+                                    //errorUsername=true; 
+                                    errorUsername2=true;
+                                        //errorUsername=false;
+
+                                    ////LAST 30 DAYS
+                                        /*
+                                        var stats=",0,100,620,402,600";
+                                        dataSeries=stats.split(",").slice(1);
+                                        for(var i=0; i<dataSeries.length;i++) dataSeries[i] = +dataSeries[i];
+                                            console.log(dataSeries);
+                                        */
+                                    
+                                        var dataLabels=[];
+                                        var dataSeriesBefore=[];
+                                        for(var property in val.activity){
+                                            var dataSeriesElement=[];
+                                            dataLabels.push(property.toString());
+                                            for(var prop in val.activity[property]){
+                                                console.log(prop+": "+val.activity[property][prop]);
+                                                dataSeriesElement.push(val.activity[property][prop]);
+                                            }
+                                            dataSeriesBefore.push(dataSeriesElement);
+                                        }
+                                        var dataSeries=[];
+                                        c=0;
+                                        for(var w=0;w<4;w++){
+                                                var dataSeriesElement=[];
+                                                for(var j=0;j<dataSeriesBefore.length;j++){
+                                                    dataSeriesElement.push(dataSeriesBefore[j][w]);
+                                                }
+                                                dataSeries.push(dataSeriesElement);
+                                        }
+                                        dataLabels[0]="start";
+                                        console.log(dataLabels);
+                                        console.log(dataSeriesBefore.length);
+                                        console.log(dataSeries);
+                                    
+                                    new Chartist.Line('.ct-chart', {
+                                        labels: /*['Mon', 'Tue', 'Wed', 'Thu', 'Fri']*/dataLabels,
+                                        series: /*[             [[1,2,3,4],[500,600,700,800]]
+                                            [0, 100, 620, 402, karmics],
+                                            [0, 50, 200, 500, completions],
+                                            [0, 200, 210, 215, awards],
+                                            [0, 300, 500, 250, sustainability]
+                                        ]*/
+                                        //[[0,1,500],[0,2,600],[0,3,700],[0,4,800]]
+                                        dataSeries
+                                    },{
+                                        width: 500,
+                                        height: 300,
+                                        showPoint: false
+                                        });
+
+                                    //PREFERRED CATEGORIES
+                                    var data = {
+                                        labels: ['Mind', 'Body', 'Spirit'],
+                                        series: [val.mind, val.body, val.spirit]
+                                    };
+
+                                    var options = {
+                                        labelInterpolationFnc: function(value) {
+                                            return value[0]
+                                        }
+                                    };
+
+                                    var responsiveOptions = [
+                                        ['screen and (min-width: 640px)', {
+                                            chartPadding: 30,
+                                            labelOffset: 100,
+                                            labelDirection: 'explode',
+                                            labelInterpolationFnc: function(value) {
+                                                return value;
+                                            }
+                                        }],['screen and (min-width: 1024px)', {
+                                            labelOffset: 0,
+                                            chartPadding: 0
+                                        }]
+                                    ];
+                                    new Chartist.Pie('.ct-pie', data, options, responsiveOptions);
+
+                                    x=0;
+                                }
+                                else{
+                                    errorUsername2=false;
+                                }
+                            }
+                        });
+                    });
+                    });
+                //////////////////////////
+            //}
         
             var Home = function(){
                 window.location.href ="../../feed/feed.html?u="+user; 
@@ -125,13 +182,13 @@
     </script>
     <style>
 .ct-chart .ct-series.ct-series-a .ct-line {
-  stroke: #3596C8;
+  stroke: #F9DD5F;
 }
 .ct-chart .ct-series.ct-series-b .ct-line {
   stroke: #62DE64;
 }
 .ct-chart .ct-series.ct-series-c .ct-line {
-  stroke: #F9DD5F;
+  stroke: #3596C8;
 }
 .ct-chart .ct-series.ct-series-d .ct-line {
   stroke: #E5603A;
@@ -633,7 +690,7 @@
     <!-- Custom Theme JavaScript -->
     <!-- esto lo quité porque me dió problemas en cuanto metí jquery-> <script src="../dist/js/sb-admin-2.js"></script> -->
     
-    <script src="../../js/jquery.js"></script>
+    
 </body>
 
 </html>
