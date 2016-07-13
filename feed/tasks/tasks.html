@@ -166,9 +166,10 @@
                                                 
                                                 if(snapshot.hasChild(fulldate)){
                                                     console.log("has child true");
-                                                    var act=val.activity[fulldate].karmics+500;
-                                                    objToWrite[fulldate].karmics=act;
-                                                    objToWrite[fulldate].completions=val.activity[fulldate].completions;
+                                                    var actKarmics=val.activity[fulldate].karmics+300;
+                                                    var actCompletions=val.activity[fulldate].completions+500;
+                                                    objToWrite[fulldate].karmics=actKarmics;
+                                                    objToWrite[fulldate].completions=actCompletions;
                                                     objToWrite[fulldate].awards=val.activity[fulldate].awards;
                                                     objToWrite[fulldate].sustainability=val.activity[fulldate].sustainability;
                                                     usersRef.update(objToWrite,function(error) {
@@ -202,30 +203,6 @@
                                             });
                                             console.log(objToWrite);
                                              document.getElementById('userr').innerHTML = JSON.stringify(objToWrite);
-                                            
-                                            /*
-                                            usersRef.update({
-                                                "August-2016":{
-                                                    "karmics":500,
-                                                    "completions":600,
-                                                    "awards":700,
-                                                    "sustainability":800
-                                                }
-                                            });
-                                            */
-                                            
-                                            
-                                            /*usersRef.update({
-                                                    //document.getElementById("inputUsername").value
-                                                    "activity":activity
-
-                                            }, function(error) {
-                                                if (error) {
-                                                    console.log("Data could not be saved." + error);
-                                                } else {
-                                                    console.log("Data updated successfully.");
-                                                }
-                                            });*/
                                             x=0;
                                         }
                                     }
