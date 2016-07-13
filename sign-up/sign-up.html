@@ -133,13 +133,20 @@
                                            
                                             var objToWrite = new Object();
                                             objToWrite.activity = {};
-                                            objToWrite.activity[fulldate] = new Object();
+                                            objToWrite.activity["0"] = new Object();
                                             //usersRef.update(objToWrite);
-                                            objToWrite.activity[fulldate].karmics=0;
-                                            objToWrite.activity[fulldate].completions=0;
-                                            objToWrite.activity[fulldate].awards=0;
-                                            objToWrite.activity[fulldate].sustainability=0;
-                                            usersRef.update(objToWrite);
+                                            objToWrite.activity["0"].karmics=0;
+                                            objToWrite.activity["0"].completions=0;
+                                            objToWrite.activity["0"].awards=0;
+                                            objToWrite.activity["0"].sustainability=0;
+                                            usersRef.update(objToWrite,function(error) {
+                                                if (error) {
+                                                    console.log("Data could not be saved." + error);
+                                                } else {
+                                                    console.log("Data saved successfully.");
+                                                    window.location.href = "../feed/feed.html?u="+document.getElementById("inputUsername").value;
+                                                }
+                                            });
                                             });
                                             x=0;
                                         }
@@ -149,9 +156,6 @@
                         
                         ////////////////////////////////////
                         
-                        
-                            
-                        //window.location.href = "../feed/feed.html?u="+document.getElementById("inputUsername").value;
                     }
                 });
                         console.log("email: "+document.getElementById("inputEmail").value);
