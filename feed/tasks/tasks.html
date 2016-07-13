@@ -106,11 +106,11 @@
             document.getElementById('user').style.color="#E5E4E2";
                         
                         var urlinicial = new Firebase("https://karmics.firebaseio.com/users");
-                        var ObtenerSnapshotkey=urlinicial.orderByChild("username").equalTo("CarlsJR").on("child_added", function(snapshot) {
+                        var ObtenerSnapshotkey=urlinicial.orderByChild("username").equalTo(user).on("child_added", function(snapshot) {
                                             window.snapshotkey = snapshot.key(); 
                                             });
             }
-                    
+                console.log(snapshotkey);    
                     var url=""; var date=""; var title=""; var description=""; var completions=0;
                     function myFunction(url,date,title,description,completions){
                         // Get a database reference to our posts
@@ -145,15 +145,12 @@
                                 $.each(data,function(key,val){
                                     ///////////////// USERNAME
                                     if(x==1){
-                                        if(val.username==user){
+                                        if(val.username==user){ 
                                             console.log("username encontrado");
                                             
                                             // Get a database reference to our posts
                                             var usersRef = new Firebase("https://karmics.firebaseio.com/users");
-                                            var urlquery=usersRef.orderByChild("username").equalTo("CarlsJR").on("child_added", function(snapshot) {
-                                            window.snapshotkey = snapshot.key(); 
-                                            });
-                                            
+                                            console.log(snapshotkey);console.log("5555555555555555");
                                             var usersRef = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey);
                                             var date = new Date();var m_names = ['January', 'February', 'March', 
                                             'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -246,7 +243,8 @@
                 url=newTask.url; date=newTask.date; title=newTask.title; description=newTask.description; completions=newTask.completions;
                 
                 
-                console.log("CHILD_ADDED"); console.log("avh1: " + newTask.achievement1); console.log("ach2: " + newTask.achievement2); console.log("ach3: " + newTask.achievement3); console.log("comp: " + newTask.completions); console.log("date: " + newTask.date); console.log("desc: " + newTask.description); console.log("title: " + newTask.title); console.log(newTask.url);
+                console.log("CHILD_ADDED"); /*console.log("avh1: " + newTask.achievement1); console.log("ach2: " + newTask.achievement2); console.log("ach3: " + newTask.achievement3); console.log("comp: " + newTask.completions); console.log("date: " + newTask.date); console.log("desc: " + newTask.description);*/ console.log("title: " + newTask.title); 
+                //console.log(newTask.url);
                 console.log("Previous Post ID: " + prevChildKey);
                     
                         //var div = document.createElement('div'); div.id = "postDiv";
@@ -254,7 +252,7 @@
                         //div.innerHTML = '<div>New usrname: '+newPost.user+'</div><br><br>';
                         //place.appendChild(div);
                         //document.body.appendChild(div);  
-                console.log("0000: "+title); console.log("11: "+date);
+                //console.log("0000: "+title); console.log("11: "+date);
                 $("#tasks").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="'+newTask.url+'" alt=""><div class="caption"><h4 class="pull-right">'+newTask.date+'</h4><h4><a href="">'+newTask.title+'</a></h4><p>'+newTask.description+'<a href=""><font size="4">[...]</font></a></p></div><div class="ratings"><p class="pull-right"><a href="" style="color:#0B610B">'+newTask.completions+' completions</a></p><p><button type="button" class="btn btn-default" onclick="myFunction(url,date,title,description,completions)">Complete</button></p></div></div></div>'); console.log("_____");
             });
             
