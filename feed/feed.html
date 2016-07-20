@@ -8,6 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+        <!-- Chrome, Firefox OS, Opera and Vivaldi -->
+        <meta name="theme-color" content="#337AB7">
+        <!-- Windows Phone -->
+        <meta name="msapplication-navbutton-color" content="#337AB7">
+        <!-- iOS Safari -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="#337AB7">
 
     <title>Karmics</title>
 
@@ -116,7 +122,7 @@
                             <img src="../img/mycake.jpg" alt="">
                             <div class="caption">
                                 <h6 class="pull-right">Sarah_hart88<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
-                                <h4><a >Cook your<br>neighbor something</a>
+                                <h4><a >DO NOT CLICK</a>
                                 </h4>
                                 <p>I loved this. He had a girl I knew nothing about. <a ><font size="4">[...]</font></a></p>
                             </div>
@@ -138,7 +144,7 @@
                             <img src="../img/myconcert.jpg" alt="">
                             <div class="caption">
                                 <h6 class="pull-right">Mark-Jung<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
-                                <h4><a >Attend a concert</a>
+                                <h4><a >DO NOT CLICK</a>
                                 </h4>
                                 <p>We went to a local festival with some great bands. Jake Nichols joined the stage! <a ><font size="4">[...]</font></a></p>
                             </div>
@@ -154,32 +160,8 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="../img/forest.jpg" alt="">
-                            <div class="caption">
-                                <h6 class="pull-right">JakeNichols1<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
-                                
-                                <h4><a >Get lost in the<br>woods</a>
-                                </h4>
-                                
-                                <p>Going mapless got us very cool spots. In the end, we foud the road. <a ><font size="4">[...]</font></a></p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right"><a  style="color:#B40404">21 comments</a></p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
                     
-                
+            <!--
                 <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
                             <img src="../img/you.jpg" alt="">
@@ -201,59 +183,11 @@
                             </div>
                         </div>
                     </div>
-                
-                
-          
-                
-                <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="../img/campfire.jpg" alt="">
-                            <div class="caption" id="app" v-for="item in items">
-                                <h6 class="pull-right" >{{item.user}}<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
-                                <h4><a >{{item.title}}</a>
-                                </h4>
-                                <p>{{item.info}}<a ><font size="4">[...]</font></a></p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right"><a  style="color:#B40404">26 comments</a></p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    
-            
-            
-            
-    <div class="col-sm-4 col-lg-4 col-md-4">
-        <div class="thumbnail">
-            <img src="../img/you.jpg" alt="">
-            <div class="caption">
-                <h6 class="pull-right">test_user<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
-                    <h4><a >test_title</a></h4>
-                        <p>test_info <a ><font size="4">[...]</font></a></p>
-            </div>
-            <div class="ratings">
-                <p class="pull-right"><a  style="color:#B40404">15 comments</a></p>
-                    <p>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                    </p>
-            </div>
-        </div>
-    </div>
+            -->
     </span>
     </div>
 <script>
-            var user;
+            var user; var snapshotkey="";
             window.onload = function parseURL() {
                 var url = document.location.href;
                 var urlP = url.replace(/#^\?/, '').split('&');
@@ -270,21 +204,16 @@
             }
     
             // CHILD ADDED__________________________________________
-            // Get a database reference to our posts
             var ref = new Firebase("https://karmics.firebaseio.com/posts/");
             // Retrieve new posts as they are added to our database
             ref.on("child_added", function(snapshot, prevChildKey) {
-                var newPost = snapshot.val();
-                console.log("CHILD_ADDED"); console.log("User: " + newPost.user); console.log("Title: " + newPost.title); console.log("Info: " + newPost.info);
-                console.log("Previous Post ID: " + prevChildKey);
-                
-                    /*var div = document.createElement('div'); div.id = "postDiv";
-                        var place = document.getElementById('posts');
-                    div.innerHTML = '<div>New usrname: '+newPost.user+'</div><br><br>';
-                        place.appendChild(div);
-                    document.body.appendChild(div);*/
-                    console.log(newPost.url);
-                    $("#posts").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="'+newPost.url+'" alt=""><div class="caption"><h6 class="pull-right">'+newPost.user+'<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6><h4><a >'+newPost.title+'</a></h4><p>'+newPost.info+'<a ><font size="4">[...]</font></a></p></div><div class="ratings"><p class="pull-right"><a  style="color:#B40404">'+newPost.comments+' comments</a></p><p><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></p></div></div></div><br><br>'); console.log("___");
+                var newPost = snapshot.val(); window.snapshotkey = snapshot.key();
+                //console.log("CHILD_ADDED"); console.log("User: " + newPost.user); 
+                console.log("Title: " + newPost.title); //console.log("Info: " + newPost.info);
+                //console.log("Previous Post ID: " + prevChildKey);
+                    //console.log(newPost.url);
+                console.log(snapshotkey);
+                    $("#posts").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="'+newPost.url+'" alt=""><div class="caption"><h6 class="pull-right">'+newPost.user+'<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6><h4 onclick="postFn(\''+snapshotkey+'\')"><a >'+newPost.title+'</a></h4><p>'+newPost.info+'<span onclick="postFn(\''+snapshotkey+'\')"><a ><font size="4">[...]</font></a></span></p></div><div class="ratings"><p class="pull-right" onclick="postFn(\''+snapshotkey+'\')"><a  style="color:#B40404">'+newPost.comments+' comments</a></p><p><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></p></div></div></div><br><br>'); console.log("___");
             });
             
             // CHILD CHANGED__________________________________________
@@ -311,6 +240,11 @@
     
             var MyProfile = function(){
                 window.location.href ="profile/profile.html?u="+user; 
+            };
+    
+            function postFn(key){
+                console.log(key);
+                window.location.href ="post/post.html?u="+user+"&p="+key;
             };
             
             //var div = document.createElement('div');
