@@ -116,51 +116,6 @@
 
                 </div>
                 <span id="posts">
-
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="../img/mycake.jpg" alt="">
-                            <div class="caption">
-                                <h6 class="pull-right">Sarah_hart88<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
-                                <h4><a >DO NOT CLICK</a>
-                                </h4>
-                                <p>I loved this. He had a girl I knew nothing about. <a ><font size="4">[...]</font></a></p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right"><a  style="color:#B40404">15 comments</a></p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="../img/myconcert.jpg" alt="">
-                            <div class="caption">
-                                <h6 class="pull-right">Mark-Jung<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6>
-                                <h4><a >DO NOT CLICK</a>
-                                </h4>
-                                <p>We went to a local festival with some great bands. Jake Nichols joined the stage! <a ><font size="4">[...]</font></a></p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right"><a  style="color:#B40404">4 comments</a></p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    
             <!--
                 <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
@@ -200,7 +155,8 @@
             document.getElementById('user').style.left = "100%";
             //document.getElementById('user').style.up = "100%";
             document.getElementById('user').style.color="#E5E4E2";
-            alert("This is a preview of what your feed would look like when you've gained a few friends!");
+                
+                alert("This is a preview of what your feed would look like when you've gained a few friends!");
             }
     
             // CHILD ADDED__________________________________________
@@ -213,7 +169,7 @@
                 //console.log("Previous Post ID: " + prevChildKey);
                     //console.log(newPost.url);
                 console.log(snapshotkey);
-                    $("#posts").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="../img/'+newPost.url+'"  style="display: block; object-fit:cover;"><div class="caption"><h6 class="pull-right">'+newPost.user+'<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6><h4 onclick="postFn(\''+snapshotkey+'\')"><a >'+newPost.title+'</a></h4><p>'+newPost.info+'<span onclick="postFn(\''+snapshotkey+'\')"><a ><font size="4">[...]</font></a></span></p></div><div class="ratings"><p class="pull-right" onclick="postFn(\''+snapshotkey+'\')"><a  style="color:#B40404">'+newPost.comments+' comments</a></p><p><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></p></div></div></div><br><br>'); console.log("___");
+                    $("#posts").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="../img/'+newPost.url+'"  style="display: block; object-fit:cover;"><div class="caption"><h6 class="pull-right">'+newPost.user+'<button type="button" class="btn btn-xs btn-info"><img src="../img/flag-icon.png" style="width:15px; height:15px"></button></h6><h4 onclick="postFn(\''+snapshotkey+'\')"><a >'+newPost.title+'</a></h4><p>'+newPost.info+'<span onclick="postFn(\''+snapshotkey+'\')"><a ><font size="4">[...]</font></a></span></p></div><div class="ratings"><p class="pull-right" onclick="postFn(\''+snapshotkey+'\')"><a  style="color:#B40404">'+newPost.comments+' comments</a></p><p><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></p></div></div></div>'); console.log("___");
             });
             
             // CHILD CHANGED__________________________________________
