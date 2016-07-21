@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Karmics - new task</title>
+    <title>Karmics - new goal</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -172,14 +172,14 @@
         document.getElementById("CommitBtn").disabled=true;
         //setInterval(Checking, 1000);
         function myFunction() { 
-                var url="https://karmics.firebaseio.com/tasks/.json";
+                var url="https://karmics.firebaseio.com/goals/.json";
                 
                 
                 // Get a database reference to our posts
                 var ref = new Firebase("https://karmics.firebaseio.com/");
 
                 //WRITING DATA WITH SET
-                var usersRef = ref.child("tasks");
+                var usersRef = ref.child("goals");
                 if(helpOfOthers=="yes"){
                     usersRef.push({
                             //document.getElementById("inputUsername").value
@@ -192,14 +192,14 @@
                             "user":user,
                             "help":helpOfOthers,
                             "helpDetails":helpDetails,
-                            "url":"concert.jpg"
+                            "url":"running.jpg"
 
                     }, function(error) {
                         if (error) {
                             console.log("Data could not be saved." + error);
                         } else {
                             console.log("Data saved successfully.");
-                            window.location.href = "../tasks.html?u="+user;
+                            window.location.href = "../goals.html?u="+user;
                         }
                     });
                 }
@@ -209,17 +209,19 @@
 
                             "title": document.getElementById("title").innerHTML,
                             "instructions": document.getElementById("instructions").innerHTML,
-                            "date": document.getElementById("date").value,
+                            "deadline": document.getElementById("date").value,
                             "completions":0,
+                            "comments":0,
+                            "user":user,
                             "help":helpOfOthers,
-                            "url":"../../img/concert.jpg"
+                            "url":"concert.jpg"
 
                     }, function(error) {
                         if (error) {
                             console.log("Data could not be saved." + error);
                         } else {
                             console.log("Data saved successfully.");
-                            window.location.href = "../tasks.html?u="+user;
+                            window.location.href = "../goals.html?u="+user;
                         }
                     });
                 }
