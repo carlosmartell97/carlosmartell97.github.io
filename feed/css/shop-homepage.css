@@ -30,8 +30,18 @@ body {
     white-space: nowrap;
 }
 
-.thumbnail img {
-    width: 100%;
+/*.thumbnail{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden
+}*/
+.thumbnail img{
+    flex-shrink:0;
+    min-width:100%;
+    min-height:100%
+    width:320px;
+    height:150px;
 }
 
 .ratings {
