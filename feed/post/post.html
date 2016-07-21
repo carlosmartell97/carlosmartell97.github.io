@@ -102,8 +102,8 @@
 
         <div class="row">
             <div class="col-sm-8">
-                <h2>Description:</h2>
-                <p id="description">Clear description of what is trying to be accomplished. What, how, where?</p>
+                <h2>My experience:</h2>
+                <p id="experience">Details of what was accomplished. What, how, where?</p>
             </div>
             <div class="col-sm-4">
                 <h2 id="user2"><a>My name</a></h2>
@@ -121,12 +121,12 @@
             <div class="col-sm-4" id="helpDetails">
                 <h2>I could use your help!</h2>
                 <p>Help details text here!</p>
-                <button id="CommitBtn" type="button" class="btn btn-lg btn-default" onclick="myFunction()" style="margin: 5px;">Help this person</button>
+                <button id="HelpBtn" type="button" class="btn btn-lg btn-default" onclick="HelpFn()" style="margin: 5px;">Help this person</button>
             </div>
             <div class="col-sm-4">
                 <h3>You want to commit to this too?</h3>
                 <p id="helpDetailsText"></p>
-                <button id="CommitBtn" type="button" class="btn btn-lg btn-default" onclick="myFunction()" style="margin: 5px;">COMMIT! &raquo;</button>
+                <button id="CommitBtn" type="button" class="btn btn-lg btn-default" onclick="CommitFn()" style="margin: 5px;">COMMIT! &raquo;</button>
             </div>
         </div>
           <div class="chat-panel panel panel-default">
@@ -268,7 +268,7 @@
     
         <script>
             var approveTitle=false;
-            var approveDescription=false;
+            var approveexperience=false;
             var approveDate=false;
             var helpOfOthers="no";
             var helpDetails="none";
@@ -307,8 +307,8 @@
                             if(key=="title"){
                                 document.getElementById('title').innerHTML = val;
                             }
-                            else if(key=="info"){
-                                document.getElementById('description').innerHTML = val;
+                            else if(key=="experience"){
+                                document.getElementById('experience').innerHTML = val;
                             }
                             else if(key=="date"){
                                 document.getElementById('date').innerHTML = val;
@@ -341,61 +341,16 @@
                 });
             });
             
-        function myFunction() { 
-                var url="https://karmics.firebaseio.com/tasks/.json";
-                
-                
-                // Get a database reference to our posts
-                var ref = new Firebase("https://karmics.firebaseio.com/");
-
-                //WRITING DATA WITH SET
-                var usersRef = ref.child("tasks");
-                if(helpOfOthers=="yes"){
-                    usersRef.push({
-                            //document.getElementById("inputUsername").value
-
-                            "title": document.getElementById("title").innerHTML,
-                            "description": document.getElementById("description").innerHTML,
-                            "date": document.getElementById("date").value,
-                            "completions":0,
-                            "help":helpOfOthers,
-                            "helpDetails":helpDetails,
-                            "url":"../../img/concert.jpg"
-
-                    }, function(error) {
-                        if (error) {
-                            console.log("Data could not be saved." + error);
-                        } else {
-                            console.log("Data saved successfully.");
-                            window.location.href = "../tasks.html?u="+user;
-                        }
-                    });
-                }
-                else if(helpOfOthers=="no"){
-                    usersRef.push({
-                            //document.getElementById("inputUsername").value
-
-                            "title": document.getElementById("title").innerHTML,
-                            "description": document.getElementById("description").innerHTML,
-                            "date": document.getElementById("date").value,
-                            "completions":0,
-                            "help":helpOfOthers,
-                            "url":"../../img/concert.jpg"
-
-                    }, function(error) {
-                        if (error) {
-                            console.log("Data could not be saved." + error);
-                        } else {
-                            console.log("Data saved successfully.");
-                            window.location.href = "../tasks.html?u="+user;
-                        }
-                    });
-                }
+        function CommitFn() { 
+                console.log("CommitFn()");
+            };
+        function HelpFn() { 
+                console.log("HelpFn()");
             };
         function Checking(){
               console.log("Checking...");
               
-                  if((approveTitle)&&(approveDescription)&&(approveDate))
+                  if((approveTitle)&&(approveexperience)&&(approveDate))
                     {
                         document.getElementById("CommitBtn").disabled=false;
                     
