@@ -85,8 +85,8 @@
 
         <div class="row">
             <div class="col-sm-8">
-                <h2>Description</h2>
-                <p id="description" contenteditable="true" style="border:1px; border-style:solid; border-color:#FF0000;" onkeyup="this.style.backgroundColor='green'; this.style.removeProperty('border'); approveDescription=true; Checking();" onclick='this.innerHTML = ""; this.onclick=null;' >Type here a clear description of what you're trying to accomplish. What, how, where?</p>
+                <h2>Instructions:</h2>
+                <p id="instructions" contenteditable="true" style="border:1px; border-style:solid; border-color:#FF0000;" onkeyup="this.style.backgroundColor='green'; this.style.removeProperty('border'); approveInstructions=true; Checking();" onclick='this.innerHTML = ""; this.onclick=null;' >Type here clear instructions/description of what you're trying to accomplish. What, how, where?</p>
             </div>
             <div class="col-sm-4">
                 <h2>Set a deadline</h2>
@@ -132,10 +132,11 @@
     
         <script>
             var approveTitle=false;
-            var approveDescription=false;
+            var approveInstructions=false;
             var approveDate=false;
             var helpOfOthers="no";
             var helpDetails="none";
+            var user;
             
             window.onload = function parseURL() {
                 document.getElementById('helpDetails').style.display = "none";
@@ -184,12 +185,14 @@
                             //document.getElementById("inputUsername").value
 
                             "title": document.getElementById("title").innerHTML,
-                            "description": document.getElementById("description").innerHTML,
-                            "date": document.getElementById("date").value,
+                            "instructions": document.getElementById("instructions").innerHTML,
+                            "deadline": document.getElementById("date").value,
                             "completions":0,
+                            "comments":0,
+                            "user":user,
                             "help":helpOfOthers,
                             "helpDetails":helpDetails,
-                            "url":"../../img/concert.jpg"
+                            "url":"concert.jpg"
 
                     }, function(error) {
                         if (error) {
@@ -205,7 +208,7 @@
                             //document.getElementById("inputUsername").value
 
                             "title": document.getElementById("title").innerHTML,
-                            "description": document.getElementById("description").innerHTML,
+                            "instructions": document.getElementById("instructions").innerHTML,
                             "date": document.getElementById("date").value,
                             "completions":0,
                             "help":helpOfOthers,
@@ -224,7 +227,7 @@
         function Checking(){
               console.log("Checking...");
               
-                  if((approveTitle)&&(approveDescription)&&(approveDate))
+                  if((approveTitle)&&(approveInstructions)&&(approveDate))
                     {
                         document.getElementById("CommitBtn").disabled=false;
                     
