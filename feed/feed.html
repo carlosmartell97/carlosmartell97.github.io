@@ -79,7 +79,7 @@
                 <p class="lead">What your friends have done.</p>
                 <div class="list-group">
                     <a onclick="feed()" class="list-group-item">Feed</a>
-                    <a onclick="MyTasks()" class="list-group-item">My tasks</a>
+                    <a onclick="MyGoals()" class="list-group-item">My goals</a>
                     <a class="list-group-item">Worldwide</a>
                 </div>
             </div>
@@ -186,8 +186,8 @@
                 console.log("CHILD_REMOVED"); console.log("The blog post titled '" + deletedPost.title + "' has been deleted by '" + deletedPost.user +"'"); console.log("___");
             });
     
-            var MyTasks = function(){
-                window.location.href ="tasks/tasks.html?u="+user;
+            var MyGoals = function(){
+                window.location.href ="goals/goals.html?u="+user;
             };
     
             var feed = function(){
