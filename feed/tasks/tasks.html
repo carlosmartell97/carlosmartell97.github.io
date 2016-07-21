@@ -74,17 +74,17 @@
                 <p id="userr" class="lead">What will you accomplish today, John?</p>
                 <div class="list-group">
                     <a onclick="feed()" class="list-group-item">Feed</a>
-                    <a onclick="MyTasks()" class="list-group-item">My tasks</a>
+                    <a onclick="MyGoals()" class="list-group-item">My goals</a>
                     <a href="" class="list-group-item">Worldwide</a>
                 </div>
             </div>
 
             <div class="col-md-9">
 
-                <div id="tasks" class="row">
+                <div id="goals" class="row">
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
-                        <img onclick="newTask()" src="../../img/add-icon.png" style="width:170px; height:170px">
+                        <img onclick="newGoal()" src="../../img/add-icon.png" style="width:170px; height:170px">
                     </div>
                     
                     
@@ -210,16 +210,16 @@
                     
                     // CHILD ADDED__________________________________________
             // Get a database reference to our posts
-            var ref = new Firebase("https://karmics.firebaseio.com/tasks/");
+            var ref = new Firebase("https://karmics.firebaseio.com/goals/");
                     
             // Retrieve new posts as they are added to our database
             ref.on("child_added", function(snapshot, prevChildKey) {
-                var newTask = snapshot.val();
-                url=newTask.url; deadline=newTask.deadline; title=newTask.title; instructions=newTask.instructions; completions=newTask.completions;
+                var newGoal = snapshot.val();
+                url=newGoal.url; deadline=newGoal.deadline; title=newGoal.title; instructions=newGoal.instructions; completions=newGoal.completions;
                 
                 
-                console.log("CHILD_ADDED"); /*console.log("avh1: " + newTask.achievement1); console.log("ach2: " + newTask.achievement2); console.log("ach3: " + newTask.achievement3); console.log("comp: " + newTask.completions); console.log("deadline: " + newTask.deadline); console.log("desc: " + newTask.instructions);*/ console.log("title: " + newTask.title); 
-                //console.log(newTask.url);
+                console.log("CHILD_ADDED"); /*console.log("avh1: " + newGoal.achievement1); console.log("ach2: " + newGoal.achievement2); console.log("ach3: " + newGoal.achievement3); console.log("comp: " + newGoal.completions); console.log("deadline: " + newGoal.deadline); console.log("desc: " + newGoal.instructions);*/ console.log("title: " + newGoal.title); 
+                //console.log(newGoal.url);
                 console.log("Previous Post ID: " + prevChildKey);
                     
                         //var div = document.createElement('div'); div.id = "postDiv";
@@ -228,7 +228,7 @@
                         //place.appendChild(div);
                         //document.body.appendChild(div);  
                 //console.log("0000: "+title); console.log("11: "+deadline);
-                $("#tasks").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="../../img/'+newTask.url+'" alt=""><div class="caption"><h4 class="pull-right">'+newTask.deadline+'</h4><h4><a href="">'+newTask.title+'</a></h4><p>'+newTask.instructions+'<a href=""><font size="4">[...]</font></a></p></div><div class="ratings"><p class="pull-right"><a href="" style="color:#0B610B">'+newTask.completions+' completions</a></p><p><button type="button" class="btn btn-default" onclick="myFunction(url,deadline,title,instructions,completions)">Complete</button></p></div></div></div>'); console.log("_____");
+                $("#goals").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="../../img/'+newGoal.url+'" alt=""><div class="caption"><h4 class="pull-right">'+newGoal.deadline+'</h4><h4><a href="">'+newGoal.title+'</a></h4><p>'+newGoal.instructions+'<a href=""><font size="4">[...]</font></a></p></div><div class="ratings"><p class="pull-right"><a href="" style="color:#0B610B">'+newGoal.completions+' completions</a></p><p><button type="button" class="btn btn-default" onclick="myFunction(url,deadline,title,instructions,completions)">Complete</button></p></div></div></div>'); console.log("_____");
             });
             
             // CHILD CHANGED__________________________________________
@@ -245,12 +245,12 @@
                 console.log("CHILD_REMOVED"); console.log("The blog post titled '" + deletedPost.title + "' has been deleted by '" + deletedPost.user +"'"); console.log("___");
             });
                     
-            var newTask = function(){
-                window.location.href ="new-task/new-task.html?u="+user;
+            var newGoal = function(){
+                window.location.href ="new-goal/new-goal.html?u="+user;
             }
             
-            var MyTasks = function(){
-                window.location.href ="tasks.html?u="+user;
+            var MyGoals = function(){
+                window.location.href ="goals.html?u="+user;
             };
     
             var feed = function(){
