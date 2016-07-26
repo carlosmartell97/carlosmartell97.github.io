@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+        <!-- Chrome, Firefox OS, Opera and Vivaldi -->
+        <meta name="theme-color" content="#337AB7">
+        <!-- Windows Phone -->
+        <meta name="msapplication-navbutton-color" content="#337AB7">
+        <!-- iOS Safari -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="#337AB7">
+
+    <title>Karmics</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="feed/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="feed/css/shop-homepage.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <!-- Firebase -->
+  <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" >Home</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a >Chat</a>
+                    </li>
+                    <li>
+                        <a onclick="MyProfile()">My Profile</a>
+                    </li>
+                    <li>
+                        <a >Settings</a>
+                    </li>
+                    <li id="user">
+                         <div></div>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <p class="lead">What your friends have done.</p>
+                <div class="list-group">
+                    <a onclick="feed()" class="list-group-item">Feed</a>
+                    <a onclick="MyGoals()" class="list-group-item">My goals</a>
+                    <a class="list-group-item">Worldwide</a>
+                </div>
+            </div>
+            <div class="col-md-9">
+
+                <div class="row carousel-holder">
+
+                    <div class="col-md-12">
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                            </ol>
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <a href=""><img class="slide-image" src="img/carrousel1.jpg" alt=""></a>
+                                </div>
+                                <div class="item">
+                                    <a href=""><img class="slide-image" src="img/carrousel2.jpg" alt=""></a>
+                                </div>
+                                <div class="item">
+                                    <a href=""><img class="slide-image" src="img/carrousel3.jpg" alt=""></a>
+                                </div>
+                            </div>
+                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                            </a>
+                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+                <span id="posts">
+            <!--
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="img/you.jpg" alt="">
+                            <div class="caption">
+                                <h6 class="pull-right">AlexSms<button type="button" class="btn btn-xs btn-info"><img src="img/flag-icon.png" style="width:15px; height:15px"></button></h6>
+                                <h4><a >Travel as light as<br>possible</a>
+                                </h4>
+                                <p>One backpack was more than enough. 2 fun weeks around the East Coast! <a ><font size="4">[...]</font></a></p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right"><a  style="color:#B40404">15 comments</a></p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+            -->
+    </span>
+    </div>
+<script>
+            var user; var snapshotkey="";
+            window.onload = function parseURL() {
+                var url = document.location.href;
+                var urlP = url.replace(/#^\?/, '').split('&');
+                for( i = 0; i < urlP.length; i++ ) {
+                    split = urlP[i].split('=');
+                    window.user=split[1];
+                }
+            document.getElementById('user').innerHTML = "Hi, "+user;
+            document.getElementById('user').style.fontSize = "x-large";
+            document.getElementById('user').style.left = "100%";
+            //document.getElementById('user').style.up = "100%";
+            document.getElementById('user').style.color="#E5E4E2";
+                
+                alert("This is a preview of what your feed would look like when you've gained a few friends!");
+            }
+    
+            // CHILD ADDED__________________________________________
+            var ref = new Firebase("https://karmics.firebaseio.com/posts/");
+            // Retrieve new posts as they are added to our database
+            ref.on("child_added", function(snapshot, prevChildKey) {
+                var newPost = snapshot.val(); window.snapshotkey = snapshot.key();
+                //console.log("CHILD_ADDED"); console.log("User: " + newPost.user); 
+                console.log("Title: " + newPost.title); //console.log("Info: " + newPost.info);
+                //console.log("Previous Post ID: " + prevChildKey);
+                    //console.log(newPost.url);
+                console.log(snapshotkey);
+                    $("#posts").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="img/'+newPost.url+'"  style="display: block; object-fit:cover;"><div class="caption"><h6 class="pull-right">'+newPost.user+'<button type="button" class="btn btn-xs btn-info"><img src="img/flag-icon.png" style="width:15px; height:15px"></button></h6><h4 onclick="postFn(\''+snapshotkey+'\')"><a >'+newPost.title+'</a></h4><p>'+newPost.experience+'<span onclick="postFn(\''+snapshotkey+'\')"><a ><font size="4">[...]</font></a></span></p></div><div class="ratings"><p class="pull-right" onclick="postFn(\''+snapshotkey+'\')"><a  style="color:#B40404">'+newPost.comments+' comments</a></p><p><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></p></div></div></div>'); console.log("___");
+            });
+            
+            // CHILD CHANGED__________________________________________
+            // Get the data on a post that has changed
+            ref.on("child_changed", function(snapshot) {
+                var changedPost = snapshot.val();
+                console.log("CHILD_CHANGED"); console.log("The updated post user is '" + changedPost.user+"'"); console.log("The updated post title is " + changedPost.title); console.log("___");
+            });
+            
+            // CHILD REMOVED_________________________________________
+            // Get the data on a post that has been removed
+            ref.on("child_removed", function(snapshot) {
+                var deletedPost = snapshot.val();
+                console.log("CHILD_REMOVED"); console.log("The blog post titled '" + deletedPost.title + "' has been deleted by '" + deletedPost.user +"'"); console.log("___");
+            });
+    
+            var MyGoals = function(){
+                window.location.href ="goals.html?u="+user;
+            };
+    
+            var feed = function(){
+                window.location.href ="feed.html?u="+user; 
+            };
+    
+            var MyProfile = function(){
+                window.location.href ="profile.html?u="+user; 
+            };
+    
+            function postFn(key){
+                console.log(key);
+                window.location.href ="post.html?u="+user+"&p="+key;
+            };
+            
+            //var div = document.createElement('div');
+            //document.body.appendChild(div);
+            //div.innerHTML = '<span class="msg">Hello world.</span>';
+</script>
+            
+            
+                    
+                <!--
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="img/cake.jpg" alt="">
+                            <div class="caption">
+                                <h6 class="pull-right">Sarah_hart88</h6>
+                                <h4><a >Cook your<br>neighbor something</a>
+                                </h4>
+                                <p>I loved this. I now have a friend living right next to me! <a ><font size="4">[...]</font></a></p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right"><a  style="color:#B40404">15 comments</a></p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="img/cake.jpg" alt="">
+                            <div class="caption">
+                                <h6 class="pull-right">Sarah_hart88</h6>
+                                <h4><a >Cook your<br>neighbor something</a>
+                                </h4>
+                                <p>I loved this. I now have a friend living right next to me! <a ><font size="4">[...]</font></a></p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right"><a  style="color:#B40404">15 comments</a></p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="img/cake.jpg" alt="">
+                            <div class="caption">
+                                <h6 class="pull-right">Sarah_hart88</h6>
+                                <h4><a >Cook your<br>neighbor something</a>
+                                </h4>
+                                <p>I loved this. I now have a friend living right next to me! <a ><font size="4">[...]</font></a></p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right"><a  style="color:#B40404">15 comments</a></p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="img/cake.jpg" alt="">
+                            <div class="caption">
+                                <h6 class="pull-right">Sarah_hart88</h6>
+                                <h4><a >Cook your<br>neighbor something</a>
+                                </h4>
+                                <p>I loved this. I now have a friend living right next to me! <a ><font size="4">[...]</font></a></p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right"><a  style="color:#B40404">15 comments</a></p>
+                                <p>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+-->
+            </div>
+
+        </div>
+
+    
+    <!-- /.container -->
+
+    <div class="container">
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

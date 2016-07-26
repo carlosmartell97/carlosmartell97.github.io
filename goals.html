@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Karmics</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="feed/goals/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="feed/goals/css/shop-homepage.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Firebase -->
+  <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a onclick="Home()" class="navbar-brand">Home</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="">Chat</a>
+                    </li>
+                    <li>
+                        <a onclick="MyProfile()">My Profile</a>
+                    </li>
+                    <li>
+                        <a href="">Settings</a>
+                    </li>
+                    <li id="user">
+                         <div></div>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-md-3">
+                <p id="userr" class="lead">What will you accomplish today, John?</p>
+                <div class="list-group">
+                    <a onclick="feed()" class="list-group-item">Feed</a>
+                    <a onclick="MyGoals()" class="list-group-item">My goals</a>
+                    <a href="" class="list-group-item">Worldwide</a>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+
+                <div id="goals" class="row">
+
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <img onclick="newGoal()" src="img/add-icon.png" style="width:170px; height:170px">
+                    </div>
+                    
+                    
+                
+                <script>
+                    var user;
+                    var snapshotkey="";
+                    window.onload = function parseURL() {
+                var url = document.location.href;
+                var urlP = url.replace(/#^\?/, '').split('&');
+                for( i = 0; i < urlP.length; i++ ) {
+                    split = urlP[i].split('=');
+                    window.user=split[1];
+                }
+            document.getElementById('user').innerHTML = user;
+            document.getElementById('user').style.fontSize = "x-large";
+            document.getElementById('user').style.left = "100%";
+            //document.getElementById('user').style.up = "100%";
+            document.getElementById('user').style.color="#E5E4E2";
+                        
+                        var urlinicial = new Firebase("https://karmics.firebaseio.com/users");
+                        var ObtenerSnapshotkey=urlinicial.orderByChild("username").equalTo(user).on("child_added", function(snapshot) {
+                                            window.snapshotkey = snapshot.key(); 
+                                            });
+            }
+                console.log(snapshotkey);    
+                    var url=""; var deadline=""; var title=""; var instructions=""; var completions=0;
+                    function myFunction(url,deadline,title,instructions,completions){
+                        // Get a database reference to our posts
+                        var ref = new Firebase("https://karmics.firebaseio.com/");
+
+                        //WRITING DATA WITH SET
+                        var usersRef = ref.child("posts");
+                        /*
+                        usersRef.push({
+                                //document.getElementById("inputUsername").value
+
+                                "title": title,
+                                "instructions": instructions,
+                                "deadline": deadline,
+                                "user":"test-user",
+                                "completions":completions,
+                                "url":"img/mytrip.jpg",
+                                "comments":8
+
+                        }, function(error) {
+                            if (error) {
+                                console.log("Data could not be saved." + error);
+                            } else {
+                                console.log("Data saved successfully.");
+                            }
+                        });
+                        */
+                            console.log("loading profile...");
+                            var url="https://karmics.firebaseio.com/users/.json";
+                            $.getJSON( url, function( data ) {
+                                x=1; y=1;
+                                $.each(data,function(key,val){
+                                    ///////////////// USERNAME
+                                    if(x==1){
+                                        if(val.username==user){ 
+                                            console.log("username encontrado");
+                                            
+                                            // Get a database reference to our posts
+                                            var usersRef = new Firebase("https://karmics.firebaseio.com/users");
+                                            console.log(snapshotkey);console.log("5555555555555555");
+                                            var usersRef = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey);
+                                            var date = new Date();var m_names = ['January', 'February', 'March', 
+                                            'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                            var month = m_names[date.getMonth()]; var year = date.getFullYear();
+                                            var fulldate=month+"-"+year;
+                                            
+                                           
+                                            var usersRef = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey+"/activity");
+                                            var objToWrite = new Object();
+                                            //var fulldate="August-2017";
+                                            objToWrite[fulldate] = new Object();
+                                            usersRef.once("value", function(snapshot) {
+                                                
+                                                if(snapshot.hasChild(fulldate)){
+                                                    console.log("has child true");
+                                                    var actKarmics=val.activity[fulldate].karmics+300;
+                                                    var actCompletions=val.activity[fulldate].completions+500;
+                                                    objToWrite[fulldate].karmics=actKarmics;
+                                                    objToWrite[fulldate].completions=actCompletions;
+                                                    objToWrite[fulldate].awards=val.activity[fulldate].awards;
+                                                    objToWrite[fulldate].sustainability=val.activity[fulldate].sustainability;
+                                                    usersRef.update(objToWrite,function(error) {
+                                                        if (error) {
+                                                            console.log("Data could not be saved." + error);
+                                                        } else {
+                                                            console.log("Data saved successfully.");
+                                                            window.location.href ="../profile/profile.html?u="+user; 
+                                                        }
+                                                    });
+                                                }
+                                                else{
+                                                    
+                                                    console.log("has child FALSE");
+                                                    var objToWrite2 = new Object();
+                                                    objToWrite2[fulldate] = new Object();
+                                                    objToWrite2[fulldate].karmics=500;
+                                                    objToWrite2[fulldate].completions=0;
+                                                    objToWrite2[fulldate].awards=0;
+                                                    objToWrite2[fulldate].sustainability=0;
+                                                    usersRef.update(objToWrite2,function(error) {
+                                                        if (error) {
+                                                            console.log("Data could not be saved." + error);
+                                                        } else {
+                                                            console.log("Data saved successfully.");
+                                                            window.location.href ="../profile/profile.html?u="+user; 
+                                                        }
+                                                    });
+                                                    
+                                                }
+                                            });
+                                            x=0;
+                                        }
+                                    }
+                                });
+                            });
+                    };
+                    
+                    // CHILD ADDED__________________________________________
+            // Get a database reference to our posts
+            var ref = new Firebase("https://karmics.firebaseio.com/goals/");
+                    
+            // Retrieve new posts as they are added to our database
+            ref.on("child_added", function(snapshot, prevChildKey) {
+                var newGoal = snapshot.val();
+                url=newGoal.url; deadline=newGoal.deadline; title=newGoal.title; instructions=newGoal.instructions; completions=newGoal.completions;
+                
+                
+                console.log("CHILD_ADDED"); /*console.log("avh1: " + newGoal.achievement1); console.log("ach2: " + newGoal.achievement2); console.log("ach3: " + newGoal.achievement3); console.log("comp: " + newGoal.completions); console.log("deadline: " + newGoal.deadline); console.log("desc: " + newGoal.instructions);*/ console.log("title: " + newGoal.title); 
+                //console.log(newGoal.url);
+                console.log("Previous Post ID: " + prevChildKey);
+                    
+                        //var div = document.createElement('div'); div.id = "postDiv";
+                        //var place = document.getElementById('posts');
+                        //div.innerHTML = '<div>New usrname: '+newPost.user+'</div><br><br>';
+                        //place.appendChild(div);
+                        //document.body.appendChild(div);  
+                //console.log("0000: "+title); console.log("11: "+deadline);
+                $("#goals").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="img/'+newGoal.url+'" alt=""><div class="caption"><h4 class="pull-right">'+newGoal.deadline+'</h4><h4><a href="">'+newGoal.title+'</a></h4><p>'+newGoal.instructions+'<a href=""><font size="4">[...]</font></a></p></div><div class="ratings"><p class="pull-right"><a href="" style="color:#0B610B">'+newGoal.completions+' completions</a></p><p><button type="button" class="btn btn-default" onclick="myFunction(url,deadline,title,instructions,completions)">Complete</button></p></div></div></div>'); console.log("_____");
+            });
+            
+            // CHILD CHANGED__________________________________________
+            // Get the data on a post that has changed
+            ref.on("child_changed", function(snapshot) {
+                var changedPost = snapshot.val();
+                console.log("CHILD_CHANGED"); console.log("The updated post user is '" + changedPost.user+"'"); console.log("The updated post title is " + changedPost.title); console.log("___");
+            });
+            
+            // CHILD REMOVED_________________________________________
+            // Get the data on a post that has been removed
+            ref.on("child_removed", function(snapshot) {
+                var deletedPost = snapshot.val();
+                console.log("CHILD_REMOVED"); console.log("The blog post titled '" + deletedPost.title + "' has been deleted by '" + deletedPost.user +"'"); console.log("___");
+            });
+                    
+            var newGoal = function(){
+                window.location.href ="new-goal.html?u="+user;
+            }
+            
+            var MyGoals = function(){
+                window.location.href ="goals.html?u="+user;
+            };
+    
+            var feed = function(){
+                window.location.href ="feed.html?u="+user; 
+            };
+            
+            var MyProfile = function(){
+                window.location.href ="profile.html?u="+user; 
+            };
+                    
+            var Home = function(){
+                window.location.href ="feed.html?u="+user; 
+            };
+                </script>
+                
+                </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    
+    <!-- /.container -->
+
+    <div class="container">
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- <link rel="icon" href="../../favicon.ico"> -->
+
+    <title>Karmics - Sign Up</title>
+
+   <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">    
+      
+      <!-- Bootstrap core CSS -->
+    <!-- <link href="../bootstrap-3.3.6/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+    <!-- Custom styles for this template -->
+    <link href="sign-up/signin.css" rel="stylesheet">
+      
+      <!-- Custom CSS -->
+    <!-- <link href="css/landing-page.css" rel="stylesheet"> -->
+
+    <!-- Custom Fonts -->
+    <!-- <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <!--  <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <form class="form-signin">
+        <h2 class="form-signin-heading">Please sign up</h2>
+        <h6 class="form-signin-heading">Already have an account? <a href="log-in.html">Login</a></h6>
+        <input type="email" id="inputEmail" class="form-control" placeholder="email" onkeyup="Change()" required autofocus>
+        <input type="text" id="inputUsername" class="form-control" placeholder="username" onkeyup="Change()" required>
+        <input type="password" id="inputPassword1" class="form-control" placeholder="password" onkeyup="Checking(Change())" required>
+          <input type="password" id="inputPassword2" class="form-control" placeholder="password again" onkeyup="Change()" required>
+        
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div>
+          <!-- realmente el href de abajo debería de ser este: feed.html -->
+    <button id="SignUpBtn" type="button" class="btn btn-lg btn-default" onclick="myFunction()">Sign up</button>
+          <!-- realmente el href de arriba debería de ser este: feed.html -->
+      </form>
+
+    </div> <!-- /container -->
+      
+      <script>
+          var snapshotkey="";
+          document.getElementById("SignUpBtn").disabled=true;
+          //document.getElementById("inputUsername").addEventListener("keydown", Change);
+          //document.getElementById("inputEmail").addEventListener("keydown", Change);
+          //document.getElementById("inputPassword1").addEventListener("keydown", Change);
+          //document.getElementById("inputPassword2").addEventListener("keydown", Change);
+          var errorUsername=false;  var errorUsername2=false;
+          var errorEmail=false;     var errorEmail2 = false;
+          var errorPassword=false;  var errorPassword2 = false;
+          var x=1; var y=1;
+          //window.setTimeout("Checking();", 200);
+          //setInterval(Checking, 10);
+            function myFunction() {
+                var url="https://karmics.firebaseio.com/users/.json";
+                
+                
+                // Get a database reference to our posts
+                var ref = new Firebase("https://karmics.firebaseio.com/");
+
+                //WRITING DATA WITH SET
+                var usersRef = ref.child("users");
+                    var username=document.getElementById("inputEmail").value;
+                usersRef.push({
+                        //document.getElementById("inputUsername").value
+                        
+                        "email": document.getElementById("inputEmail").value, "username":document.getElementById("inputUsername").value,
+                        "password": document.getElementById("inputPassword1").value,
+                        "friends":{"1":"no one"},
+                        "karmics":0,
+                        "completions":0,
+                        "awards":0,
+                        "sustainability":0,
+                        "mind":1,
+                        "body":1,
+                        "spirit":1
+                    
+                }, function(error) {
+                    if (error) {
+                        console.log("Data could not be saved." + error);
+                    } else {
+                        console.log("Data saved successfully.");
+                        
+                        
+                        
+                        
+                        ////////////////////////////////////
+                            var url="https://karmics.firebaseio.com/users/.json";
+                            $.getJSON( url, function( data ) {
+                                x=1; y=1;
+                                $.each(data,function(key,val){
+                                    ///////////////// USERNAME
+                                    if(x==1){
+                                        if(val.username==document.getElementById("inputUsername").value){
+                                            console.log("username encontrado");
+                                            
+                                            // Get a database reference to our posts
+                                            var usersRef = new Firebase("https://karmics.firebaseio.com/users");
+                                            var urlquery=usersRef.orderByChild("username").equalTo(document.getElementById("inputUsername").value).on("child_added", function(snapshot) {
+                                                window.snapshotkey = snapshot.key(); console.log(snapshotkey);
+                                                
+                                            var usersRef = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey);
+                                            var date = new Date();var m_names = ['January', 'February', 'March', 
+                                            'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                            var month = m_names[date.getMonth()]; var year = date.getFullYear();
+                                            var fulldate=month+"-"+year;
+                                           
+                                            var objToWrite = new Object();
+                                            objToWrite.activity = {};
+                                            objToWrite.activity["0"] = new Object();
+                                            //usersRef.update(objToWrite);
+                                            objToWrite.activity["0"].karmics=0;
+                                            objToWrite.activity["0"].completions=0;
+                                            objToWrite.activity["0"].awards=0;
+                                            objToWrite.activity["0"].sustainability=0;
+                                            usersRef.update(objToWrite,function(error) {
+                                                if (error) {
+                                                    console.log("Data could not be saved." + error);
+                                                } else {
+                                                    console.log("Data saved successfully.");
+                                                    window.location.href = "feed.html?u="+document.getElementById("inputUsername").value;
+                                                }
+                                            });
+                                            });
+                                            x=0;
+                                        }
+                                    }
+                                });
+                            });
+                        
+                        ////////////////////////////////////
+                        
+                    }
+                });
+                        console.log("email: "+document.getElementById("inputEmail").value);
+                        console.log("pass: "+document.getElementById("inputPassword1").value);
+                        
+                
+            };
+          
+          function Change(){
+              console.log("change");
+              console.log("text: "+document.getElementById("inputUsername").value);
+                var url="https://karmics.firebaseio.com/users/.json";
+            $.getJSON( url, function( data ) {
+                x=1;
+                y=1;
+                $.each(data,function(key,val){
+                    ///////////////// USERNAME
+                    if(x==1){
+                        if(val.username==document.getElementById("inputUsername").value){
+                            console.log("coincidenciaUsername");
+                            //errorUsername=true; 
+                            errorUsername2=true;
+                            document.getElementById("inputUsername").style.backgroundColor="#F75D59";
+                                //errorUsername=false;
+                            x=0;
+                        }
+                        else{
+                            errorUsername2=false;
+                            document.getElementById("inputUsername").style.backgroundColor="white";
+                        }
+                    }
+                    /////////////////// PASSWORD
+                    if(document.getElementById("inputPassword1").value!=document.getElementById("inputPassword2").value){
+                        //console.log("errorPassword");
+                        
+                        errorPassword=true; errorPassword2=true;
+                        document.getElementById("inputPassword1").style.backgroundColor="#F75D59";
+                        document.getElementById("inputPassword2").style.backgroundColor="#F75D59";
+                    }
+                    else{
+                        errorPassword2=false;
+                        if(!errorPassword){
+                            document.getElementById("inputPassword1").style.backgroundColor="white";
+                            document.getElementById("inputPassword2").style.backgroundColor="white";
+                        }
+                        errorPassword=false;
+                    }
+                    
+                    ///////////////// EMAIL
+                    if(y==1){
+                        if(val.email==document.getElementById("inputEmail").value){
+                            console.log("coincidenciaEmail");
+                            errorEmail=true; errorEmail2=true;
+                            document.getElementById("inputEmail").style.backgroundColor="#F75D59";
+                            errorEmail=false; 
+                            y=0;
+                        }
+                        else{
+                            errorEmail2=false;
+                            document.getElementById("inputEmail").style.backgroundColor="white";
+                        }
+                    }
+                });
+                /*if(errorEmail){
+                    document.getElementById("inputEmail").style.backgroundColor="#F75D59";
+                    errorEmail=false;
+                }
+                else{
+                    document.getElementById("inputEmail").style.backgroundColor="white";
+                }*/
+                
+                
+                console.log(errorEmail2); 
+                Checking();
+            });
+               
+             console.log("------"); 
+              
+              
+              
+          };
+          function Checking(){
+              //Change();
+              console.log("Checking...");
+              //console.log("###");
+              //console.log("email: "+errorEmail); console.log("username: "+errorUsername); 
+              console.log("email: "+errorEmail2);
+              //console.log("###");
+              
+              if((!(errorPassword2) && !(errorUsername2) && !(errorEmail2))&&((document.getElementById("inputEmail").value!="")&&(document.getElementById("inputUsername").value!="")&&(document.getElementById("inputPassword1").value!="")&&(document.getElementById("inputPassword2").value!=""))){ 
+                    
+                        document.getElementById("SignUpBtn").disabled=false;
+                    
+              }else{
+                        document.getElementById("SignUpBtn").disabled=true;
+                    }
+          };
+        </script>
+        
+        <script src="../js/jquery.js"></script>
+  </body>
+</html>
