@@ -21,6 +21,7 @@
     <link rel="stylesheet"href="feed/profile/css/chartist.min.css">
     <script src="feed/profile/js/chartist.min.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Oxygen:300' rel='stylesheet' type='text/css'>
+    <link href="feed/profile/css/shop-homepage.css" rel="stylesheet">
     <!-- Firebase -->
   <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
 
@@ -47,7 +48,7 @@
                         
                         // CHILD CHANGED__________________________________________
                         // Get the data on a post that has changed
-                        var ref = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey);console.log("https://karmics.firebaseio.com/users/"+snapshotkey);
+                        var ref = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey);
                         ref.on("child_changed", function(snapshot) {
                             var changedPost = snapshot.val();
                             console.log("CHILD_CHANGED"); refresh();
@@ -155,6 +156,7 @@
                                         document.getElementById('completions').innerHTML = completions;
                                         document.getElementById('awards').innerHTML = awards;
                                         document.getElementById('sustainability').innerHTML = sustainability;
+                                        document.getElementById("profilePicture").src="img/"+val.profilePicture;
 
                                     //PREFERRED CATEGORIES
                                     var data = {
@@ -250,7 +252,9 @@
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav">
-                    <img src="img/profile_250x250.jpg" class="img-circle"/>
+                    <div class="thumbnail">
+                        <img id="profilePicture" src="img/profile_250x250.jpg" class="img-circle" style="display: block; object-fit:cover;"/>
+                    </div>
                     <p>Some description here</p>
                 </div>
                 <!-- /.sidebar-collapse -->
