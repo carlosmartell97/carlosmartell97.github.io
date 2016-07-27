@@ -78,9 +78,9 @@
             var Home = function(){
                 window.location.href ="feed.html?u="+user; 
             };
-            var update = function(){
+            /*var update = function(){
                 lineChart.update({
-                                        labels: ["one","August-2017","July-2016"],
+                                        labels: ["one","two","three"],
                                         series: [[0,1,5000],[0,2,6000],[0,3,7000],[0,4,8000]]
                                         
                                         //"August-2017":5000
@@ -90,7 +90,7 @@
                                         showPoint: false
                                         },true);console.log("YA");
             refresh();
-            };
+            };*/
             var refresh = function(){
                 var url="https://karmics.firebaseio.com/users/.json";
                     $.getJSON( url, function( data ) {
@@ -251,7 +251,7 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav">
                     <img src="img/profile_250x250.jpg" class="img-circle"/>
-                    <p>Some description here<button onclick="update();">click</button></p>
+                    <p>Some description here</p>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
