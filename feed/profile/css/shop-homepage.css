@@ -1,0 +1,16 @@
+
+.thumbnail img{
+    flex-shrink:0;
+    min-width:100%;
+    min-height:100%
+    width:250px;
+    height:250px;
+}
+
+
+
+.thumbnail {
+    padding: 0;
+    background-color: #F8F8F8;
+    border: none
+}
