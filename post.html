@@ -15,7 +15,7 @@
         <!-- iOS Safari -->
         <meta name="apple-mobile-web-app-status-bar-style" content="#337AB7">
 
-    <title>Karmics - goal</title>
+    <title>Karmics - post</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="feed/post/css/bootstrap.min.css" rel="stylesheet">
@@ -117,9 +117,8 @@
 
         <div class="row">
             <div class="col-sm-4" id="helpDetails">
-                <h2>I could use your help!</h2>
-                <p>Help details text here!</p>
-                <button id="HelpBtn" type="button" class="btn btn-lg btn-default" onclick="HelpFn()" style="margin: 5px;">Help this person</button>
+                <h2>I had some help to do this:</h2>
+                <p id="helpers"></p>
             </div>
             <div class="col-sm-4">
                 <h3>You want to commit to this too?</h3>
@@ -271,7 +270,7 @@
             var helpOfOthers="no";
             var helpDetails="none";
             
-            var user; var snapshotkey; var completions;
+            var user; var snapshotkey; var completions; var helpers;
             var user2; var user2Found=false;
             
              $(document).ready(function() {
@@ -294,6 +293,7 @@
             document.getElementById('user').style.left = "100%";
             //document.getElementById('user').style.up = "100%";
             document.getElementById('user').style.color="#E5E4E2";
+            document.getElementById('helpDetails').style.display = "none";
             });
         
             $(window).load(function() {
@@ -321,6 +321,12 @@
                             else if(key=="completions"){
                                     window.completions=val;
                                 }
+                            else if(key=="helpers"){
+                                    window.helpers=val;
+                                    if(val>0){
+                                        document.getElementById('helpDetails').style.display = "block";
+                                    }
+                                }
                             else if(key=="url"){
                                 //$('business-header').css('background', 'url(http://placehold.it/1920x200)');
                                 //$('business-header').css('background', '"img/cake.jpg"');
@@ -333,14 +339,15 @@
                                 console.log("YA");
                             }
                             if(user2Found){
-                                    document.getElementById('helpDetailsText').innerHTML = "Join <a>"+user2+"</a> and <a>"+completions+" others</a>!"
+                                    document.getElementById('helpDetailsText').innerHTML = "Join <a>"+user2+"</a> and <a>"+completions+" others</a>!";
+                                    document.getElementById('helpers').innerHTML = "<a>"+helpers+" people</a> helped <a>"+user+"</a>!";
                             }
                         });
                 });
             });
             
         function CommitFn() { 
-                console.log("CommitFn()");
+                window.location.href ="new-goal.html?u="+user+"&p="+snapshotkey; 
             };
         function HelpFn() { 
                 console.log("HelpFn()");
