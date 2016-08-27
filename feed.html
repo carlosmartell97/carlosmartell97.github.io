@@ -162,7 +162,7 @@
             // CHILD ADDED__________________________________________
             var ref = new Firebase("https://karmics.firebaseio.com/posts/");
             // Retrieve new posts as they are added to our database
-            ref.on("child_added", function(snapshot, prevChildKey) {
+            ref.orderByChild("status").equalTo("post").on("child_added", function(snapshot, prevChildKey) {
                 var newPost = snapshot.val(); window.snapshotkey = snapshot.key();
                 //console.log("CHILD_ADDED"); console.log("User: " + newPost.user); 
                 console.log("Title: " + newPost.title); //console.log("Info: " + newPost.info);
