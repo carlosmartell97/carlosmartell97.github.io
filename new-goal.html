@@ -261,14 +261,14 @@
                 });
             });
         function myFunction() { 
-                var url="https://karmics.firebaseio.com/goals/.json";
+                var url="https://karmics.firebaseio.com/posts/.json";
                 
                 
                 // Get a database reference to our posts
                 var ref = new Firebase("https://karmics.firebaseio.com/");
 
                 //WRITING DATA WITH SET
-                var usersRef = ref.child("goals");
+                var usersRef = ref.child("posts");
                 if(helpOfOthers=="yes"){
                     usersRef.push({
                             //document.getElementById("inputUsername").value
