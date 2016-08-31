@@ -26,7 +26,9 @@
     
     
     <link rel="stylesheet" href="feed/goals/new-goal/js/jquery-ui/jquery-ui.css">
+<!-- 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+-->
     <!-- jQuery -->
     <script src="feed/goals/new-goal/js/jquery.js"></script>
 
@@ -136,13 +138,22 @@
             var approveDate=false;
             var helpOfOthers="no";
             var helpDetails="none";
+            var snapshotkey;
             var user; var user2; var user2Found; var referencePost=false;
             
             $(document).ready(function() {
+                console.log("READY");
+                
+                
                 document.getElementById('helpDetails').style.display = "none";
                 var url = document.location.href;
+                
                 var urlP = url.replace(/#^\?/, '').split('&');
-                    splitBefore = urlP.toString().split('?');
+                console.log("urlP");console.log(urlP);
+                
+                splitBefore = urlP.toString().split('?');
+                console.log("spliB");console.log(splitBefore);
+                    
                     splitMany = splitBefore.toString().split(',');
                     for(var i=1;i<splitMany.length;i++){
                         split = splitMany[i].toString().split('=');
@@ -178,6 +189,10 @@
                             //helpDetailsText, date, instructions, title
                         }
                     }
+                var usersFind = new Firebase("https://karmics.firebaseio.com/users");
+                    var urlquery=usersFind.orderByChild("username").equalTo(user).on("child_added", function(snapshot) {
+                        window.snapshotkey = snapshot.key();  console.log(snapshotkey);
+                });
             document.getElementById('user').innerHTML = user;
             document.getElementById('user').style.fontSize = "x-large";
             document.getElementById('user').style.left = "100%";
@@ -196,6 +211,7 @@
                     }
                     console.log(helpOfOthers);
                 });
+            
                 
             //document.getElementById("business-header").style.background='http://placehold.it/300x300';
             //$("business-header").css({"background":"url('http://placehold.it/1920x400') center center no-repeat scroll"});console.log("YA");
@@ -204,7 +220,8 @@
         
         //setInterval(Checking, 1000);
             $(window).load(function() {
-                    //console.log(snapshotkey); 
+                    console.log(snapshotkey);
+                console.log("LOAD");
                 var url="https://karmics.firebaseio.com/posts/"+snapshotkey+"/.json";
                 $.getJSON( url, function( data ) {
                         x=1; y=1;
