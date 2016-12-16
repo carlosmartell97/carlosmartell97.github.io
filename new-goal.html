@@ -221,45 +221,48 @@
         
         //setInterval(Checking, 1000);
             $(window).load(function() {
+                if(referencePost){
                     console.log(snapshotkey);
-                console.log("LOAD");
-                var url="https://karmics.firebaseio.com/posts/"+snapshotkey+"/.json";
-                $.getJSON( url, function( data ) {
-                        x=1; y=1;
-                        $.each(data,function(key,val){
-                            if(key=="title"){
-                                document.getElementById('title').innerHTML = val;
-                            }
-                            else if(key=="instructions"){
-                                document.getElementById('instructions').innerHTML = val;
-                            }
-                            else if(key=="user"){
-                                //document.getElementById('user2').innerHTML = "<a>"+val+"</a>";
-                                window.user2=val; window.user2Found=true;
-                                if(user==user2){
-                                    //document.getElementById("CommitBtn").disabled=true;
+                    console.log("LOAD");
+                    var url="https://karmics.firebaseio.com/posts/"+snapshotkey+"/.json";
+                    //console.log(url);
+                    $.getJSON( url, function( data ) {
+                            x=1; y=1;
+                            $.each(data,function(key,val){
+                                if(key=="title"){
+                                    document.getElementById('title').innerHTML = val;
                                 }
-                            }
-                            else if(key=="completions"){
-                                    //window.completions=val;
+                                else if(key=="instructions"){
+                                    document.getElementById('instructions').innerHTML = val;
                                 }
-                            else if(key=="url"){
-                                document.getElementById('business-header').style.background="url('img/"+val+"') center center";
-                                document.getElementById('business-header').style.backgroundSize="cover";
-                                if(referencePost){
-                        alert("If you don't have the exact same goal as this person, just change the details to match your own!");
-                    }
-                                    //flex-shrink:0;
-                                    //min-width:100%;
-                                    //min-height:100%
-                                    //document.getElementById('business-header').style.backgroundPosition"center center";
-                                console.log("YA");
-                            }
-                            if(user2Found){
-                                    //document.getElementById('helpDetailsText').innerHTML = "Join <a>"+user2+"</a> and <a>"+completions+" others</a>!"
-                            }
-                        });
-                });
+                                else if(key=="user"){
+                                    //document.getElementById('user2').innerHTML = "<a>"+val+"</a>";
+                                    window.user2=val; window.user2Found=true;
+                                    if(user==user2){
+                                        //document.getElementById("CommitBtn").disabled=true;
+                                    }
+                                }
+                                else if(key=="completions"){
+                                        //window.completions=val;
+                                    }
+                                else if(key=="url"){
+                                    document.getElementById('business-header').style.background="url('img/"+val+"') center center";
+                                    document.getElementById('business-header').style.backgroundSize="cover";
+                                    if(referencePost){
+                            alert("If you don't have the exact same goal as this person, just change the details to match your own!");
+                        }
+                                        //flex-shrink:0;
+                                        //min-width:100%;
+                                        //min-height:100%
+                                        //document.getElementById('business-header').style.backgroundPosition"center center";
+                                    console.log("YA");
+                                }
+                                if(user2Found){
+                                        //document.getElementById('helpDetailsText').innerHTML = "Join <a>"+user2+"</a> and <a>"+completions+" others</a>!"
+                                }
+                            });
+                    });
+                }
             });
         function myFunction() { 
                 var url="https://karmics.firebaseio.com/posts/.json";
