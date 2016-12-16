@@ -135,6 +135,7 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <ul class="chat" id="Chat">
+                                <!--
                                 <li class="left clearfix">
                                     <span class="chat-img pull-left">
                                         <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
@@ -167,14 +168,15 @@
                                         </p>
                                     </div>
                                 </li>
+                                -->
                             </ul>
                         </div>
                         <!-- /.panel-body -->
                         <div class="panel-footer">
                             <div class="input-group">
-                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your comment here..." />
+                                <input id="comment-input" type="text" class="form-control input-sm" placeholder="Type your comment here..." />
                                 <span class="input-group-btn">
-                                    <button class="btn btn-warning btn-sm" id="btn-chat" onclick="save();">
+                                    <button class="btn btn-warning btn-sm" id="btn-chat" onclick="newCommentFn()">
                                         Send
                                     </button>
                                 </span>
@@ -283,13 +285,13 @@
                             }
                         });
                 });
-                var url="https://karmics.firebaseio.com/posts/"+snapshotkey+"/comments/.json";
-                console.count(url);
-                $.getJSON( url, function( data ) {
-                    console.log(data);
-                    $.each(data,function(key,value){
-                        $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='http://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+value.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+value.date+"</small></div><p>"+value.comment+"</p></div></li>");
-                    });
+                
+                var ref = new Firebase("https://karmics.firebaseio.com/posts/"+snapshotkey+"/comments/");
+                ref.on("child_added", function(snapshot, prevChildKey) {
+                    var newComment = snapshot.val();
+                    var profilePic;
+                    
+                    $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='http://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
                 });
             });
             
@@ -325,8 +327,26 @@
         var MyProfile = function(){
                 window.location.href ="profile.html?u="+user; 
             };
-        var save = function(){
-            $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='http://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>new user</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i> today</small></div><p>just acting like we are animals!</p></div></li>");
+        var newCommentFn = function(){
+            var date = new Date();var m_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            var month = m_names[date.getMonth()]; var year = date.getFullYear();
+            var fulldate=month+"-"+year;
+            
+            //WRITING DATA WITH PUSH
+            var ref = new Firebase("https://karmics.firebaseio.com/posts/"+snapshotkey+"/comments/");
+            ref.push({
+                    //document.getElementById("inputUsername").value
+
+                    "user": user,
+                    "comment": document.getElementById("comment-input").value,
+                    "date": fulldate
+            }, function(error) {
+                if (error) {
+                    console.log("Data could not be saved." + error);
+                } else {
+                    console.log("Data saved successfully.");
+                }
+            });
         }
             
     </script>
