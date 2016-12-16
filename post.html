@@ -141,7 +141,7 @@
                                     </span>
                                     <div class="chat-body clearfix">
                                         <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong>
+                                            <strong class="primary-font">Fulano 1</strong>
                                             <small class="pull-right text-muted">
                                                 <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
                                             </small>
@@ -157,69 +157,7 @@
                                     </span>
                                     <div class="chat-body clearfix">
                                         <div class="header">
-                                            <strong class="primary-font">Other</strong>
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
-                                            </small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong>
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 14 mins ago</small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Other</strong>
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
-                                            </small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong>
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 14 mins ago</small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Other</strong>
+                                            <strong class="primary-font">Fulano 2</strong>
                                             <small class="pull-right text-muted">
                                                 <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
                                             </small>
@@ -339,38 +277,17 @@
                                     //document.getElementById('business-header').style.backgroundPosition"center center";
                                 console.log("YA");
                             }
-                            /*else if(key=="comments"){
-                                console.log("VAL: "+val);
-                                console.log(": "+val[0]);
-                                for(var comment in val){
-                                    console.log("COMM: "+comment.user);
-                                    for(var data in comment){
-                                        console.log("data: "+data);
-                                        if(data="user"){
-                                            console.log("USER"+data[0]);   
-                                        }
-                                    }   
-                                }
-                                $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='http://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>new user</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i> today</small></div><p>just acting like we are animals!</p></div></li>");
-                            }*/
                             if(user2Found){
                                     document.getElementById('helpDetailsText').innerHTML = "Join <a>"+user2+"</a> and <a>"+completions+" others</a>!";
                                     document.getElementById('helpers').innerHTML = "<a>"+helpers+" people</a> helped <a>"+user+"</a>!";
                             }
                         });
                 });
-                /*var urlinicial = new Firebase("https://karmics.firebaseio.com/posts/"+snapshotkey+"/comments");
-                urlinicial.orderByChild("username").equalTo(user).on("child_added", function(snapshot) {
-                    window.snapshotkey = snapshot.key(); 
-                });*/
                 var url="https://karmics.firebaseio.com/posts/"+snapshotkey+"/comments/.json";
                 console.count(url);
                 $.getJSON( url, function( data ) {
                     console.log(data);
                     $.each(data,function(key,value){
-                        console.log("user: "+value.user);
-                        console.log("date: "+value.date);
-                        console.log("comment: "+value.comment);
                         $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='http://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+value.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+value.date+"</small></div><p>"+value.comment+"</p></div></li>");
                     });
                 });
