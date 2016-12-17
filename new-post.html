@@ -58,7 +58,7 @@
             <div class="navbar-header">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a class="navbar-brand">Commit to a new goal!</a>
+                        <a class="navbar-brand">Share your accomplishment!</a>
                     </li>
                     <li id="user">
                         <div></div>
@@ -92,7 +92,7 @@
         <div class="row">
             <div class="col-sm-8">
                 <h2>Experience:</h2>
-                <p id="instructions" contenteditable="true" style="border:1px; border-style:solid; border-color:#FF0000;" onkeyup="this.style.backgroundColor='green'; this.style.removeProperty('border'); approveInstructions=true; Checking();" onclick='this.innerHTML = ""; this.onclick=null;'  onfocus='this.innerHTML = ""; this.onfocus=null;'>Type here what your experience was like. Let others know!</p>
+                <p id="instructions" contenteditable="true" style="border:1px solid red;" onkeyup="this.style.backgroundColor='green'; this.style.removeProperty('border'); approveInstructions=true; Checking();" onclick='this.innerHTML = ""; this.onclick=null;'  onfocus='this.innerHTML = ""; this.onfocus=null;'>Type here what your experience was like. Let others know!</p>
                 <div id="starsDiv" style="border:1px solid red">
                     <p>
                         <span class="starRating">
@@ -121,7 +121,7 @@
 
         <div class="row">
             <p>
-                    <button id="CommitBtn" type="button" class="btn btn-lg btn-default" onclick="myFunction()" style="margin: 5px;">COMMIT! &raquo;</button>
+                    <button id="CommitBtn" type="button" class="btn btn-lg btn-default" onclick="myFunction()" style="margin: 5px;">POST! &raquo;</button>
             </p>
         </div>
         <!-- /.row -->
@@ -182,13 +182,9 @@
                             $( "#title" ).keyup(function() {
                                 Checking();
                             });         approveTitle=true;
-                            document.getElementById('instructions').style.borderColor = "#777";
-                            document.getElementById('instructions').onkeyup = null;
-                            document.getElementById('instructions').onclick = "Checking();";
-                            document.getElementById('instructions').onfocus = null;
                             $( "#instructions" ).keyup(function() {
                                 Checking();
-                            });         approveInstructions=true;
+                            });
                             
                             Checking();
                             //style="border:1px; border-style:solid; border-color:#FF0000;" 
