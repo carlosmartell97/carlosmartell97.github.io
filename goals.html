@@ -16,7 +16,9 @@
 
     <!-- Custom CSS -->
     <link href="feed/goals/css/shop-homepage.css" rel="stylesheet">
-
+    
+    <!-- Custom Fonts --><link href="feed/profile/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -78,7 +80,6 @@
                     <a href="" class="list-group-item">Worldwide</a>
                 </div>
             </div>
-
             <div class="col-md-9">
 
                 <div id="goals" class="row">
@@ -134,7 +135,7 @@
                         //document.body.appendChild(div);  
                 //console.log("0000: "+title); console.log("11: "+deadline);
                 if(user==newGoal.user){
-                    $("#goals").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="img/'+newGoal.url+'" alt="" style="display: block; object-fit:cover;"><div class="caption"><h4 class="pull-right">'+newGoal.deadline+'</h4><h4 onclick="goalFn(\''+snapshotkey+'\');"><a>'+newGoal.title+'</a></h4><p>'+newGoal.instructions+'<span onclick="goalFn(\''+snapshotkey+'\');"><a><font size="4">[...]</font></a></span></p></div><div class="ratings"><p class="pull-right"><a href="" style="color:#0B610B">'+newGoal.completions+' completions</a></p><p><button type="button" class="btn btn-default" onclick="myFunction(url,deadline,title,instructions,completions)">Complete</button></p></div></div></div>'); console.log("_____");
+                    $("#goals").append('<div class="col-sm-4 col-lg-4 col-md-4" id="'+snapshotkey+'"><div class="thumbnail"><img src="img/'+newGoal.url+'" alt="" style="display: block; object-fit:cover;"><div class="caption"><h4 class="pull-right">'+newGoal.deadline+'</h4><h4 onclick="goalFn(\''+snapshotkey+'\');"><a>'+newGoal.title+'</a></h4><p>'+newGoal.instructions+'<span onclick="goalFn(\''+snapshotkey+'\');"><a><font size="4">[...]</font></a></span></p></div><div class="ratings"><p class="pull-right"><a href="" style="color:#0B610B">'+newGoal.completions+' completions</a></p><p><button id="'+snapshotkey+'Btn" type="button" class="btn btn-default" onclick="myFunction(\''+snapshotkey+'\',url,deadline,title,instructions,completions)">Complete</button></p></div></div></div>'); console.log("_____");
                 }
             });
             
@@ -151,7 +152,7 @@
                 var deletedPost = snapshot.val();
                 console.log("CHILD_REMOVED"); console.log("The blog post titled '" + deletedPost.title + "' has been deleted by '" + deletedPost.user +"'"); console.log("___");
             });
-            var myFunction = function (url,deadline,title,instructions,completions){
+            var myFunction = function (postKey,url,deadline,title,instructions,completions){
                         // Get a database reference to our posts
                         var ref = new Firebase("https://karmics.firebaseio.com/");
 
@@ -241,8 +242,8 @@
                                             });
                                             x=0;
                                             
-                                            var usersRef = new Firebase("https://karmics.firebaseio.com/posts/"+snapshotkey);
-                                            console.log();
+                                            var usersRef = new Firebase("https://karmics.firebaseio.com/posts/"+postKey);
+                                            console.log(postKey);
                                             var objToWrite = new Object();
                                             //var fulldate="August-2017";
                                             objToWrite.status = "post";
@@ -253,7 +254,10 @@
                                                         console.log("Data could not be saved." + error);
                                                     } else {
                                                         console.log("Data saved successfully.");
-                                                        //window.location.href ="profile.html?u="+user; 
+                                                        //window.location.href ="profile.html?u="+user;
+                                                        console.log(postKey);
+                                                        //document.getElementById(postKey+"Btn").innerHTML='<i class="fa fa-check-square fa-4x"></i>';
+                                                        document.getElementById(postKey+"Btn").disabled=true;
                                                     }
                                                 });
                                             });
