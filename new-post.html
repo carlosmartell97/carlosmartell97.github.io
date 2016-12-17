@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Karmics - new goal</title>
+    <title>Karmics - new post</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="feed/goals/new-goal/css/bootstrap.min.css" rel="stylesheet">
@@ -92,21 +92,23 @@
         <div class="row">
             <div class="col-sm-8">
                 <h2>Experience:</h2>
-                <p id="instructions" contenteditable="true" style="border:1px; border-style:solid; border-color:#FF0000;" onkeyup="this.style.backgroundColor='green'; this.style.removeProperty('border'); approveInstructions=true; Checking();" onclick='this.innerHTML = ""; this.onclick=null;'  onfocus='this.innerHTML = ""; this.onfocus=null;'>Type here clear instructions/description of what you're trying to accomplish. What, how, where?</p>
-                <p>
-                    <span class="starRating">
-                    <input onclick="rating(5)" id="rating5" type="radio" name="rating" value="5">
-                        <label for="rating5">5</label>
-                    <input onclick="rating(4)" id="rating4" type="radio" name="rating" value="4">
-                        <label for="rating4">4</label>
-                    <input onclick="rating(3)" id="rating3" type="radio" name="rating" value="3" checked>
-                        <label for="rating3">3</label>
-                    <input onclick="rating(2)" id="rating2" type="radio" name="rating" value="2">
-                        <label for="rating2">2</label>
-                    <input onclick="rating(1)" id="rating1" type="radio" name="rating" value="1">
-                        <label for="rating1">1</label>
-                    </span>
-                </p>
+                <p id="instructions" contenteditable="true" style="border:1px; border-style:solid; border-color:#FF0000;" onkeyup="this.style.backgroundColor='green'; this.style.removeProperty('border'); approveInstructions=true; Checking();" onclick='this.innerHTML = ""; this.onclick=null;'  onfocus='this.innerHTML = ""; this.onfocus=null;'>Type here what your experience was like. Let others know!</p>
+                <div id="starsDiv" style="border:1px solid red">
+                    <p>
+                        <span class="starRating">
+                        <input onclick="rating(5)" id="rating5" type="radio" name="rating" value="5">
+                            <label for="rating5">5</label>
+                        <input onclick="rating(4)" id="rating4" type="radio" name="rating" value="4">
+                            <label for="rating4">4</label>
+                        <input onclick="rating(3)" id="rating3" type="radio" name="rating" value="3" checked>
+                            <label for="rating3">3</label>
+                        <input onclick="rating(2)" id="rating2" type="radio" name="rating" value="2">
+                            <label for="rating2">2</label>
+                        <input onclick="rating(1)" id="rating1" type="radio" name="rating" value="1">
+                            <label for="rating1">1</label>
+                        </span>
+                    </p>
+                </div>
             </div>
             <div class="col-sm-4">
                 <h2>Date:</h2>
@@ -118,14 +120,6 @@
         <hr>
 
         <div class="row">
-            <div class="col-sm-4">
-                <h2>Would you like others help you achieve this goal?</h2>
-                <input type="checkbox" name="my-checkbox" >
-            </div>
-            <div class="col-sm-4" id="helpDetails">
-                <h3>Any details on what you need help with?</h3>
-                <p id="helpDetailsText" contenteditable="true" style="border:1px; border-style:solid; border-color:#777;" onclick='this.innerHTML = ""; this.onclick=null;' onkeyup="helpDetailsfn();" onfocus='this.innerHTML = ""; this.onfocus=null;'>*Optional*</p>
-            </div>
             <p>
                     <button id="CommitBtn" type="button" class="btn btn-lg btn-default" onclick="myFunction()" style="margin: 5px;">COMMIT! &raquo;</button>
             </p>
@@ -155,15 +149,12 @@
             var approveInstructions=false;
             var approveDate=false;
             var helpOfOthers="no";
-            var helpDetails="none";
-            var snapshotkey;
-            var user; var user2; var user2Found; var referencePost=false;
+            var snapshotkey; var postKey; var starsClicked;
+            var user; var user2; var referencePost=false;
             
             $(document).ready(function() {
                 console.log("READY");
                 
-                
-                document.getElementById('helpDetails').style.display = "none";
                 var url = document.location.href;
                 
                 var urlP = url.replace(/#^\?/, '').split('&');
@@ -181,6 +172,7 @@
                         }
                         else if(split[0]=="g"){
                             window.snapshotkey=split[1];
+                            window.postKey=split[1];
                             window.referencePost=true;
                             
                             document.getElementById('title').style.borderColor = "#777";
@@ -216,21 +208,6 @@
             document.getElementById('user').style.left = "100%";
             document.getElementById('user').style.color="#E5E4E2";
             document.getElementById("CommitBtn").disabled=true;
-                
-                $("[name='my-checkbox']").bootstrapSwitch();
-                $('input[name="my-checkbox"]').on('switchChange.bootstrapSwitch', function(event, state) {
-                    console.log(state);
-                    if(state){
-                        helpOfOthers="yes";
-                        document.getElementById('helpDetails').style.display = "block";
-                    }else{
-                        helpOfOthers="no";
-                        document.getElementById('helpDetails').style.display = "none";
-                    }
-                    console.log(helpOfOthers);
-                });
-            
-                
             //document.getElementById("business-header").style.background='http://placehold.it/300x300';
             //$("business-header").css({"background":"url('http://placehold.it/1920x400') center center no-repeat scroll"});console.log("YA");
             });
@@ -249,12 +226,9 @@
                                 if(key=="title"){
                                     document.getElementById('title').innerHTML = val;
                                 }
-                                else if(key=="instructions"){
-                                    document.getElementById('instructions').innerHTML = val;
-                                }
                                 else if(key=="user"){
                                     //document.getElementById('user2').innerHTML = "<a>"+val+"</a>";
-                                    window.user2=val; window.user2Found=true;
+                                    window.user2=val;
                                     if(user==user2){
                                         //document.getElementById("CommitBtn").disabled=true;
                                     }
@@ -265,17 +239,6 @@
                                 else if(key=="url"){
                                     document.getElementById('business-header').style.background="url('img/"+val+"') center center";
                                     document.getElementById('business-header').style.backgroundSize="cover";
-                                    if(referencePost){
-                            alert("If you don't have the exact same goal as this person, just change the details to match your own!");
-                        }
-                                        //flex-shrink:0;
-                                        //min-width:100%;
-                                        //min-height:100%
-                                        //document.getElementById('business-header').style.backgroundPosition"center center";
-                                    console.log("YA");
-                                }
-                                if(user2Found){
-                                        //document.getElementById('helpDetailsText').innerHTML = "Join <a>"+user2+"</a> and <a>"+completions+" others</a>!"
                                 }
                             });
                     });
@@ -301,7 +264,6 @@
                             "comments":0,
                             "user":user,
                             "help":helpOfOthers,
-                            "helpDetails":helpDetails,
                             "helpers":0,
                             "url":"running.jpg"
 
@@ -340,7 +302,7 @@
         function Checking(){
               console.log("Checking...");
               
-                  if(((approveTitle)&&(approveInstructions)&&(approveDate))/*&&((document.getElementById("title").innerHTML!="")&&(document.getElementById("instructions").innerHTML!="")&&(document.getElementById("date").innerHTML!=""))*/)
+                  if(((approveTitle)&&(approveInstructions)&&(approveDate)&&(starsClicked))/*&&((document.getElementById("title").innerHTML!="")&&(document.getElementById("instructions").innerHTML!="")&&(document.getElementById("date").innerHTML!=""))*/)
                     {
                         document.getElementById("CommitBtn").disabled=false;
                     
@@ -357,7 +319,24 @@
             }
         };
         var rating = function(stars){
-            alert("your rate was "+stars+" stars");
+            starsClicked=true;
+            document.getElementById('starsDiv').style.border = "none";
+            Checking();
+            var usersRef = new Firebase("https://karmics.firebaseio.com/posts/"+postKey);
+            var objToWrite = new Object();
+            //var fulldate="August-2017";
+            objToWrite.rating=stars;
+            usersRef.once("value", function(snapshot) {
+                usersRef.update(objToWrite,function(error) {
+                    if (error) {
+                        console.log("Data could not be saved." + error);
+                    } else {
+                        console.log("Data saved successfully.");
+                        //window.location.href ="feed.html?u="+user;
+                        console.log(postKey);
+                    }
+                });
+            });
         }
             
     </script>
