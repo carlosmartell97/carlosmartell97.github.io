@@ -174,7 +174,7 @@
                         <!-- /.panel-body -->
                         <div class="panel-footer">
                             <div class="input-group">
-                                <input id="comment-input" type="text" class="form-control input-sm" placeholder="Type your comment here..." />
+                                <input id="comment-input" onkeypress="if(enterPress(event)){newCommentFn();}" type="text" class="form-control input-sm" placeholder="Type your comment here..." />
                                 <span class="input-group-btn">
                                     <button class="btn btn-warning btn-sm" id="btn-chat" onclick="newCommentFn()">
                                         Send
@@ -341,6 +341,14 @@
                     console.log("Data saved successfully.");
                 }
             });
+            document.getElementById("comment-input").value="";
+        }
+        var enterPress=function(e){
+            if (event.which == 13 || event.keyCode == 13) {
+            //code to execute here
+            return true;
+            }
+            return false;
         }
             
     </script>
