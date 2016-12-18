@@ -155,7 +155,7 @@
                 console.log("CHILD_REMOVED"); console.log("The blog post titled '" + deletedPost.title + "' has been deleted by '" + deletedPost.user +"'"); console.log("___");
             });
             var myFunction = function (postKey,url,deadline,title,instructions,completions){
-                            
+                       window.location.href ="new-post.html?u="+user+"&g="+postKey;     
                     };        
             var newGoal = function(){
                 window.location.href ="new-goal.html?u="+user;
