@@ -260,6 +260,74 @@
                         }
                     });
                 });
+            
+                console.log("loading profile...");
+                            var url="https://karmics.firebaseio.com/users/.json";
+                            $.getJSON( url, function( data ) {
+                                x=1; y=1;
+                                $.each(data,function(key,val){
+                                    ///////////////// USERNAME
+                                    if(x==1){
+                                        if(val.username==user){ 
+                                            console.log("username encontrado");
+                                            
+                                            // Get a database reference to our posts
+                                            var usersRef = new Firebase("https://karmics.firebaseio.com/users");
+                                            console.log(snapshotkey);console.log("5555555555555555");
+                                            var date = new Date();var m_names = ['January', 'February', 'March', 
+                                            'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                            var month = m_names[date.getMonth()]; var year = date.getFullYear();
+                                            var fulldate=month+"-"+year;
+                                            
+                                           
+                                            var usersRef = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey+"/activity");
+                                            var objToWrite = new Object();
+                                            //var fulldate="August-2017";
+                                            objToWrite[fulldate] = new Object();
+                                            usersRef.once("value", function(snapshot) {
+                                                
+                                                if(snapshot.hasChild(fulldate)){
+                                                    console.log("has child true");
+                                                    var actKarmics=val.activity[fulldate].karmics+300;
+                                                    var actCompletions=val.activity[fulldate].completions+500;
+                                                    objToWrite[fulldate].karmics=actKarmics;
+                                                    objToWrite[fulldate].completions=actCompletions;
+                                                    objToWrite[fulldate].awards=val.activity[fulldate].awards;
+                                                    objToWrite[fulldate].sustainability=val.activity[fulldate].sustainability;
+                                                    usersRef.update(objToWrite,function(error) {
+                                                        if (error) {
+                                                            console.log("Data could not be saved." + error);
+                                                        } else {
+                                                            console.log("Data saved successfully.");
+                                                            //window.location.href ="profile.html?u="+user; 
+                                                        }
+                                                    });
+                                                }
+                                                else{
+                                                    
+                                                    console.log("has child FALSE");
+                                                    var objToWrite2 = new Object();
+                                                    objToWrite2[fulldate] = new Object();
+                                                    objToWrite2[fulldate].karmics=500;
+                                                    objToWrite2[fulldate].completions=0;
+                                                    objToWrite2[fulldate].awards=0;
+                                                    objToWrite2[fulldate].sustainability=0;
+                                                    usersRef.update(objToWrite2,function(error) {
+                                                        if (error) {
+                                                            console.log("Data could not be saved." + error);
+                                                        } else {
+                                                            console.log("Data saved successfully.");
+                                                            window.location.href ="profile.html?u="+user; 
+                                                        }
+                                                    });
+                                                    
+                                                }
+                                            });
+                                            x=0;
+                                        }
+                                    }
+                                });
+                            });
             };
         function Checking(){
               console.log("Checking...");
