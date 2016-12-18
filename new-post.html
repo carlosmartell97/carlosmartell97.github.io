@@ -45,7 +45,7 @@
      <script>
      //sdlfjslkdjf
         $(function() {
-            $( "#date" ).datepicker({ dateFormat:'dd/mm/yy', minDate:0, showAnim:'fadeIn' });
+            $( "#datepicker" ).datepicker({ dateFormat:'dd/mm/yy', maxDate:0, showAnim:'fadeIn' });
         });
     </script>
 </head>
@@ -96,15 +96,15 @@
                 <div id="starsDiv" style="border:1px solid red">
                     <p>
                         <span class="starRating">
-                        <input onclick="rating(5)" id="rating5" type="radio" name="rating" value="5">
+                        <input onclick="rating(); starsRated=5;" id="rating5" type="radio" name="rating" value="5">
                             <label for="rating5">5</label>
-                        <input onclick="rating(4)" id="rating4" type="radio" name="rating" value="4">
+                        <input onclick="rating(); starsRated=4;" id="rating4" type="radio" name="rating" value="4">
                             <label for="rating4">4</label>
-                        <input onclick="rating(3)" id="rating3" type="radio" name="rating" value="3" checked>
+                        <input onclick="rating(); starsRated=3;" id="rating3" type="radio" name="rating" value="3" checked>
                             <label for="rating3">3</label>
-                        <input onclick="rating(2)" id="rating2" type="radio" name="rating" value="2">
+                        <input onclick="rating(); starsRated=2;" id="rating2" type="radio" name="rating" value="2">
                             <label for="rating2">2</label>
-                        <input onclick="rating(1)" id="rating1" type="radio" name="rating" value="1">
+                        <input onclick="rating(); starsRated=1;" id="rating1" type="radio" name="rating" value="1">
                             <label for="rating1">1</label>
                         </span>
                     </p>
@@ -112,7 +112,7 @@
             </div>
             <div class="col-sm-4">
                 <h2>Date:</h2>
-                <p><input id="date" type="text" id="datepicker" style="border:1px; border-style:solid; border-color:#FF0000;" onchange="this.style.backgroundColor='green'; this.style.removeProperty('border'); approveDate=true; Checking();"></p>
+                <p><input type="text" id="datepicker" style="border:1px; border-style:solid; border-color:#FF0000;" onchange="this.style.backgroundColor='green'; this.style.removeProperty('border'); approveDate=true; Checking();"></p>
             </div>
         </div>
         <!-- /.row -->
@@ -149,7 +149,7 @@
             var approveInstructions=false;
             var approveDate=false;
             var helpOfOthers="no";
-            var snapshotkey; var postKey; var starsClicked;
+            var snapshotkey; var postKey; var starsClicked; var starsRated=3;
             var user; var user2; var referencePost=false;
             
             $(document).ready(function() {
@@ -240,60 +240,26 @@
                     });
                 }
             });
-        function myFunction() { 
-                var url="https://karmics.firebaseio.com/posts/.json";
-                
-                
-                // Get a database reference to our posts
-                var ref = new Firebase("https://karmics.firebaseio.com/");
-
-                //WRITING DATA WITH SET
-                var usersRef = ref.child("posts");
-                if(helpOfOthers=="yes"){
-                    usersRef.push({
-                            //document.getElementById("inputUsername").value
-
-                            "title": document.getElementById("title").innerHTML,
-                            "instructions": document.getElementById("instructions").innerHTML,
-                            "deadline": document.getElementById("date").value,
-                            "completions":0,
-                            "comments":0,
-                            "user":user,
-                            "help":helpOfOthers,
-                            "helpers":0,
-                            "url":"running.jpg"
-
-                    }, function(error) {
+        function myFunction() {
+                var usersRef = new Firebase("https://karmics.firebaseio.com/posts/"+postKey);
+                console.log("postKey: "+postKey);
+                var objToWrite = new Object();
+                objToWrite.status = "post";
+                objToWrite.experience = document.getElementById("instructions").innerHTML;
+                objToWrite.date = document.getElementById("datepicker").value;
+                objToWrite.rating=starsRated;
+                console.log(objToWrite);
+                usersRef.once("value", function(snapshot) {
+                    console.log("has status true");
+                    usersRef.update(objToWrite,function(error) {
                         if (error) {
                             console.log("Data could not be saved." + error);
                         } else {
                             console.log("Data saved successfully.");
-                            window.location.href = "goals.html?u="+user;
+                            //window.location.href ="profile.html?u="+user;
                         }
                     });
-                }
-                else if(helpOfOthers=="no"){
-                    usersRef.push({
-                            //document.getElementById("inputUsername").value
-
-                            "title": document.getElementById("title").innerHTML,
-                            "instructions": document.getElementById("instructions").innerHTML,
-                            "deadline": document.getElementById("date").value,
-                            "completions":0,
-                            "comments":0,
-                            "user":user,
-                            "help":helpOfOthers,
-                            "url":"concert.jpg"
-
-                    }, function(error) {
-                        if (error) {
-                            console.log("Data could not be saved." + error);
-                        } else {
-                            console.log("Data saved successfully.");
-                            window.location.href = "goals.html?u="+user;
-                        }
-                    });
-                }
+                });
             };
         function Checking(){
               console.log("Checking...");
@@ -314,25 +280,10 @@
                 helpDetails=document.getElementById("helpDetailsText").innerHTML;
             }
         };
-        var rating = function(stars){
+        var rating = function(){
             starsClicked=true;
             document.getElementById('starsDiv').style.border = "none";
             Checking();
-            var usersRef = new Firebase("https://karmics.firebaseio.com/posts/"+postKey);
-            var objToWrite = new Object();
-            //var fulldate="August-2017";
-            objToWrite.rating=stars;
-            usersRef.once("value", function(snapshot) {
-                usersRef.update(objToWrite,function(error) {
-                    if (error) {
-                        console.log("Data could not be saved." + error);
-                    } else {
-                        console.log("Data saved successfully.");
-                        //window.location.href ="feed.html?u="+user;
-                        console.log(postKey);
-                    }
-                });
-            });
         }
             
     </script>

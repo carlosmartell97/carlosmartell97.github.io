@@ -155,31 +155,6 @@
                 console.log("CHILD_REMOVED"); console.log("The blog post titled '" + deletedPost.title + "' has been deleted by '" + deletedPost.user +"'"); console.log("___");
             });
             var myFunction = function (postKey,url,deadline,title,instructions,completions){
-                        // Get a database reference to our posts
-                        var ref = new Firebase("https://karmics.firebaseio.com/");
-
-                        //WRITING DATA WITH SET
-                        var usersRef = ref.child("posts");
-                        /*
-                        usersRef.push({
-                                //document.getElementById("inputUsername").value
-
-                                "title": title,
-                                "instructions": instructions,
-                                "deadline": deadline,
-                                "user":"test-user",
-                                "completions":completions,
-                                "url":"img/mytrip.jpg",
-                                "comments":8
-
-                        }, function(error) {
-                            if (error) {
-                                console.log("Data could not be saved." + error);
-                            } else {
-                                console.log("Data saved successfully.");
-                            }
-                        });
-                        */
                             console.log("loading profile...");
                             var url="https://karmics.firebaseio.com/users/.json";
                             $.getJSON( url, function( data ) {
@@ -243,26 +218,6 @@
                                                 }
                                             });
                                             x=0;
-                                            
-                                            var usersRef = new Firebase("https://karmics.firebaseio.com/posts/"+postKey);
-                                            console.log(postKey);
-                                            var objToWrite = new Object();
-                                            //var fulldate="August-2017";
-                                            objToWrite.status = "post";
-                                            usersRef.once("value", function(snapshot) {
-                                                console.log("has status true");
-                                                usersRef.update(objToWrite,function(error) {
-                                                    if (error) {
-                                                        console.log("Data could not be saved." + error);
-                                                    } else {
-                                                        console.log("Data saved successfully.");
-                                                        //window.location.href ="profile.html?u="+user;
-                                                        console.log(postKey);
-                                                        //document.getElementById(postKey+"Btn").innerHTML='<i class="fa fa-check-square fa-4x"></i>';
-                                                        document.getElementById(postKey+"Btn").disabled=true;
-                                                    }
-                                                });
-                                            });
                                         }
                                     }
                                 });
