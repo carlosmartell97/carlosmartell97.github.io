@@ -171,11 +171,11 @@
                 //console.log("Previous Post ID: " + prevChildKey);
                 //console.log(newPost.url);
                         ref.child(snapshotkey).child("comments").on("child_added", function(snapshot) {
-                            console.log(snapshot.key());
+                            //console.log(snapshot.key());
                             comments++;
                         });
                 console.log(snapshotkey);
-                    $("#posts").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="img/'+newPost.url+'"  style="display: block; object-fit:cover;"><div class="caption"><h6 class="pull-right">'+newPost.user+'<button type="button" class="btn btn-xs btn-info"><img src="img/flag-icon.png" style="width:15px; height:15px"></button></h6><h4 onclick="postFn(\''+snapshotkey+'\')"><a >'+newPost.title+'</a></h4><p>'+newPost.experience+'<span onclick="postFn(\''+snapshotkey+'\')"><a ><font size="4">[...]</font></a></span></p></div><div class="ratings"><p class="pull-right" onclick="postFn(\''+snapshotkey+'\')"><a  style="color:#B40404">'+comments+' comments</a></p><p><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span></p></div></div></div>'); console.log("___");
+                    $("#posts").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="img/'+newPost.url+'"  style="display: block; object-fit:cover;"><div class="caption"><h6 class="pull-right">'+newPost.user+'<button type="button" class="btn btn-xs btn-info"><img src="img/flag-icon.png" style="width:15px; height:15px"></button></h6><h4 onclick="postFn(\''+snapshotkey+'\')"><a >'+newPost.title+'</a></h4><p>'+newPost.experience+'<span onclick="postFn(\''+snapshotkey+'\')"><a ><font size="4">[...]</font></a></span></p></div><div class="ratings"><p class="pull-right" onclick="postFn(\''+snapshotkey+'\')"><a  style="color:#B40404">'+comments+' comments</a></p><p>'+starsHTML(newPost.rating)+'</p></div></div></div>'); console.log("___");
                 comments=0;
             });
             
@@ -206,10 +206,26 @@
                 window.location.href ="profile.html?u="+user; 
             };
     
-            function postFn(key){
+            var postFn = function(key){
                 console.log(key);
                 window.location.href ="post.html?u="+user+"&p="+key;
             };
+            var starsHTML = function(stars){
+                var result="";
+                for(i=0;i<stars;i++){
+                    result+='<span class="glyphicon glyphicon-star"></span>';
+                }
+                for(i=0;i<(5-stars);i++){
+                    result+='<span class="glyphicon glyphicon-star-empty"></span>';
+                }
+                return result;
+            }
+                                    /*<span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star"></span>
+                                    <span class="glyphicon glyphicon-star-empty"></span>*/
+            
             
             //var div = document.createElement('div');
             //document.body.appendChild(div);
