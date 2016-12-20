@@ -101,8 +101,10 @@
 
         <div class="row">
             <div class="col-sm-8">
+                <h2>Objective:</h2>
+                <p id="objective">Details of what was accomplished. What, how, where?</p>
                 <h2>My experience:</h2>
-                <p id="experience">Details of what was accomplished. What, how, where?</p>
+                <p id="experience">How did this impacted you and/or others?</p>
             </div>
             <div class="col-sm-4">
                 <h2 id="user2"><a>My name</a></h2>
@@ -248,6 +250,9 @@
                             }
                             else if(key=="experience"){
                                 document.getElementById('experience').innerHTML = val;
+                            }
+                            else if(key=="instructions"){
+                                document.getElementById('objective').innerHTML = val;
                             }
                             else if(key=="date"){
                                 document.getElementById('date').innerHTML = val;
