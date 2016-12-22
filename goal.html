@@ -174,7 +174,7 @@
                         <!-- /.panel-body -->
                         <div class="panel-footer">
                             <div class="input-group">
-                                <input id="comment-input" onkeypress="if(enterPress(event)){newCommentFn();}" type="text" class="form-control input-sm" placeholder="Type your comment here..." />
+                                <input id="comment-input" onkeyup="if(enterPress(event)){newCommentFn();} checkComment();" type="text" class="form-control input-sm" placeholder="Type your comment here..." />
                                 <span class="input-group-btn">
                                     <button class="btn btn-warning btn-sm" id="btn-chat" onclick="newCommentFn()">
                                         Send
@@ -229,6 +229,7 @@
                             window.snapshotkey=split[1];
                         }
                     }
+            document.getElementById('btn-chat').disabled=true;
             document.getElementById('user').innerHTML = user;
             document.getElementById('user').style.fontSize = "x-large";
             document.getElementById('user').style.left = "100%";
@@ -349,8 +350,15 @@
             return true;
             }
             return false;
-        }
-            
+        };
+        var checkComment = function(){
+            if(document.getElementById('comment-input').value==""){
+                document.getElementById('btn-chat').disabled=true;
+            }
+            else{
+                document.getElementById('btn-chat').disabled=false;
+            }
+        };  
     </script>
 </body>
 

@@ -191,7 +191,6 @@
             var user2; var user2Found=false;
             
              $(document).ready(function() {
-                document.getElementById('btn-chat').disabled=true;
                 var url = document.location.href;
                 var urlP = url.replace(/#^\?/, '').split('&');
                     splitBefore = urlP.toString().split('?');
@@ -206,6 +205,7 @@
                             window.snapshotkey=split[1];
                         }
                     }
+            document.getElementById('btn-chat').disabled=true;
             document.getElementById('user').innerHTML = user;
             document.getElementById('user').style.fontSize = "x-large";
             document.getElementById('user').style.left = "100%";
@@ -254,14 +254,13 @@
             return false;
         };
         var checkComment = function(){
-            console.log("val: "+document.getElementById('comment-input').value);
             if(document.getElementById('comment-input').value==""){
                 document.getElementById('btn-chat').disabled=true;
             }
             else{
                 document.getElementById('btn-chat').disabled=false;
             }
-        }
+        };
     </script>
 
 </body>
