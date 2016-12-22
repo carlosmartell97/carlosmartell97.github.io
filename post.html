@@ -176,7 +176,7 @@
                         <!-- /.panel-body -->
                         <div class="panel-footer">
                             <div class="input-group">
-                                <input id="comment-input" onkeypress="if(enterPress(event)){newCommentFn();}" type="text" class="form-control input-sm" placeholder="Type your comment here..." />
+                                <input id="comment-input" onkeyup="if(enterPress(event)){newCommentFn();} checkComment();" type="text" class="form-control input-sm" placeholder="Type your comment here..." />
                                 <span class="input-group-btn">
                                     <button class="btn btn-warning btn-sm" id="btn-chat" onclick="newCommentFn()">
                                         Send
@@ -217,6 +217,7 @@
             var user2; var user2Found=false;
             
              $(document).ready(function() {
+                 document.getElementById('btn-chat').disabled=true;
                 var url = document.location.href;
                 var urlP = url.replace(/#^\?/, '').split('&');
                     splitBefore = urlP.toString().split('?');
@@ -353,15 +354,23 @@
                 }
             });
             document.getElementById("comment-input").value="";
-        }
+        };
         var enterPress=function(e){
             if (event.which == 13 || event.keyCode == 13) {
             //code to execute here
             return true;
             }
             return false;
-        }
-            
+        };
+        var checkComment = function(){
+            console.log("val: "+document.getElementById('comment-input').value);
+            if(document.getElementById('comment-input').value==""){
+                document.getElementById('btn-chat').disabled=true;
+            }
+            else{
+                document.getElementById('btn-chat').disabled=false;
+            }
+        };    
     </script>
 </body>
 
