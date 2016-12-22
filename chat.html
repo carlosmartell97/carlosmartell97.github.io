@@ -95,7 +95,8 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <ul class="chat" id="Chat">
-
+                                <div style="height:30vh; display:block"></div>
+                                <div style="display:flex; align-items:center; justify-content:center">select a chat to start messaging</div>
                             </ul>
                         </div>
                         <!-- /.panel-body -->
@@ -132,7 +133,7 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });*/
-            var user; var snapshotkey;
+            var user; var snapshotkey; var referenceChat;
              $(document).ready(function() {
                 var url = document.location.href;
                 var urlP = url.replace(/#^\?/, '').split('&');
@@ -146,6 +147,7 @@
                         }
                         else if(split[0]=="c"){
                             window.snapshotkey=split[1];
+                            window.referenceChat=true;
                         }
                     }
             document.getElementById('btn-chat').disabled=true;
@@ -169,13 +171,18 @@
                     });
                     $("#chats").append('<li><a onclick="changeChat(\''+newChat.key()+'\')">'+user+'</a></li>');
                 });
-                ref=ref.child(snapshotkey);
-                ref.on("child_added", function(snapshot, prevChildKey) {
-                    var newComment = snapshot.val();
-                    var profilePic;
+                if(referenceChat){
+                    ref=ref.child(snapshotkey);
+                    ref.on("child_added", function(snapshot, prevChildKey) {
+                        var newComment = snapshot.val();
+                        var profilePic;
+
+                        $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='http://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+                    });
+                }
+                else{
                     
-                    $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='http://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
-                });
+                }
             });
         
         var newCommentFn = function(){
