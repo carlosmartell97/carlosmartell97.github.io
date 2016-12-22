@@ -163,12 +163,8 @@
                 var ref = new Firebase("https://karmics.firebaseio.com/chats");
                 ref.on("child_added", function(snapshot, prevChildKey) {
                     var newChat = snapshot;
-                    var user;
-                    console.log(newChat.val());
-                    newChat.forEach(function(child) {
-                        user=child.val().user;
-                        console.log(user);
-                    });
+                    var user=newChat.val()[Object.keys(newChat.val())[0]].user;
+                    console.log(user);
                     $("#chats").append('<li><a onclick="changeChat(\''+newChat.key()+'\')">'+user+'</a></li>');
                 });
                 if(referenceChat){
