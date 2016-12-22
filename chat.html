@@ -40,7 +40,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" >Home</a>
+                <a class="navbar-brand" onclick="changePage('feed')">Home</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -49,7 +49,7 @@
                         <a >Chat</a>
                     </li>
                     <li>
-                        <a onclick="MyProfile()">My Profile</a>
+                        <a onclick="changePage('profile')">My Profile</a>
                     </li>
                     <li>
                         <a >Settings</a>
@@ -172,6 +172,7 @@
                     $("#chats").append('<li><a onclick="changeChat(\''+newChat.key()+'\')">'+user+'</a></li>');
                 });
                 if(referenceChat){
+                    document.getElementById("Chat").innerHTML="";
                     ref=ref.child(snapshotkey);
                     ref.on("child_added", function(snapshot, prevChildKey) {
                         var newComment = snapshot.val();
@@ -180,11 +181,10 @@
                         $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='http://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
                     });
                 }
-                else{
-                    
-                }
             });
-        
+        var changePage=function(page){
+                window.location.href =page+".html?u="+user;
+            };
         var newCommentFn = function(){
             var date = new Date();var m_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
             var month = m_names[date.getMonth()]; var year = date.getFullYear();

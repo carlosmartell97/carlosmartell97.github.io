@@ -76,8 +76,8 @@
                     });
                 //////////////////////////
             //}
-            var Home = function(){
-                window.location.href ="feed.html?u="+user; 
+            var changePage=function(page){
+                window.location.href =page+".html?u="+user;
             };
             /*var update = function(){
                 lineChart.update({
@@ -225,13 +225,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a onclick="Home()" class="navbar-brand">Home</a>
+                <a onclick="changePage('feed')" class="navbar-brand">Home</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="">Chat</a>
+                        <a onclick="changePage('chat')">Chat</a>
                     </li>
                     <li>
                         <a href="">My Profile</a>

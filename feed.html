@@ -52,10 +52,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a >Chat</a>
+                        <a onclick="changePage('chat')">Chat</a>
                     </li>
                     <li>
-                        <a onclick="MyProfile()">My Profile</a>
+                        <a onclick="changePage('profile')">My Profile</a>
                     </li>
                     <li>
                         <a >Settings</a>
@@ -78,8 +78,8 @@
             <div class="col-md-3">
                 <p class="lead">What your friends have done.</p>
                 <div class="list-group">
-                    <a onclick="feed()" class="list-group-item">Feed</a>
-                    <a onclick="MyGoals()" class="list-group-item">My goals</a>
+                    <a onclick="changePage('feed')" class="list-group-item">Feed</a>
+                    <a onclick="changePage('goals')" class="list-group-item">My goals</a>
                     <a class="list-group-item">Worldwide</a>
                 </div>
             </div>
@@ -193,19 +193,9 @@
                 var deletedPost = snapshot.val();
                 console.log("CHILD_REMOVED"); console.log("The blog post titled '" + deletedPost.title + "' has been deleted by '" + deletedPost.user +"'"); console.log("___");
             });
-    
-            var MyGoals = function(){
-                window.location.href ="goals.html?u="+user;
-            };
-    
-            var feed = function(){
-                window.location.href ="feed.html?u="+user; 
-            };
-    
-            var MyProfile = function(){
-                window.location.href ="profile.html?u="+user; 
-            };
-    
+            var changePage=function(page){
+                window.location.href =page+".html?u="+user;
+            }
             var postFn = function(key){
                 console.log(key);
                 window.location.href ="post.html?u="+user+"&p="+key;

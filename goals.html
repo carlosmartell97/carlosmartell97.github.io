@@ -45,16 +45,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a onclick="Home()" class="navbar-brand">Home</a>
+                <a onclick="changePage('feed')" class="navbar-brand">Home</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="">Chat</a>
+                        <a onclick="changePage('chat')">Chat</a>
                     </li>
                     <li>
-                        <a onclick="MyProfile()">My Profile</a>
+                        <a onclick="changePage('profile')">My Profile</a>
                     </li>
                     <li>
                         <a href="">Settings</a>
@@ -77,8 +77,8 @@
             <div class="col-md-3">
                 <p id="userr" class="lead">What will you accomplish today, John?</p>
                 <div class="list-group">
-                    <a onclick="feed()" class="list-group-item">Feed</a>
-                    <a onclick="MyGoals()" class="list-group-item">My goals</a>
+                    <a onclick="changePage('feed')" class="list-group-item">Feed</a>
+                    <a class="list-group-item">My goals</a>
                     <a href="" class="list-group-item">Worldwide</a>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                 <div id="goals" class="row">
 
                     <div class="col-sm-4 col-lg-4 col-md-4">
-                        <img onclick="newGoal()" src="img/add-icon.png" style="width:170px; height:170px">
+                        <img onclick="changePage('new-goal')" src="img/add-icon.png" style="width:170px; height:170px">
                     </div>
                     
                     
@@ -157,26 +157,9 @@
             var myFunction = function (postKey,url,deadline,title,instructions,completions){
                        window.location.href ="new-post.html?u="+user+"&g="+postKey;     
                     };        
-            var newGoal = function(){
-                window.location.href ="new-goal.html?u="+user;
-            }
-            
-            var MyGoals = function(){
-                window.location.href ="goals.html?u="+user;
+            var changePage=function(page){
+                window.location.href =page+".html?u="+user;
             };
-    
-            var feed = function(){
-                window.location.href ="feed.html?u="+user; 
-            };
-            
-            var MyProfile = function(){
-                window.location.href ="profile.html?u="+user; 
-            };
-                    
-            var Home = function(){
-                window.location.href ="feed.html?u="+user; 
-            };
-            
             function goalFn(key){
                 console.log(key);
                 window.location.href ="goal.html?u="+user+"&g="+key;
