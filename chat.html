@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Simple Sidebar - Start Bootstrap Template</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="feed/chat/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="feed/chat/css/simple-sidebar.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="contenedor">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" >Home</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a >Chat</a>
+                    </li>
+                    <li>
+                        <a onclick="MyProfile()">My Profile</a>
+                    </li>
+                    <li>
+                        <a >Settings</a>
+                    </li>
+                    <li id="user">
+                         <div></div>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a>
+                        Chats
+                    </a>
+                </li>
+                <li>
+                    <a href="#">Dashboard</a>
+                </li>
+                <li>
+                    <a href="#">Shortcuts</a>
+                </li>
+                <li>
+                    <a href="#">Overview</a>
+                </li>
+                <li>
+                    <a href="#">Events</a>
+                </li>
+                <li>
+                    <a href="#">About</a>
+                </li>
+                <li>
+                    <a href="#">Services</a>
+                </li>
+                <li>
+                    <a href="#">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="container">
+                    <div class="chat-panel panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-comments fa-fw"></i>
+                            Comments
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <ul class="chat" id="Chat">
+                                <!--
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong class="primary-font">Fulano 1</strong>
+                                            <small class="pull-right text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
+                                            </small>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="left clearfix">
+                                    <span class="chat-img pull-left">
+                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
+                                    </span>
+                                    <div class="chat-body clearfix">
+                                        <div class="header">
+                                            <strong class="primary-font">Fulano 2</strong>
+                                            <small class="pull-right text-muted">
+                                                <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
+                                            </small>
+                                        </div>
+                                        <p>
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
+                                        </p>
+                                    </div>
+                                </li>
+                                -->
+                            </ul>
+                        </div>
+                        <!-- /.panel-body -->
+                        <div class="panel-footer">
+                            <div class="input-group">
+                                <input id="comment-input" onkeypress="if(enterPress(event)){newCommentFn();}" type="text" class="form-control input-sm" placeholder="Type your comment here..." />
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning btn-sm" id="btn-chat" onclick="newCommentFn()">
+                                        Send
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- /.panel-footer -->
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    /*$("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });*/
+        var approveTitle=false;
+            var approveexperience=false;
+            var approveDate=false;
+            var helpOfOthers="no";
+            var helpDetails="none";
+            
+            var user; var snapshotkey; var completions; var helpers;
+            var user2; var user2Found=false;
+            
+             $(document).ready(function() {
+                var url = document.location.href;
+                var urlP = url.replace(/#^\?/, '').split('&');
+                    splitBefore = urlP.toString().split('?');
+                    splitMany = splitBefore.toString().split(',');
+                    for(var i=1;i<splitMany.length;i++){
+                        split = splitMany[i].toString().split('=');
+                        console.log(split);
+                        if(split[0]=="u"){
+                            window.user=split[1];
+                        }
+                        else if(split[0]=="c"){
+                            window.snapshotkey=split[1];
+                        }
+                    }
+            document.getElementById('user').innerHTML = user;
+            document.getElementById('user').style.fontSize = "x-large";
+            document.getElementById('user').style.left = "100%";
+            document.getElementById('user').style.color="#E5E4E2";
+            });
+        ///////////////////////////////////////////////////////
+        $(window).load(function() {
+                console.log(snapshotkey);
+                
+                var ref = new Firebase("https://karmics.firebaseio.com/chats/"+snapshotkey);
+                ref.on("child_added", function(snapshot, prevChildKey) {
+                    var newComment = snapshot.val();
+                    var profilePic;
+                    
+                    $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='http://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+                });
+            });
+        
+        var newCommentFn = function(){
+            var date = new Date();var m_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            var month = m_names[date.getMonth()]; var year = date.getFullYear();
+            var fulldate=month+"-"+year;
+            
+            //WRITING DATA WITH PUSH
+            var ref = new Firebase("https://karmics.firebaseio.com/chats/"+snapshotkey);
+            ref.push({
+                    //document.getElementById("inputUsername").value
+
+                    "user": user,
+                    "comment": document.getElementById("comment-input").value,
+                    "date": fulldate
+            }, function(error) {
+                if (error) {
+                    console.log("Data could not be saved." + error);
+                } else {
+                    console.log("Data saved successfully.");
+                }
+            });
+            document.getElementById("comment-input").value="";
+        };
+        var enterPress=function(e){
+            if (event.which == 13 || event.keyCode == 13) {
+            //code to execute here
+            return true;
+            }
+            return false;
+        };
+    </script>
+
+</body>
+
+</html>
