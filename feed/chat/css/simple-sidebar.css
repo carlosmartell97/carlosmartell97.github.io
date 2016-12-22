@@ -159,7 +159,8 @@
 }
 
 .chat-panel .panel-body {
-    height: 350px;
+    height:70vh;
+    display:block;
     overflow-y: scroll;
 }
 .contenedor{

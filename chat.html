@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Simple Sidebar - Start Bootstrap Template</title>
+    <title>Karmics - Chat</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="feed/chat/css/bootstrap.min.css" rel="stylesheet">
@@ -92,7 +92,7 @@
                     <a href="">Services</a>
                 </li>
                 <li>
-                    <a onclick='console.log("<"+document.getElementById("comment-input").value+">")'>Contact</a>
+                    <a href="">Contact</a>
                 </li>
             </ul>
         </div>
@@ -100,51 +100,18 @@
 
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="container">
+            
+                
+                    <div class="container" >
                     <div class="chat-panel panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-comments fa-fw"></i>
-                            Comments
+                            Worldwide Chat
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <ul class="chat" id="Chat">
-                                <!--
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Fulano 1</strong>
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
-                                            </small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Fulano 2</strong>
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
-                                            </small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                -->
+
                             </ul>
                         </div>
                         <!-- /.panel-body -->
@@ -161,8 +128,8 @@
                         <!-- /.panel-footer -->
                     </div>
                     </div>
-                </div>
-            </div>
+                
+            
         </div>
         <!-- /#page-content-wrapper -->
 
@@ -181,15 +148,7 @@
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });*/
-        var approveTitle=false;
-            var approveexperience=false;
-            var approveDate=false;
-            var helpOfOthers="no";
-            var helpDetails="none";
-            
-            var user; var snapshotkey; var completions; var helpers;
-            var user2; var user2Found=false;
-            
+            var user; var snapshotkey;
              $(document).ready(function() {
                 var url = document.location.href;
                 var urlP = url.replace(/#^\?/, '').split('&');
