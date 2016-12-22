@@ -67,33 +67,17 @@
 
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
+            <ul id="chats" class="sidebar-nav">
                 <li class="sidebar-brand">
                     <a>
                         Chats
                     </a>
                 </li>
                 <li>
-                    <a href="">Dashboard</a>
+                    <!-- <a onclick='changeChat("Chat2")'>Chat2</a>
+                    -->
                 </li>
-                <li>
-                    <a href="">Shortcuts</a>
-                </li>
-                <li>
-                    <a href="">Overview</a>
-                </li>
-                <li>
-                    <a href="">Events</a>
-                </li>
-                <li>
-                    <a href="">About</a>
-                </li>
-                <li>
-                    <a href="">Services</a>
-                </li>
-                <li>
-                    <a href="">Contact</a>
-                </li>
+                
             </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -172,9 +156,20 @@
             });
         ///////////////////////////////////////////////////////
         $(window).load(function() {
-                console.log(snapshotkey);
+                console.log("stKey: "+snapshotkey);
                 
-                var ref = new Firebase("https://karmics.firebaseio.com/chats/"+snapshotkey);
+                var ref = new Firebase("https://karmics.firebaseio.com/chats");
+                ref.on("child_added", function(snapshot, prevChildKey) {
+                    var newChat = snapshot;
+                    var user;
+                    console.log(newChat.val());
+                    newChat.forEach(function(child) {
+                        user=child.val().user;
+                        console.log(user);
+                    });
+                    $("#chats").append('<li><a onclick="changeChat(\''+newChat.key()+'\')">'+user+'</a></li>');
+                });
+                ref=ref.child(snapshotkey);
                 ref.on("child_added", function(snapshot, prevChildKey) {
                     var newComment = snapshot.val();
                     var profilePic;
@@ -204,6 +199,7 @@
                 }
             });
             document.getElementById("comment-input").value="";
+            document.getElementById('btn-chat').disabled=true;
         };
         var enterPress=function(e){
             if (event.which == 13 || event.keyCode == 13) {
@@ -220,6 +216,17 @@
                 document.getElementById('btn-chat').disabled=false;
             }
         };
+        var changeChat=function(chatKey){
+            window.snapshotkey=chatKey;
+            document.getElementById("Chat").innerHTML="";
+            var ref = new Firebase("https://karmics.firebaseio.com/chats/"+chatKey);
+                ref.on("child_added", function(snapshot, prevChildKey) {
+                    var newComment = snapshot.val();
+                    var profilePic;
+                    
+                    $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='http://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+                });
+        }
     </script>
 
 </body>
