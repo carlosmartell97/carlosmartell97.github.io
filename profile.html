@@ -46,6 +46,15 @@
                     var urlquery=usersRef.orderByChild("username").equalTo(user).on("child_added", function(snapshot) {
                         window.snapshotkey = snapshot.key();  console.log(snapshotkey);
                         
+                        console.log("https://karmics.firebaseio.com/users/"+snapshotkey+"/chat");
+                        var ref = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey+"/chat");
+                        ref.on("child_added", function(snapshot, prevChildKey) {
+                            var newComment = snapshot.val();
+                            var profilePic;
+
+                            $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='http://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+                        });
+                        
                         // CHILD CHANGED__________________________________________
                         // Get the data on a post that has changed
                         var ref = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey);
@@ -71,8 +80,6 @@
                 $(window).load(function() {
                         console.log("LOAD");
                         refresh();
-                    
-                        
                     });
                 //////////////////////////
             //}
@@ -191,6 +198,44 @@
                         });
                     });  
             };
+        var newCommentFn = function(){
+            var date = new Date();var m_names = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            var month = m_names[date.getMonth()]; var year = date.getFullYear();
+            var fulldate=month+"-"+year;
+            
+            //WRITING DATA WITH PUSH
+            var ref = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey+"/chat/");
+            ref.push({
+                    //document.getElementById("inputUsername").value
+
+                    "user": user,
+                    "comment": document.getElementById("comment-input").value,
+                    "date": fulldate
+            }, function(error) {
+                if (error) {
+                    console.log("Data could not be saved." + error);
+                } else {
+                    console.log("Data saved successfully.");
+                }
+            });
+            document.getElementById("comment-input").value="";
+            document.getElementById('btn-chat').disabled=true;
+        };
+        var enterPress=function(e){
+            if (event.which == 13 || event.keyCode == 13) {
+            //code to execute here
+            return true;
+            }
+            return false;
+        };
+        var checkComment = function(){
+            if(document.getElementById('comment-input').value==""){
+                document.getElementById('btn-chat').disabled=true;
+            }
+            else{
+                document.getElementById('btn-chat').disabled=false;
+            }
+        };
     </script>
     <style>
 .ct-chart .ct-series.ct-series-a .ct-line {
@@ -562,80 +607,20 @@
                     <div class="chat-panel panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-comments fa-fw"></i>
-                            Chat
+                            Public Chat
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <ul class="chat">
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong>
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 12 mins ago
-                                            </small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="right clearfix">
-                                    <span class="chat-img pull-right">
-                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 13 mins ago</small>
-                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <strong class="primary-font">Jack Sparrow</strong>
-                                            <small class="pull-right text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 14 mins ago</small>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
-                                <li class="right clearfix">
-                                    <span class="chat-img pull-right">
-                                        <img src="http://placehold.it/50/FA6F57/fff" alt="User Avatar" class="img-circle" />
-                                    </span>
-                                    <div class="chat-body clearfix">
-                                        <div class="header">
-                                            <small class=" text-muted">
-                                                <i class="fa fa-clock-o fa-fw"></i> 15 mins ago</small>
-                                            <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                        </div>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare dolor, quis ullamcorper ligula sodales.
-                                        </p>
-                                    </div>
-                                </li>
+                            <ul class="chat" id="Chat">
+                                
                             </ul>
                         </div>
                         <!-- /.panel-body -->
                         <div class="panel-footer">
                             <div class="input-group">
-                                <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                                <input id="comment-input" onkeyup="if(enterPress(event)){newCommentFn();} checkComment();" type="text" class="form-control input-sm" placeholder="Type your comment here..." />
                                 <span class="input-group-btn">
-                                    <button class="btn btn-warning btn-sm" id="btn-chat">
+                                    <button class="btn btn-warning btn-sm" id="btn-chat" onclick="newCommentFn()">
                                         Send
                                     </button>
                                 </span>
