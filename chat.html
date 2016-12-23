@@ -156,7 +156,7 @@
                     var newChat = snapshot;
                     var user=newChat.val()[Object.keys(newChat.val())[0]].user;
                     console.log(user);
-                    $("#chats").append('<li><a onclick="changeChat(\''+newChat.key()+'\')">'+user+'</a></li>');
+                    $("#chats").append('<li><a onclick="changeChat(\''+newChat.key()+'\'); $('+"'"+'#bs-example-navbar-collapse-1'+"'"+').collapse('+"'"+'hide'+"'"+'); ">'+user+'</a></li>');
                     checkSize();
                 });
                 if(referenceChat){
