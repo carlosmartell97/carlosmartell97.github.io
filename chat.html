@@ -44,19 +44,8 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a >Chat</a>
-                    </li>
-                    <li>
-                        <a onclick="changePage('profile')">My Profile</a>
-                    </li>
-                    <li>
-                        <a >Settings</a>
-                    </li>
-                    <li id="user">
-                         <div></div>
-                    </li>
+                <ul class="nav navbar-nav" id="toBeHidden">
+                    <li><a >Chat</a></li><li><a onclick="changePage('profile')">My Profile</a></li><li><a >Settings</a></li><li id="user"><div></div></li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -69,7 +58,7 @@
         <div id="sidebar-wrapper">
             <ul id="chats" class="sidebar-nav">
                 <li class="sidebar-brand">
-                    <a>
+                    <a >
                         Chats
                     </a>
                 </li>
@@ -134,30 +123,32 @@
         $("#wrapper").toggleClass("toggled");
     });*/
             var user; var snapshotkey; var referenceChat;
-             $(document).ready(function() {
-                var url = document.location.href;
-                var urlP = url.replace(/#^\?/, '').split('&');
-                    splitBefore = urlP.toString().split('?');
-                    splitMany = splitBefore.toString().split(',');
-                    for(var i=1;i<splitMany.length;i++){
-                        split = splitMany[i].toString().split('=');
-                        console.log(split);
-                        if(split[0]=="u"){
-                            window.user=split[1];
-                        }
-                        else if(split[0]=="c"){
-                            window.snapshotkey=split[1];
-                            window.referenceChat=true;
-                        }
+         $(document).ready(function() {
+            var url = document.location.href;
+            var urlP = url.replace(/#^\?/, '').split('&');
+                splitBefore = urlP.toString().split('?');
+                splitMany = splitBefore.toString().split(',');
+                for(var i=1;i<splitMany.length;i++){
+                    split = splitMany[i].toString().split('=');
+                    console.log(split);
+                    if(split[0]=="u"){
+                        window.user=split[1];
                     }
-            document.getElementById('btn-chat').disabled=true;
-            document.getElementById('user').innerHTML = user;
-            document.getElementById('user').style.fontSize = "x-large";
-            document.getElementById('user').style.left = "100%";
-            document.getElementById('user').style.color="#E5E4E2";
-            });
+                    else if(split[0]=="c"){
+                        window.snapshotkey=split[1];
+                        window.referenceChat=true;
+                    }
+                }
+        document.getElementById('btn-chat').disabled=true;
+        document.getElementById('user').innerHTML = user;
+        document.getElementById('user').style.fontSize = "x-large";
+        document.getElementById('user').style.left = "100%";
+        document.getElementById('user').style.color="#E5E4E2";
+        });
         ///////////////////////////////////////////////////////
         $(window).load(function() {
+                //console.log(normalNavbar());
+                //$("#toBeHidden").append(normalNavbar());
                 console.log("stKey: "+snapshotkey);
                 
                 var ref = new Firebase("https://karmics.firebaseio.com/chats");
@@ -177,6 +168,10 @@
                         $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='http://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
                     });
                 }
+            });
+        ///////////////////////////////////////////////////
+        $(window).resize(function() {
+                checkSize();
             });
         var changePage=function(page){
                 window.location.href =page+".html?u="+user;
@@ -229,6 +224,26 @@
                     
                     $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='http://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
                 });
+        };
+        var rearrangeChats=function(){
+            console.log("REARRANGE");
+            document.getElementById("toBeHidden").innerHTML=document.getElementById("chats").innerHTML;
+        };
+        var resetChats=function(){
+            document.getElementById("toBeHidden").innerHTML=normalNavbar();
+        };
+        var checkSize=function(){
+            if ($(window).width() < 768) {
+                rearrangeChats();
+            }
+            else{
+                resetChats();
+            }  
+        };
+        ////////////////////START
+        ///////                            <li><a >Chat</a></li><li><a onclick="changePage('profile')">My Profile</a></li><li><a >Settings</a></li><li id="user"><div></div></li>
+        var normalNavbar=function(){
+            return "<li><a >Chat</a></li><li><a onclick="+'"'+"changePage('profile')"+'"'+">My Profile</a></li><li><a >Settings</a></li><li id="+'"'+"user"+'"'+"><div></div></li>";
         }
     </script>
 
