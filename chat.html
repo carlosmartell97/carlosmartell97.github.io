@@ -157,6 +157,7 @@
                     var user=newChat.val()[Object.keys(newChat.val())[0]].user;
                     console.log(user);
                     $("#chats").append('<li><a onclick="changeChat(\''+newChat.key()+'\')">'+user+'</a></li>');
+                    checkSize();
                 });
                 if(referenceChat){
                     document.getElementById("Chat").innerHTML="";
