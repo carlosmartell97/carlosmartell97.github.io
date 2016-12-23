@@ -154,9 +154,12 @@
                 var ref = new Firebase("https://karmics.firebaseio.com/chats");
                 ref.on("child_added", function(snapshot, prevChildKey) {
                     var newChat = snapshot;
-                    var user=newChat.val()[Object.keys(newChat.val())[0]].user;
-                    console.log(user);
-                    $("#chats").append('<li><a onclick="changeChat(\''+newChat.key()+'\'); $('+"'"+'#bs-example-navbar-collapse-1'+"'"+').collapse('+"'"+'hide'+"'"+'); ">'+user+'</a></li>');
+                    var messageUser="you";
+                    for(i=0;i<Object.keys(newChat.val()).length;i++){
+                        messageUser=(newChat.val()[Object.keys(newChat.val())[i]].user!=window.user)?newChat.val()[Object.keys(newChat.val())[i]].user:messageUser;   
+                    }
+                    console.log(messageUser);
+                    $("#chats").append('<li style="border-top: .25px solid #E5E4E2; border-bottom: .25px solid #E5E4E2"><a onclick="changeChat(\''+newChat.key()+'\'); $('+"'"+'#bs-example-navbar-collapse-1'+"'"+').collapse('+"'"+'hide'+"'"+'); ">'+messageUser+'</a></li>');
                     checkSize();
                 });
                 if(referenceChat){
