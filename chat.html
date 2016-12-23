@@ -57,7 +57,7 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul id="chats" class="sidebar-nav">
-                <li class="sidebar-brand">
+                <li class="sidebar-brand" id="chatsHeader">
                     <a >
                         Chats
                     </a>
@@ -231,9 +231,11 @@
         };
         var rearrangeChats=function(){
             console.log("REARRANGE");
+            document.getElementById("chatsHeader").style="display:flex; align-items:center; justify-content:center";
             document.getElementById("toBeHidden").innerHTML=document.getElementById("chats").innerHTML;
         };
         var resetChats=function(){
+            document.getElementById("chatsHeader").style="";
             document.getElementById("toBeHidden").innerHTML=normalNavbar();
         };
         var checkSize=function(){
