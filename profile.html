@@ -251,6 +251,10 @@
                 document.getElementById('btn-chat').disabled=false;
             }
         };
+        var postFn = function(key){
+                console.log(key);
+                window.location.href ="post.html?u="+user+"&p="+key;
+            };
     </script>
     <style>
 .ct-chart .ct-series.ct-series-a .ct-line {
@@ -437,22 +441,53 @@
                     <!-- /.panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
+                            <i class="fa fa-clock-o fa-fw"></i> Timeline
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <ul class="timeline">
+                                <!-- 
+                    <div class="col-sm-4 col-lg-4 col-md-4">
+                        <div class="thumbnail">
+                            <img src="img/'+newPost.url+'"  style="display: block; object-fit:cover;">
+                            <div class="caption">
+                                <h6 class="pull-right">'+
+                                    newPost.user+'
+                                </h6>
+                                <h4 onclick="postFn(\''+snapshotkey+'\')">
+                                    <a>'+newPost.title+'</a>
+                                </h4>
+                                <p>'+newPost.experience+'<span onclick="postFn(\''+snapshotkey+'\')"><a><font size="4">[...]</font></a></span></p>
+                            </div>
+                            <div class="ratings">
+                                <p class="pull-right" onclick="postFn(\''+snapshotkey+'\')">
+                                    <a  style="color:#B40404">'+comments+' comments</a>
+                                </p>
+                                <p>'+
+                                    starsHTML(newPost.rating)+'
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                                -->
                                 <li>
                                     <div class="timeline-badge"><i class="fa fa-check"></i>
                                     </div>
                                     <div class="timeline-panel">
                                         <div class="timeline-heading">
-                                            <h4 class="timeline-title">Lorem ipsum dolor</h4>
-                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> 11 hours ago via Twitter</small>
+                                            <h4 class="timeline-title"><a>Attend a concert</a></h4>
+                                            <p><small class="text-muted"><i class="fa fa-clock-o fa-lg"></i> 01/02/03</small>
                                             </p>
                                         </div>
                                         <div class="timeline-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero laboriosam dolor perspiciatis omnis exercitationem. Beatae, officia pariatur? Est cum veniam excepturi. Maiores praesentium, porro voluptas suscipit facere rem dicta, debitis.</p>
+                                            <!--<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero laboriosam dolor perspiciatis omnis exercitationem. Beatae, officia pariatur? Est cum veniam excepturi. Maiores praesentium, porro voluptas suscipit facere rem dicta, debitis.</p> -->
+                                            <div class="thumbnail">
+                                                <img src="img/concert.png"  style="display: block; object-fit:cover;">
+                                                <h4 onclick="postFn(\''+snapshotkey+'\')">
+                                                    <i class="fa fa-globe fa-lg"></i> <a>874</a> completions
+                                                </h4><p></p>
+                                                <p>We went to a local festival with some great bands. Jake Nichols joined the stage!<span onclick="postFn(\''+snapshotkey+'\')"><a><font size="4">[...]</font></a></span></p>
+                                            </div>
                                         </div>
                                     </div>
                                 </li>
