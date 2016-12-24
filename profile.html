@@ -20,7 +20,7 @@
     
     <link rel="stylesheet"href="feed/profile/css/chartist.min.css">
     <script src="feed/profile/js/chartist.min.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Oxygen:300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oxygen:300' rel='stylesheet' type='text/css'>
     <link href="feed/profile/css/shop-homepage.css" rel="stylesheet">
     <!-- Firebase -->
   <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
@@ -73,17 +73,30 @@
                     console.log("loading profile...");
                     
                 });
-        
-        
-            //window.onload = function parseURL() {
-                    //////////////////////////////////
-        
+                ///////////////////////////////////////
                 $(window).load(function() {
                         console.log("LOAD");
                         refresh();
                     });
                 //////////////////////////
-            //}
+        
+            // CHILD ADDED__________________________________________
+            var ref = new Firebase("https://karmics.firebaseio.com/posts/");
+            // Retrieve new posts as they are added to our database
+            ref.orderByChild("status").equalTo("post").on("child_added", function(snapshot, prevChildKey) {
+                var newPost = snapshot.val(); window.snapshotkey = snapshot.key();
+                //console.log("CHILD_ADDED"); console.log("User: " + newPost.user); 
+                console.log("Title: " + newPost.title); //console.log("Info: " + newPost.info);
+                //console.log("Previous Post ID: " + prevChildKey);
+                //console.log(newPost.url);
+                        ref.child(snapshotkey).child("comments").on("child_added", function(snapshot) {
+                            //console.log(snapshot.key());
+                            comments++;
+                        });
+                console.log(snapshotkey);
+                    $(".timeline").append('<li><div class="timeline-badge"><i class="fa fa-check"></i></div><div class="timeline-panel"><div class="timeline-heading"><h4 class="timeline-title" onclick="postFn(\''+snapshotkey+'\')"><a>'+newPost.title+'</a></h4><p><small class="text-muted"><i class="fa fa-clock-o fa-lg"></i> '+newPost.date+'</small></p></div><div class="timeline-body"><div class="thumbnail"><img src="img/'+newPost.url+'"  style="display: block; object-fit:cover;"><h4 onclick="postFn(\''+snapshotkey+'\')"><i class="fa fa-globe fa-lg"></i> <a>'+newPost.completions+'</a> completions</h4><p></p><p>'+newPost.experience+'<span onclick="postFn(\''+snapshotkey+'\')"><a><font size="4">[...]</font></a></span></p></div></div></div></li>'); console.log("___");
+                comments=0;
+            });
             var changePage=function(page){
                 window.location.href =page+".html?u="+user;
             };
