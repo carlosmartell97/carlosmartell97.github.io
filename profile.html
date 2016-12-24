@@ -46,7 +46,7 @@
                     var urlquery=usersRef.orderByChild("username").equalTo(user).on("child_added", function(snapshot) {
                         window.snapshotkey = snapshot.key();  console.log(snapshotkey);
                         
-                        console.log("https://karmics.firebaseio.com/users/"+snapshotkey+"/chat");
+                        //console.log("https://karmics.firebaseio.com/users/"+snapshotkey+"/chat");
                         var ref = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey+"/chat");
                         ref.on("child_added", function(snapshot, prevChildKey) {
                             var newComment = snapshot.val();
@@ -118,20 +118,34 @@
                                             var dataSeriesElement=[];
                                             dataLabels.push(property.toString());
                                             for(var prop in val.activity[property]){
-                                                console.log(prop+": "+val.activity[property][prop]);
+                                                //console.log(prop+": "+val.activity[property][prop]);
                                                 dataSeriesElement.push(val.activity[property][prop]);
                                             }
                                             dataSeriesBefore.push(dataSeriesElement);
                                         }
+                                    var awards=0; var completions=0; var karmics=0; var sustainability=0;
                                         var dataSeries=[];
                                         c=0;
                                         for(var w=0;w<4;w++){
                                                 var dataSeriesElement=[];
                                                 for(var j=0;j<dataSeriesBefore.length;j++){
                                                     dataSeriesElement.push(dataSeriesBefore[j][w]);
+                                                    if(w==0){
+                                                        awards+=dataSeriesBefore[j][w];
+                                                    }
+                                                    else if(w==1){
+                                                        completions+=dataSeriesBefore[j][w];
+                                                    }
+                                                    else if(w==2){
+                                                        karmics+=dataSeriesBefore[j][w];
+                                                    }
+                                                    else if(w==3){
+                                                        sustainability+=dataSeriesBefore[j][w];
+                                                    }
                                                 }
                                                 dataSeries.push(dataSeriesElement);
                                         }
+                                    console.log(dataSeries);
                                         dataLabels[0]="Big Bang";
                                         console.log(dataLabels);
                                         console.log(dataSeriesBefore);
@@ -156,10 +170,10 @@
                                     awards=val.activity[fulldate].awards;
                                     sustainability=val.activity[fulldate].sustainability;
                                     */
-                                    awards=dataSeriesBefore[dataSeriesBefore.length-1][0];
-                                    completions=dataSeriesBefore[dataSeriesBefore.length-1][1];
-                                    karmics=dataSeriesBefore[dataSeriesBefore.length-1][2];
-                                    sustainability=dataSeriesBefore[dataSeriesBefore.length-1][3];
+                                    //awards=dataSeriesBefore[dataSeriesBefore.length-1][0];
+                                    //completions=dataSeriesBefore[dataSeriesBefore.length-1][1];
+                                    //karmics=dataSeriesBefore[dataSeriesBefore.length-1][2];
+                                    //sustainability=dataSeriesBefore[dataSeriesBefore.length-1][3];
                                         document.getElementById('karmics').innerHTML = karmics;
                                         document.getElementById('completions').innerHTML = completions;
                                         document.getElementById('awards').innerHTML = awards;
