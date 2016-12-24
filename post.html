@@ -105,6 +105,13 @@
                 <p id="objective">Details of what was accomplished. What, how, where?</p>
                 <h2>My experience:</h2>
                 <p id="experience">How did this impacted you and/or others?</p>
+                <p id="starRating">
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                </p>
             </div>
             <div class="col-sm-4">
                 <h2 id="user2"><a>My name</a></h2>
@@ -252,6 +259,9 @@
                             else if(key=="experience"){
                                 document.getElementById('experience').innerHTML = val;
                             }
+                            else if(key=="rating"){
+                                document.getElementById('starRating').innerHTML = starsHTML(val);
+                            }
                             else if(key=="instructions"){
                                 document.getElementById('objective').innerHTML = val;
                             }
@@ -366,7 +376,17 @@
             else{
                 document.getElementById('btn-chat').disabled=false;
             }
-        };    
+        };
+        var starsHTML = function(stars){
+            var result="";
+            for(i=0;i<stars;i++){
+                result+='<span class="glyphicon glyphicon-star"></span>';
+            }
+            for(i=0;i<(5-stars);i++){
+                result+='<span class="glyphicon glyphicon-star-empty"></span>';
+            }
+            return result;
+        };
     </script>
 </body>
 
