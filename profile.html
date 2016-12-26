@@ -47,12 +47,17 @@
                         window.snapshotkey=snapshot.key(); window.userKey=snapshot.key();  console.log(snapshotkey);
                         
                         //console.log("https://karmics.firebaseio.com/users/"+snapshotkey+"/chat");
-                        var ref = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey+"/chat");
-                        ref.on("child_added", function(snapshot, prevChildKey) {
+                        var ref = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey);
+                        ref.child("chat").on("child_added", function(snapshot, prevChildKey) {
                             var newComment = snapshot.val();
                             var profilePic;
 
                             $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='http://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+                        });
+                        
+                        ref.child("notifications").on("child_added", function(snapshot, prevChildKey) {
+                            var newNotification = snapshot.val();
+                            $("#notificationPanel").append('<a href="" class="list-group-item"><i class="fa fa-save fa-fw"></i> database Comment<span class="pull-right text-muted small"><em>4 minutes ago</em></span></a>');
                         });
                         
                         // CHILD CHANGED__________________________________________
@@ -81,13 +86,9 @@
                         // CHILD ADDED__________________________________________
                         var ref = new Firebase("https://karmics.firebaseio.com/posts/");
                         //ref=ref.orderByChild("status").equalTo("post");
-                        console.log(user);
+                        //console.log(user);
                         ref.orderByChild("user").equalTo(user).on("child_added", function(snapshot, prevChildKey) {
                             var newPost = snapshot.val(); window.snapshotkey = snapshot.key();
-                            //console.log("CHILD_ADDED"); console.log("User: " + newPost.user); 
-                            console.log("Title: " + newPost.title); //console.log("Info: " + newPost.info);
-                            //console.log("Previous Post ID: " + prevChildKey);
-                            //console.log(newPost.url);
                             console.log(snapshotkey);
                                 $(".timeline").append(leftRight()+'<div class="timeline-badge '+fontAwesomeColor(newPost.status)+'"><i class="fa '+fontAwesome(newPost.status)+'"></i></div><div class="timeline-panel"><div class="timeline-heading"><h4 class="timeline-title" onclick="postOrGoal(\''+snapshotkey+'\',\''+newPost.status+'\')"><a>'+newPost.title+'</a></h4><p><small class="text-muted"><i class="fa '+fontAwesome2(newPost.status)+' fa-lg"></i> '+eval(deadline(newPost.deadline,newPost.status))+'</small></p></div><div class="timeline-body"><div class="thumbnail"><img src="img/'+newPost.url+'"  style="display: block; object-fit:cover;"><h4><i class="fa fa-globe fa-lg"></i> <a>'+newPost.completions+'</a> completions</h4><p></p><p>'+newPost.experience+'<span onclick="postOrGoal(\''+snapshotkey+'\',\''+newPost.status+'\')"><a><font size="4">[...]</font></a></span></p></div></div></div></li>'); console.log("___");
                             comments=0;
@@ -155,11 +156,10 @@
                                                 }
                                                 dataSeries.push(dataSeriesElement);
                                         }
-                                    console.log(dataSeries);
                                         dataLabels[0]="Big Bang";
-                                        console.log(dataLabels);
-                                        console.log(dataSeriesBefore);
-                                        console.log(dataSeries);
+                                        //console.log(dataLabels);
+                                        //console.log(dataSeriesBefore);
+                                        //console.log(dataSeries);
                                     
                                     lineChart= new Chartist.Line('.ct-chart', {
                                         labels: dataLabels,
@@ -284,7 +284,7 @@
             }
         };
         var fontAwesome=function(status){
-            console.log(status);
+            //console.log(status);
             if(status=="post"){
                 return 'fa-check';
             }
@@ -293,7 +293,7 @@
             }
         };
         var fontAwesome2=function(status){
-            console.log(status);
+            //console.log(status);
             if(status=="post"){
                 return 'fa-calendar';
             }
@@ -302,7 +302,7 @@
             }
         };
         var fontAwesomeColor=function(status){
-            console.log(status);
+            //console.log(status);
             if(status=="post"){
                 return 'success';
             }
@@ -571,7 +571,7 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
-                            <div class="list-group">
+                            <div class="list-group" id="notificationPanel">
                                 <a href="" class="list-group-item">
                                     <i class="fa fa-comment fa-fw"></i> New Comment
                                     <span class="pull-right text-muted small"><em>4 minutes ago</em>
