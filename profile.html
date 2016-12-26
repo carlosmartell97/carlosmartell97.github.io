@@ -57,7 +57,7 @@
                         
                         ref.child("notifications").on("child_added", function(snapshot, prevChildKey) {
                             var newNotification = snapshot.val();
-                            $("#notificationPanel").append('<a href="" class="list-group-item"><i class="fa fa-save fa-fw"></i> database Comment<span class="pull-right text-muted small"><em>4 minutes ago</em></span></a>');
+                            $("#notificationPanel").append('<a href="" class="list-group-item"><i class="fa fa-'+notificationType(newNotification.type)+' fa-fw"></i> '+newNotification.notification+'<span class="pull-right text-muted small"><em>'+newNotification.date+'</em></span></a>');
                         });
                         
                         // CHILD CHANGED__________________________________________
@@ -342,6 +342,17 @@
                     });
                 });
         };
+        var notificationType=function(type){
+            if(type=="facebook"){
+                return "facebook-square";
+            }
+            else if(type=="reddit"){
+                return "reddit-alien";
+            }
+            else if(type=="twitter"){
+                return "twitter";
+            }
+        }
     </script>
     <style>
 .ct-chart .ct-series.ct-series-a .ct-line {
