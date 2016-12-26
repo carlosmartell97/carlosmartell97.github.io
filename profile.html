@@ -236,7 +236,6 @@
             var ref = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey+"/chat/");
             ref.push({
                     //document.getElementById("inputUsername").value
-
                     "user": user,
                     "comment": document.getElementById("comment-input").value,
                     "date": fulldate
@@ -319,7 +318,17 @@
             else{
                 return'newPost.deadline';
             }
-        }
+        };
+        var changeDescription=function(){
+            document.getElementById("description").contentEditable=true;
+            document.getElementById("descriptionDiv").style.border='2px solid red';
+            document.getElementById("descriptionImage").innerHTML=' <i class="fa fa-save fa-2x" onclick="saveDescription()"></i>';
+        };
+        var saveDescription=function(){
+            document.getElementById("description").contentEditable=false;
+            document.getElementById("descriptionDiv").style.border='none';
+            document.getElementById("descriptionImage").innerHTML=' <i class="fa fa-pencil fa-2x" onclick="changeDescription()"></i>';
+        };
     </script>
     <style>
 .ct-chart .ct-series.ct-series-a .ct-line {
@@ -384,7 +393,9 @@
                     <div class="thumbnail">
                         <img id="profilePicture" src="img/profile_250x250.jpg" class="img-circle" style="display: block; object-fit:cover;"/>
                     </div>
-                    <p>Some description here</p>
+                    <div id="descriptionDiv">
+                        <p style="display: inline-block;" id="description">Some description here</p> <span id="descriptionImage"> <i class="fa fa-pencil fa-2x" onclick="changeDescription()"></i></span>
+                    </div>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
