@@ -31,7 +31,7 @@
     <script src="js/jquery.js"></script>
     <script>
         //sdfkahskljdfklasjdhkfnj asd
-        var user; var snapshotkey;
+        var user; var snapshotkey; var userKey;
         var karmics; var completions; var awards; var sustainability;
         var linechart;
                 $(document).ready(function() {
@@ -44,7 +44,7 @@
                 }
                     var usersRef = new Firebase("https://karmics.firebaseio.com/users");
                     var urlquery=usersRef.orderByChild("username").equalTo(user).on("child_added", function(snapshot) {
-                        window.snapshotkey = snapshot.key();  console.log(snapshotkey);
+                        window.snapshotkey=snapshot.key(); window.userKey=snapshot.key();  console.log(snapshotkey);
                         
                         //console.log("https://karmics.firebaseio.com/users/"+snapshotkey+"/chat");
                         var ref = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey+"/chat");
@@ -88,10 +88,6 @@
                             console.log("Title: " + newPost.title); //console.log("Info: " + newPost.info);
                             //console.log("Previous Post ID: " + prevChildKey);
                             //console.log(newPost.url);
-                                    ref.child(snapshotkey).child("comments").on("child_added", function(snapshot) {
-                                        //console.log(snapshot.key());
-                                        comments++;
-                                    });
                             console.log(snapshotkey);
                                 $(".timeline").append(leftRight()+'<div class="timeline-badge '+fontAwesomeColor(newPost.status)+'"><i class="fa '+fontAwesome(newPost.status)+'"></i></div><div class="timeline-panel"><div class="timeline-heading"><h4 class="timeline-title" onclick="postOrGoal(\''+snapshotkey+'\',\''+newPost.status+'\')"><a>'+newPost.title+'</a></h4><p><small class="text-muted"><i class="fa '+fontAwesome2(newPost.status)+' fa-lg"></i> '+eval(deadline(newPost.deadline,newPost.status))+'</small></p></div><div class="timeline-body"><div class="thumbnail"><img src="img/'+newPost.url+'"  style="display: block; object-fit:cover;"><h4><i class="fa fa-globe fa-lg"></i> <a>'+newPost.completions+'</a> completions</h4><p></p><p>'+newPost.experience+'<span onclick="postOrGoal(\''+snapshotkey+'\',\''+newPost.status+'\')"><a><font size="4">[...]</font></a></span></p></div></div></div></li>'); console.log("___");
                             comments=0;
@@ -220,7 +216,10 @@
                                         }]
                                     ];
                                     new Chartist.Pie('.ct-pie', data, options, responsiveOptions);
-
+                                    
+                                    if(val.description!=null){
+                                        document.getElementById("description").innerHTML=val.description;
+                                    }
                                     x=0;
                                 }
                             }
@@ -328,6 +327,20 @@
             document.getElementById("description").contentEditable=false;
             document.getElementById("descriptionDiv").style.border='none';
             document.getElementById("descriptionImage").innerHTML=' <i class="fa fa-pencil fa-2x" onclick="changeDescription()"></i>';
+            
+            var usersRef = new Firebase("https://karmics.firebaseio.com/users/"+userKey);
+                var objToWrite = new Object();
+                objToWrite.description = document.getElementById("description").innerHTML;
+                console.log(objToWrite);
+                usersRef.once("value", function(snapshot) {
+                    usersRef.update(objToWrite,function(error) {
+                        if (error) {
+                            console.log("Data could not be saved." + error);
+                        } else {
+                            console.log("Data saved successfully.");
+                        }
+                    });
+                });
         };
     </script>
     <style>
@@ -393,8 +406,8 @@
                     <div class="thumbnail">
                         <img id="profilePicture" src="img/profile_250x250.jpg" class="img-circle" style="display: block; object-fit:cover;"/>
                     </div>
-                    <div id="descriptionDiv">
-                        <p style="display: inline-block;" id="description">Some description here</p> <span id="descriptionImage"> <i class="fa fa-pencil fa-2x" onclick="changeDescription()"></i></span>
+                    <div id="descriptionDiv" style="text-align: center;">
+                        <p style="display: inline-block;" id="description">Describe yourself here!</p> <span id="descriptionImage"> <i class="fa fa-pencil fa-2x" onclick="changeDescription()"></i></span>
                     </div>
                 </div>
                 <!-- /.sidebar-collapse -->
