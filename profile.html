@@ -415,7 +415,13 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav">
                     <div class="thumbnail">
-                        <img id="profilePicture" src="img/profile_250x250.jpg" class="img-circle" style="display: block; object-fit:cover;"/>
+                            <img id="profilePicture" src="img/profile_250x250.jpg" class="img-circle" style="display: block; object-fit:cover;" data-toggle="dropdown"/>
+                            <ul class="dropdown-menu" role="menu">
+                                <li onclick="console.log('view')"><a>View</a></li>
+                                <li class="divider"></li>
+                                <li onclick="console.log('take photo')"><a>Take photo</a></li>
+                                <li onclick="console.log('upload photo')"><a>Upload a photo</a></li>
+                            </ul>           
                     </div>
                     <div id="descriptionDiv" style="text-align: center;">
                         <p style="display: inline-block;" id="description">Describe yourself here!</p> <span id="descriptionImage"> <i class="fa fa-pencil fa-2x" onclick="changeDescription()"></i></span>
@@ -527,7 +533,6 @@
             <!-- /.row -->
             <div class="row">
                 <div class="col-lg-8">
-                    
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-line-chart fa-fw"></i> Activity
@@ -700,6 +705,18 @@
     <!-- esto lo quité porque me dió problemas en cuanto metí jquery-> <script src="../dist/js/sb-admin-2.js"></script> -->
     
     
+<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCtvXCT_GQpvpPARuRFv-oOi4nz5eHWLUQ",
+    authDomain: "karmics.firebaseapp.com",
+    databaseURL: "https://karmics.firebaseio.com",
+    storageBucket: "firebase-karmics.appspot.com",
+    messagingSenderId: "366737783416"
+  };
+  firebase.initializeApp(config);
+</script>
 </body>
 
 </html>
