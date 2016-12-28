@@ -416,11 +416,11 @@
                 <div class="sidebar-nav">
                     <div class="thumbnail">
                             <img id="profilePicture" src="img/profile_250x250.jpg" class="img-circle" style="display: block; object-fit:cover;" data-toggle="dropdown"/>
-                            <ul class="dropdown-menu" role="menu">
+                            <ul class="dropdown-menu" style="position:static" role="menu">
                                 <li onclick="console.log('view')"><a>View</a></li>
                                 <li class="divider"></li>
                                 <li onclick="console.log('take photo')"><a>Take photo</a></li>
-                                <li onclick="console.log('upload photo')"><a>Upload a photo</a></li>
+                                <li onclick="console.log('upload photo')" data-toggle="modal" data-target="#mymodal"><a>Upload a photo</a></li>
                             </ul>           
                     </div>
                     <div id="descriptionDiv" style="text-align: center;">
@@ -685,6 +685,25 @@
         <!-- /#page-wrapper -->
 
     </div>
+                                <div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                  <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Please choose a file</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                        ...content---
+                                          <progress value="0" max="100" id="uploader" style="-webkit-appearance:none; appearance:none; margin-top:10px; margin-bottom:10px">0%</progress>
+                                          <input type="file" value="upload" id="fileButton" />
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
     <!-- /#wrapper -->
 
     <!-- jQuery -->
