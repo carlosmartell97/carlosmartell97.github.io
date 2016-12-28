@@ -776,7 +776,7 @@
                 });*/
                 
                 var storageRef = firebase.storage().ref();
-                storageRef.child(user+'profilePicture.jpg').getDownloadURL().then(function(url) {
+                storageRef.child(user+'/profilePic.jpg').getDownloadURL().then(function(url) {
                 // Or inserted into an <img> element:
                 var img = document.getElementById('profilePicture');
                 img.src = url;
