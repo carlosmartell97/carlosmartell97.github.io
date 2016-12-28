@@ -693,13 +693,12 @@
                                         <h4 class="modal-title" id="myModalLabel">Please choose a file</h4>
                                       </div>
                                       <div class="modal-body">
-                                        ...content---
-                                          <progress value="0" max="100" id="uploader" style="-webkit-appearance:none; appearance:none; margin-top:10px; margin-bottom:10px">0%</progress>
+                                          <progress value="0" max="100" id="uploader" style="-webkit-appearance:none; appearance:none; margin-top:10px; margin-bottom:10px; display:none">0%</progress>
                                           <input type="file" value="upload" id="fileButton" />
                                       </div>
                                       <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                        <button type="button" class="btn btn-primary" onclick="uploadFile()" disabled="true" id="uploadButton">Upload</button>
                                       </div>
                                     </div>
                                   </div>
@@ -726,31 +725,46 @@
     
 <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
 <script>
-  // Initialize Firebase
-  var config = {
+    // Initialize Firebase
+    var config = {
     apiKey: "AIzaSyCtvXCT_GQpvpPARuRFv-oOi4nz5eHWLUQ",
     authDomain: "karmics.firebaseapp.com",
     databaseURL: "https://karmics.firebaseio.com",
     storageBucket: "firebase-karmics.appspot.com",
     messagingSenderId: "366737783416"
-  };
-  firebase.initializeApp(config);
+    };
+    firebase.initializeApp(config);
+    var file;
     
-    var uploader=document.getElementById("uploader");
-    var fileButton=document.getElementById("fileButton");
     fileButton.addEventListener('change',function(e){
-        var file=e.target.files[0];
-        var storageRef=firebase.storage().ref('photos/'+file.name);
-        var task=storageRef.put(file);
-        task.on('state_changed',function progress(snapshot){
-            var percentage=(snapshot.bytesTransferred / snapshot.totalBytes)*100;
-            uploader.value=percentage;
-        },function error(err){
-            
-        },function complete(){
-            
+            file=e.target.files[0];
+            if(file!=null){
+                document.getElementById("uploadButton").disabled=false;
+            }
+            else{
+                document.getElementById("uploadButton").disabled=true;
+            }
         });
-    });
+    var uploadFile=function(){
+        $('#mymodal').modal('hide');
+        if(window.file!=null){
+            document.getElementById("uploader").style.display="block";
+            var uploader=document.getElementById("uploader");
+            var fileButton=document.getElementById("fileButton");
+            var storageRef=window.firebase.storage().ref(user+'/'+ /*file.name*/ 'profilePic.jpg');
+            var task=storageRef.put(file);
+            task.on('state_changed',function progress(snapshot){
+                var percentage=(snapshot.bytesTransferred / snapshot.totalBytes)*100;
+                uploader.value=percentage;
+            },function error(err){
+                console.log("error uploading file!");
+            },function complete(){
+                $('#mymodal').modal('hide');
+                document.getElementById("uploadButton").disabled=true;
+                document.getElementById("uploader").style.display="none";
+            });
+        }
+    }
 </script>
 </body>
 
