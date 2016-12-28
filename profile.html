@@ -776,10 +776,13 @@
                 });*/
                 
                 var storageRef = firebase.storage().ref();
+                
+                console.log('R: '+storageRef.child(user+'/profilePic.jpg').updateMetadata({"key":"value"})['code']);
+                console.log('W: '+storageRef.child(user+'/profilessPic.jpg').updateMetadata({"key":"value"})['code']);
+                
                 storageRef.child(user+'/profilePic.jpg').getDownloadURL().then(function(url) {
                 // Or inserted into an <img> element:
-                var img = document.getElementById('profilePicture');
-                img.src = url;
+                document.getElementById('profilePicture').src = url;
                 }).catch(function(error) {
                 // Handle any errors
                 });
