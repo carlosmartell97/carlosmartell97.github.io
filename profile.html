@@ -762,6 +762,18 @@
                 $('#mymodal').modal('hide');
                 document.getElementById("uploadButton").disabled=true;
                 document.getElementById("uploader").style.display="none";
+                
+                var storageRef = firebase.storage().ref();
+                var tangRef = storageRef.child(user+'/'+ /*file.name*/ 'profilePic.jpg');
+                firebase.auth().signInAnonymously().then(function() {
+
+                  tangRef.getDownloadURL().then(function(url)                             {
+                    document.getElementById('profilePicture').src = url;
+
+                  }).catch(function(error) {
+                    console.error(error);
+                  });
+                });
             });
         }
     }
