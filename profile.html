@@ -124,13 +124,18 @@
                                     ////LAST 30 DAYS
                                     
                                         var dataLabels=[];
+                                        dataLabels[0]="Big Bang";
                                         var dataSeriesBefore=[];
                                         for(var property in val.activity){
                                             var dataSeriesElement=[];
-                                            dataLabels.push(property.toString());
                                             for(var prop in val.activity[property]){
-                                                //console.log(prop+": "+val.activity[property][prop]);
-                                                dataSeriesElement.push(val.activity[property][prop]);
+                                                if((prop=="awards") || (prop=="completions") || (prop=="karmics") || (prop=="sustainability")){
+                                                    //console.log(prop+": "+val.activity[property][prop]);
+                                                    dataSeriesElement.push(val.activity[property][prop]);
+                                                }
+                                                else{
+                                                    dataLabels.push(prop);
+                                                }
                                             }
                                             dataSeriesBefore.push(dataSeriesElement);
                                         }
@@ -156,7 +161,7 @@
                                                 }
                                                 dataSeries.push(dataSeriesElement);
                                         }
-                                        dataLabels[0]="Big Bang";
+                                        
                                         //console.log(dataLabels);
                                         //console.log(dataSeriesBefore);
                                         //console.log(dataSeries);
