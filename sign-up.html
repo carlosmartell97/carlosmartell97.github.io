@@ -88,6 +88,10 @@
                 //WRITING DATA WITH SET
                 var usersRef = ref.child("users");
                     var username=document.getElementById("inputEmail").value;
+                var date = new Date();var m_names = ['January', 'February', 'March', 
+                'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                var month = m_names[date.getMonth()]; var year = date.getFullYear();
+                var fulldate=month+"-"+year;
                 usersRef.push({
                         //document.getElementById("inputUsername").value
                         
@@ -101,8 +105,8 @@
                         "sustainability":0,
                         "mind":1,
                         "body":1,
-                        "spirit":1
-                    
+                        "spirit":1,
+                        "notifications":{"0":{"type":"created-account","date":fulldate,"notification":"joined Karmics!"}}
                 }, function(error) {
                     if (error) {
                         console.log("Data could not be saved." + error);
@@ -128,10 +132,6 @@
                                                 window.snapshotkey = snapshot.key(); console.log(snapshotkey);
                                                 
                                             var usersRef = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey);
-                                            var date = new Date();var m_names = ['January', 'February', 'March', 
-                                            'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-                                            var month = m_names[date.getMonth()]; var year = date.getFullYear();
-                                            var fulldate=month+"-"+year;
                                            
                                             var objToWrite = new Object();
                                             objToWrite.activity = {};
