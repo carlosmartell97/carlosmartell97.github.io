@@ -30,7 +30,7 @@ var user; var user2; var user2Found; var referencePost=false;
                 if(split[0]=="u"){
                     window.user=split[1];
                 }
-                else if(split[0]=="p"){
+                else if(split[0]=="p" || split[0]=="g"){
                     window.snapshotkey=split[1];
                     window.referencePost=true;
 
