@@ -112,11 +112,24 @@ var user; var snapshotkey; var userKey;
                                                     dataSeriesElement.push(val.activity[property][prop]);
                                                 }
                                                 else{
-                                                    dataLabels.push(prop);
+                                                    if(prop!="-placeholder"){
+                                                        dataLabels.push(prop);
+                                                    }
                                                 }
                                             }
                                             dataSeriesBefore.push(dataSeriesElement);
                                         }
+                                    if(dataSeriesBefore.length==1){
+                                        dataSeriesBefore.push({
+                                            0:0,
+                                            1:0,
+                                            2:0,
+                                            3:0
+                                        });
+                                        dataLabels.push("Today");
+                                    }
+                                    console.log(dataSeriesBefore);
+                                    console.log(dataLabels);
                                     var awards=0; var completions=0; var karmics=0; var sustainability=0;
                                         var dataSeries=[];
                                         c=0;
@@ -141,8 +154,8 @@ var user; var snapshotkey; var userKey;
                                         }
                                         
                                         //console.log(dataLabels);
-                                        //console.log(dataSeriesBefore);
-                                        //console.log(dataSeries);
+//                                        console.log(dataSeriesBefore);
+                                        console.log(dataSeries);
                                     
                                     lineChart= new Chartist.Line('.ct-chart', {
                                         labels: dataLabels,
