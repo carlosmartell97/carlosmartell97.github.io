@@ -92,7 +92,7 @@ var user2; var user2Found=false;
     });
 
 function CommitFn() { 
-        window.location.href ="new-goal.html?u="+user+"&p="+snapshotkey; 
+        window.location.href ="new-goal.html?u="+user+"&g="+snapshotkey; 
     };
 function HelpFn() { 
         console.log("HelpFn()");
