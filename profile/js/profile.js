@@ -46,20 +46,34 @@ var user; var snapshotkey; var userKey;
                     
                 });
                 ///////////////////////////////////////
+                window.addEventListener('DOMContentLoaded', function() {
+                    console.log('window DOMContentLoaded');
+                });
+                ///////////////////////////////////////
                 $(window).load(function() {
-                        console.log("LOAD");
+                        console.log("window LOAD");
                         refresh();
                     
-                        // CHILD ADDED__________________________________________
                         var ref = new Firebase("https://karmics.firebaseio.com/posts/");
                         //ref=ref.orderByChild("status").equalTo("post");
                         //console.log(user);
-                        ref.orderByChild("user").equalTo(user).on("child_added", function(snapshot, prevChildKey) {
-                            var newPost = snapshot.val(); window.snapshotkey = snapshot.key();
-                            console.log(snapshotkey);
-                                $(".timeline").append(leftRight()+'<div class="timeline-badge '+fontAwesomeColor(newPost.status)+'"><i class="fa '+fontAwesome(newPost.status)+'"></i></div><div class="timeline-panel"><div class="timeline-heading"><h4 class="timeline-title" onclick="postOrGoal(\''+snapshotkey+'\',\''+newPost.status+'\')"><a>'+newPost.title+'</a></h4><p><small class="text-muted"><i class="fa '+fontAwesome2(newPost.status)+' fa-lg"></i> '+eval(deadline(newPost.deadline,newPost.status))+'</small></p></div><div class="timeline-body"><div class="thumbnail"><img src="img/'+newPost.url+'"  style="display: block; object-fit:cover;"><h4><i class="fa fa-globe fa-lg"></i> <a>'+newPost.completions+'</a> completions</h4><p></p><p>'+newPost.experience+'<span onclick="postOrGoal(\''+snapshotkey+'\',\''+newPost.status+'\')"><a><font size="4">[...]</font></a></span></p></div></div></div></li>'); console.log("___");
-                            comments=0;
+                        ref.orderByChild("user").equalTo(user).once('value', function(snap) {
+                            console.log(snap.val());
+                            if(snap.val()!=null){
+                                // CHILD ADDED__________________________________________
+                                ref.orderByChild("user").equalTo(user).on("child_added", function(snapshot, prevChildKey) {
+                                    var newPost = snapshot.val(); window.snapshotkey = snapshot.key();
+                                    console.log(snapshotkey);
+                                        $(".timeline").append(leftRight()+'<div class="timeline-badge '+fontAwesomeColor(newPost.status)+'"><i class="fa '+fontAwesome(newPost.status)+'"></i></div><div class="timeline-panel"><div class="timeline-heading"><h4 class="timeline-title" onclick="postOrGoal(\''+snapshotkey+'\',\''+newPost.status+'\')"><a>'+newPost.title+'</a></h4><p><small class="text-muted"><i class="fa '+fontAwesome2(newPost.status)+' fa-lg"></i> '+eval(deadline(newPost.deadline,newPost.status))+'</small></p></div><div class="timeline-body"><div class="thumbnail"><img src="img/'+newPost.url+'"  style="display: block; object-fit:cover;"><h4><i class="fa fa-globe fa-lg"></i> <a>'+newPost.completions+'</a> completions</h4><p></p><p>'+newPost.experience+'<span onclick="postOrGoal(\''+snapshotkey+'\',\''+newPost.status+'\')"><a><font size="4">[...]</font></a></span></p></div></div></div></li>'); console.log("___");
+                                    comments=0;
+                                    console.log("DONE");
+                                });
+                            }
+                            else{
+                                $(".timeline").append('<li><div class="timeline-badge info"><i class="fa fa-smile-o fa-lg"></i></div><div class="timeline-panel"><div class="timeline-body"><p><b>'+user+'</b> has no posts or commitments... Encourage him to get started on his Public Chat!</p></div></div></li>');
+                            }
                         });
+                    console.log(document.getElementsByClassName("timeline").innerHTML);
                     
                         var fileButton=document.getElementById("fileButton");
                         fileButton.addEventListener('change',function(e){
