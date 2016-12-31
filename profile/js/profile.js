@@ -171,7 +171,7 @@ var user; var snapshotkey; var userKey;
                                         document.getElementById('completions').innerHTML = completions;
                                         document.getElementById('awards').innerHTML = awards;
                                         document.getElementById('sustainability').innerHTML = sustainability;
-                                        document.getElementById("profilePicture").src="img/"+val.profilePicture;
+                                        document.getElementById("profilePicture").src=val.profilePicture;
 
                                     //PREFERRED CATEGORIES
                                     var data = {
@@ -391,6 +391,21 @@ var user; var snapshotkey; var userKey;
                 storageRef.child(user+'/profilePic.jpg').getDownloadURL().then(function(url) {
                 // Or inserted into an <img> element:
                 document.getElementById('profilePicture').src = url;
+                    
+                var usersRef = new Firebase("https://karmics.firebaseio.com/users/"+userKey);
+                var objToWrite = new Object();
+                objToWrite.profilePicture = url;
+                console.log(objToWrite);
+                usersRef.once("value", function(snapshot) {
+                    usersRef.update(objToWrite,function(error) {
+                        if (error) {
+                            console.log("Data could not be saved. "+error);
+                        } else {
+                            console.log("Data saved successfully.");
+                        }
+                    });
+                });
+                    
                 }).catch(function(error) {
                 // Handle any errors
                 });
