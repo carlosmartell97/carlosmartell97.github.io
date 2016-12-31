@@ -367,7 +367,7 @@ var user; var snapshotkey; var userKey;
             },function error(err){
                 console.log("error uploading file!");
             },function complete(){
-                $('#mymodal').modal('hide');
+                $('#uploadAccordion').collapse('hide');
                 document.getElementById("uploadButton").disabled=true;
                 document.getElementById("uploader").style.display="none";
                 
@@ -385,8 +385,8 @@ var user; var snapshotkey; var userKey;
                 
                 var storageRef = firebase.storage().ref();
                 
-                console.log('R: '+storageRef.child(user+'/profilePic.jpg').updateMetadata({"key":"value"})['code']);
-                console.log('W: '+storageRef.child(user+'/profilessPic.jpg').updateMetadata({"key":"value"})['code']);
+                //console.log('R: '+storageRef.child(user+'/profilePic.jpg').updateMetadata({"key":"value"})['code']);
+                //console.log('W: '+storageRef.child(user+'/profilessPic.jpg').updateMetadata({"key":"value"})['code']);
                 
                 storageRef.child(user+'/profilePic.jpg').getDownloadURL().then(function(url) {
                 // Or inserted into an <img> element:

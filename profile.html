@@ -93,39 +93,35 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav">
                     <div class="thumbnail">
-                            <img id="profilePicture" src="img/profile_250x250.jpg" class="img-circle" style="display: block; object-fit:cover;" data-toggle="dropdown"/>
-                            <ul class="dropdown-menu" style="position:static" role="menu">
-                                <li onclick="console.log('view')"><a>View</a></li>
-                                <li class="divider"></li>
-                                <li onclick="console.log('take photo')"><a>Take photo</a></li>
-                                <li onclick="console.log('upload photo')" data-toggle="collapse" data-parent="#accordion" href="#accordionOne"><a>Upload a photo</a></li>
-                            </ul>
-                        <div class="panel-group" id="accordion"> 
-                           
-                                
-                                
-                                
-                                <div id="accordionOne" class="panel-collapse collapse ">
+                            <img id="profilePicture" src="img/profile_250x250.jpg" class="img-circle" style="display: block; object-fit:cover;" data-toggle="collapse" data-parent="#accordion" href="#photoOptions"/>
+                            <div id="photoOptions" class="panel-collapse collapse">
                                   <div class="panel-body">
-                                       
-                                        <div class="modal-content">
-                                          <div class="modal-header">
-                                            <h4 class="modal-title" id="myModalLabel">Please choose a file</h4>
-                                          </div>
-                                          <div class="modal-body">
-                                              <progress value="0" max="100" id="uploader" style="-webkit-appearance:none; appearance:none; margin-top:10px; margin-bottom:10px; display:none">0%</progress>
-                                              <input type="file" value="upload" id="fileButton" />
-                                          </div>
-                                          <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="collapse" data-parent="#accordion" href="#accordionOne">Cancel</button>
-                                            <button type="button" class="btn btn-primary" onclick="uploadFile()" disabled="true" id="uploadButton">Upload</button>
+                                    <ul class="list-group">
+                                        <li class="list-group-item" style="display:flex; align-items:center; justify-content:center" onclick="console.log('view');">View</li>
+                                        <li class="list-group-item" style="display:flex; align-items:center; justify-content:center" onclick="console.log('take photo')">Take photo</li>
+                                        <li class="list-group-item" style="display:flex; align-items:center;justify-content:center" onclick="console.log('upload')" data-toggle="collapse" data-parent="#accordion" href="#uploadAccordion">Upload a photo</li>
+                                    </ul>
+                                  </div>
+                                    <div class="panel-group" id="accordion"> 
+                                        <div id="uploadAccordion" class="panel-collapse collapse ">
+                                          <div class="panel-body">
+                                                <div class="modal-content">
+                                                  <div class="modal-header">
+                                                    <h4 class="modal-title" id="myModalLabel">Please choose a file</h4>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                      <progress value="0" max="100" id="uploader" style="-webkit-appearance:none; appearance:none; margin-top:10px; margin-bottom:10px; display:none">0%</progress>
+                                                      <input type="file" value="upload" id="fileButton" />
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="collapse" data-parent="#accordion" href="#uploadAccordion">Cancel</button>
+                                                    <button type="button" class="btn btn-primary" onclick="uploadFile()" disabled="true" id="uploadButton">Upload</button>
+                                                  </div>
+                                                </div>
                                           </div>
                                         </div>
-                                      
-                                  </div>
+                                    </div>
                                 </div>
-                          
-                        </div>
                     </div>
 <!--                    -->
 
