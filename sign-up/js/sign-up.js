@@ -32,7 +32,7 @@ function myFunction() {
             "email": document.getElementById("inputEmail").value, "username":document.getElementById("inputUsername").value,
             "password": document.getElementById("inputPassword1").value,
             "friends":{"1":"no one"},
-            "profilePicture":"profile_250x250.jpg",
+            "profilePicture":"img/profile_250x250.jpg",
             "karmics":0,
             "completions":0,
             "awards":0,
