@@ -49,10 +49,10 @@
       <form class="form-signin">
         <h2 class="form-signin-heading">Please sign up</h2>
         <h6 class="form-signin-heading">Already have an account? <a href="log-in.html">Login</a></h6>
-        <input type="email" id="inputEmail" class="form-control" placeholder="email" onkeyup="Change()" required autofocus>
-        <input type="text" id="inputUsername" class="form-control" placeholder="username" onkeyup="Change()" required>
-        <input type="password" id="inputPassword1" class="form-control" placeholder="password" onkeyup="Checking(Change())" required>
-          <input type="password" id="inputPassword2" class="form-control" placeholder="password again" onkeyup="Change()" required>
+        <input type="email" id="inputEmail" class="form-control" placeholder="email" required autofocus>
+        <input type="text" id="inputUsername" class="form-control" placeholder="username" required>
+        <input type="password" id="inputPassword1" class="form-control" placeholder="password" required>
+          <input type="password" id="inputPassword2" class="form-control" placeholder="password again" required>
         
         <div class="checkbox">
           <label>
@@ -60,7 +60,7 @@
           </label>
         </div>
           <!-- realmente el href de abajo debería de ser este: feed.html -->
-    <button id="SignUpBtn" type="button" class="btn btn-lg btn-default" onclick="myFunction()" disabled=true>Sign up</button>
+    <button id="SignUpBtn" type="button" class="btn btn-lg btn-default" onclick="Change()">Sign up</button>
           <!-- realmente el href de arriba debería de ser este: feed.html -->
       </form>
 

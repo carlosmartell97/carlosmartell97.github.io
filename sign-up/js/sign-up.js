@@ -63,7 +63,7 @@ function myFunction() {
                                 // Get a database reference to our posts
                                 var usersRef = new Firebase("https://karmics.firebaseio.com/users");
                                 var urlquery=usersRef.orderByChild("username").equalTo(document.getElementById("inputUsername").value).on("child_added", function(snapshot) {
-                                    window.snapshotkey = snapshot.key(); console.log(snapshotkey);
+                                    window.snapshotkey = snapshot.key(); //console.log(snapshotkey);
 
                                 var usersRef = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey);
 
@@ -95,15 +95,15 @@ function myFunction() {
 
         }
     });
-            console.log("email: "+document.getElementById("inputEmail").value);
-            console.log("pass: "+document.getElementById("inputPassword1").value);
+            //console.log("email: "+document.getElementById("inputEmail").value);
+            //console.log("pass: "+document.getElementById("inputPassword1").value);
 
 
 };
 
 function Change(){
   console.log("change");
-  console.log("text: "+document.getElementById("inputUsername").value);
+  //console.log("text: "+document.getElementById("inputUsername").value);
     var url="https://karmics.firebaseio.com/users/.json";
 $.getJSON( url, function( data ) {
     x=1;
@@ -112,7 +112,7 @@ $.getJSON( url, function( data ) {
         ///////////////// USERNAME
         if(x==1){
             if(val.username==document.getElementById("inputUsername").value){
-                console.log("coincidenciaUsername");
+                //console.log("coincidenciaUsername");
                 //errorUsername=true; 
                 errorUsername2=true;
                 document.getElementById("inputUsername").style.backgroundColor="#F75D59";
@@ -144,7 +144,7 @@ $.getJSON( url, function( data ) {
         ///////////////// EMAIL
         if(y==1){
             if(val.email==document.getElementById("inputEmail").value){
-                console.log("coincidenciaEmail");
+                //console.log("coincidenciaEmail");
                 errorEmail=true; errorEmail2=true;
                 document.getElementById("inputEmail").style.backgroundColor="#F75D59";
                 errorEmail=false; 
@@ -165,7 +165,7 @@ $.getJSON( url, function( data ) {
     }*/
 
 
-    console.log(errorEmail2); 
+    //console.log(errorEmail2); 
     Checking();
 });
 
@@ -179,14 +179,10 @@ function Checking(){
   console.log("Checking...");
   //console.log("###");
   //console.log("email: "+errorEmail); console.log("username: "+errorUsername); 
-  console.log("email: "+errorEmail2);
+  //console.log("email: "+errorEmail2);
   //console.log("###");
 
   if((!(errorPassword2) && !(errorUsername2) && !(errorEmail2))&&((document.getElementById("inputEmail").value!="")&&(document.getElementById("inputUsername").value!="")&&(document.getElementById("inputPassword1").value!="")&&(document.getElementById("inputPassword2").value!=""))){ 
-
-            document.getElementById("SignUpBtn").disabled=false;
-
-  }else{
-            document.getElementById("SignUpBtn").disabled=true;
-        }
+      myFunction();
+  }
 };
