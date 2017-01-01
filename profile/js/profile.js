@@ -70,7 +70,13 @@ var user; var snapshotkey; var userKey;
                                 });
                             }
                             else{
-                                $(".timeline").append('<li><div class="timeline-badge info"><i class="fa fa-smile-o fa-lg"></i></div><div class="timeline-panel"><div class="timeline-body"><p><b>'+user+'</b> has no posts or commitments... Encourage him to get started on his Public Chat!</p></div></div></li>');
+                                var checkUsers = new Firebase("https://karmics.firebaseio.com/users/");
+                                checkUsers.orderByChild("username").equalTo(user).once('value', function(snap) {
+                                    console.log(snap.val());
+                                    if(snap.val()!=null){
+                                        $(".timeline").append('<li><div class="timeline-badge info"><i class="fa fa-smile-o fa-lg"></i></div><div class="timeline-panel"><div class="timeline-body"><p><b>'+user+'</b> has no posts or commitments... Encourage him to get started on his Public Chat!</p></div></div></li>');
+                                    }
+                                });
                             }
                         });
                     console.log(document.getElementsByClassName("timeline").innerHTML);
