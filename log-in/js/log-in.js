@@ -76,10 +76,6 @@ function Checking(){
   //console.log("###");
 
   if(((errorPassword) && (errorUsername2))&&((document.getElementById("inputUsername").value!="")&&(document.getElementById("inputPassword").value!=""))){ 
-
-            document.getElementById("LogInBtn").disabled=false;
-
-  }else{
-            document.getElementById("LogInBtn").disabled=true;
-        }
+      myFunction();
+  }
 };
