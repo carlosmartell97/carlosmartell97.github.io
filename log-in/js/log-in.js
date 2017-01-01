@@ -1,6 +1,7 @@
 var errorUsername=false;  var errorUsername2=false;
 var errorPassword=false;  var errorPassword2 = false;
 var x=1; var y=1;
+var user;
 $(document).load(function() {
     document.getElementById("LogInBtn").disabled=true;
     //document.getElementById("inputUsername").addEventListener("keydown", Change);
@@ -8,7 +9,7 @@ $(document).load(function() {
 });
 function myFunction() {
     console.log("MyFunction() executed");
-    window.location.href = "feed.html?u="+document.getElementById("inputUsername").value;
+    window.location.href = "feed.html?u="+user;
 };
 
 function Change(){
@@ -28,6 +29,12 @@ $.getJSON( url, function( data ) {
                 console.log("blanco");
                     //errorUsername=false;
                 x=0;
+                if(val.username==document.getElementById("inputUsername").value){
+                    window.user=document.getElementById("inputUsername").value;
+                }
+                else{
+                    window.user=val.username;
+                }
             }
             else{
                 errorUsername2=false;
