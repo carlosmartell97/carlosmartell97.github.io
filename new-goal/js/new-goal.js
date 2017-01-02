@@ -154,9 +154,7 @@ function myFunction() {
                     "user":user,
                     "help":helpOfOthers,
                     "helpDetails":helpDetails,
-                    "helpers":0,
-                    "url":"running.jpg"
-
+                    "helpers":0
             }, function(error) {
                 if (error) {
                     console.log("Data could not be saved." + error);
@@ -175,10 +173,9 @@ function myFunction() {
                     "deadline": document.getElementById("date").value,
                     "completions":0,
                     "comments":0,
+                    "status":"goal",
                     "user":user,
-                    "help":helpOfOthers,
-                    "url":"concert.jpg"
-
+                    "help":helpOfOthers
             }, function(error) {
                 if (error) {
                     console.log("Data could not be saved." + error);

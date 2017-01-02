@@ -64,7 +64,7 @@ var user; var snapshotkey; var userKey;
                                 ref.orderByChild("user").equalTo(user).on("child_added", function(snapshot, prevChildKey) {
                                     var newPost = snapshot.val(); window.snapshotkey = snapshot.key();
                                     console.log(snapshotkey);
-                                        $(".timeline").append(leftRight()+'<div class="timeline-badge '+fontAwesomeColor(newPost.status)+'"><i class="fa '+fontAwesome(newPost.status)+'"></i></div><div class="timeline-panel"><div class="timeline-heading"><h4 class="timeline-title" onclick="postOrGoal(\''+snapshotkey+'\',\''+newPost.status+'\')"><a>'+newPost.title+'</a></h4><p><small class="text-muted"><i class="fa '+fontAwesome2(newPost.status)+' fa-lg"></i> '+eval(deadline(newPost.deadline,newPost.status))+'</small></p></div><div class="timeline-body"><div class="thumbnail"><img src="img/'+newPost.url+'"  style="display: block; object-fit:cover;"><h4><i class="fa fa-globe fa-lg"></i> <a>'+newPost.completions+'</a> completions</h4><p></p><p>'+newPost.experience+'<span onclick="postOrGoal(\''+snapshotkey+'\',\''+newPost.status+'\')"><a><font size="4">[...]</font></a></span></p></div></div></div></li>'); console.log("___");
+                                        $(".timeline").append(leftRight()+'<div class="timeline-badge '+fontAwesomeColor(newPost.status)+'"><i class="fa '+fontAwesome(newPost.status)+'"></i></div><div class="timeline-panel"><div class="timeline-heading"><h4 class="timeline-title" onclick="postOrGoal(\''+snapshotkey+'\',\''+newPost.status+'\')"><a>'+newPost.title+'</a></h4><p><small class="text-muted"><i class="fa '+fontAwesome2(newPost.status)+' fa-lg"></i> '+eval(deadline(newPost.deadline,newPost.status))+'</small></p></div><div class="timeline-body"><div class="thumbnail">'+image(newPost.status,newPost.url)+'<h4><i class="fa fa-globe fa-lg"></i> <a>'+newPost.completions+'</a> completions</h4><p></p><p>'+newPost.experience+'<span onclick="postOrGoal(\''+snapshotkey+'\',\''+newPost.status+'\')"><a><font size="4">[...]</font></a></span></p></div></div></div></li>'); console.log("___");
                                     comments=0;
                                     console.log("DONE");
                                 });
@@ -373,8 +373,9 @@ var user; var snapshotkey; var userKey;
             }
         }
         
-        
-        
+        var image=function(status,url){
+                    return (status=="post")?'<img src="'+"img/"+url+'" style="display: block; object-fit:cover;">':"";
+                }
         
         // Initialize Firebase
     var config = {
