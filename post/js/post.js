@@ -71,7 +71,7 @@ var helpDetails="none";
                     else if(key=="url"){
                         //$('business-header').css('background', 'url(http://placehold.it/1920x200)');
                         //$('business-header').css('background', '"img/cake.jpg"');
-                        document.getElementById('business-header').style.background="url('img/"+val+"') center center";
+                        document.getElementById('business-header').style.background="url('"+val+"') center center";
                         document.getElementById('business-header').style.backgroundSize="cover";
                         //flex-shrink:0;
                         //min-width:100%;
