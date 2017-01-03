@@ -12,14 +12,19 @@ var user; var snapshotkey; var userKey;
                     var usersRef = new Firebase("https://karmics.firebaseio.com/users");
                     var urlquery=usersRef.orderByChild("username").equalTo(user).on("child_added", function(snapshot) {
                         window.snapshotkey=snapshot.key(); window.userKey=snapshot.key();  console.log(snapshotkey);
+                        console.log(snapshot.val().profilePicture);
                         
                         //console.log("https://karmics.firebaseio.com/users/"+snapshotkey+"/chat");
                         var ref = new Firebase("https://karmics.firebaseio.com/users/"+snapshotkey);
                         ref.child("chat").on("child_added", function(snapshot, prevChildKey) {
                             var newComment = snapshot.val();
                             var profilePic;
-
-                            $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='https://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+                            
+                            usersRef.orderByChild("username").equalTo(newComment.user).on("child_added", function(snapshot) {
+                               profilePic=snapshot.val().profilePicture; 
+                                console.log("IN");
+                                $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='"+profilePic+"' alt='profile pic' class='img-circle' style='height:55px; width:55px; display: block; object-fit:cover;'/></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+                            });
                         });
                         
                         ref.child("notifications").on("child_added", function(snapshot, prevChildKey) {
@@ -72,7 +77,7 @@ var user; var snapshotkey; var userKey;
                             else{
                                 var checkUsers = new Firebase("https://karmics.firebaseio.com/users/");
                                 checkUsers.orderByChild("username").equalTo(user).once('value', function(snap) {
-                                    console.log(snap.val());
+//                                    console.log(snap.val());
                                     if(snap.val()!=null){
                                         $(".timeline").append('<li><div class="timeline-badge info"><i class="fa fa-smile-o fa-lg"></i></div><div class="timeline-panel"><div class="timeline-body"><p><b>'+user+'</b> has no posts or commitments... Encourage him to get started on his Public Chat!</p></div></div></li>');
                                     }
