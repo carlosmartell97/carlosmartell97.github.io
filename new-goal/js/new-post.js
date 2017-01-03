@@ -63,6 +63,17 @@ var user; var user2; var referencePost=false;
     document.getElementById("CommitBtn").disabled=true;
     //document.getElementById("business-header").style.background='http://placehold.it/300x300';
     //$("business-header").css({"background":"url('http://placehold.it/1920x400') center center no-repeat scroll"});console.log("YA");
+        
+    var fileButton=document.getElementById("fileButton");
+    fileButton.addEventListener('change',function(e){
+        file=e.target.files[0];
+        if(file!=null){
+            document.getElementById("uploadButton").disabled=false;
+        }
+        else{
+            document.getElementById("uploadButton").disabled=true;
+        }
+    });
     });
     //document.getElementById("achievement3").style.backgroundColor="green";
 
@@ -89,10 +100,6 @@ var user; var user2; var referencePost=false;
                         else if(key=="completions"){
                                 //window.completions=val;
                             }
-                        else if(key=="url"){
-                            document.getElementById('business-header').style.background="url('img/"+val+"') center center";
-                            document.getElementById('business-header').style.backgroundSize="cover";
-                        }
                     });
             });
         }
@@ -107,7 +114,6 @@ function myFunction() {
         objToWrite.rating=starsRated;
         console.log(objToWrite);
         usersRef.once("value", function(snapshot) {
-            console.log("has status true");
             usersRef.update(objToWrite,function(error) {
                 if (error) {
                     console.log("Data could not be saved." + error);
@@ -217,4 +223,73 @@ var rating = function(){
     starsClicked=true;
     document.getElementById('starsDiv').style.border = "none";
     Checking();
+};
+
+// Initialize Firebase
+    var config = {
+    apiKey: "AIzaSyCtvXCT_GQpvpPARuRFv-oOi4nz5eHWLUQ",
+    authDomain: "karmics.firebaseapp.com",
+    databaseURL: "https://karmics.firebaseio.com",
+    storageBucket: "firebase-karmics.appspot.com",
+    messagingSenderId: "366737783416"
+    };
+    firebase.initializeApp(config);
+    var file;
+var uploadFile=function(){
+    
+    if(window.file!=null){
+        document.getElementById("uploader").style.display="block";
+        var uploader=document.getElementById("uploader");
+        var storageRef=window.firebase.storage().ref(user+'/posts/'+postKey+ /*file.name*/ '/postPic.jpg');
+        var task=storageRef.put(file);
+        task.on('state_changed',function progress(snapshot){
+            var percentage=(snapshot.bytesTransferred / snapshot.totalBytes)*100;
+            uploader.value=percentage;
+        },function error(err){
+            console.log("error uploading file!");
+        },function complete(){
+            document.getElementById("uploadButton").disabled=true;
+            document.getElementById("uploader").style.display="none";
+
+            //var storageRef = firebase.storage().ref();
+            //var tangRef = storageRef.child(user+'/'+ /*file.name*/ 'profilePic.jpg');
+            /*firebase.auth().signInAnonymously().then(function() {
+
+              tangRef.getDownloadURL().then(function(url){
+                console.log(url);
+                document.getElementById('profilePicture').src = url;
+              }).catch(function(error) {
+                console.error(error);
+              });
+            });*/
+
+            var storageRef = firebase.storage().ref();
+
+            //console.log('R: '+storageRef.child(user+'/profilePic.jpg').updateMetadata({"key":"value"})['code']);
+            //console.log('W: '+storageRef.child(user+'/profilessPic.jpg').updateMetadata({"key":"value"})['code']);
+
+            storageRef.child(user+'/posts/'+postKey+'/postPic.jpg').getDownloadURL().then(function(url) {
+            // Or inserted into an <img> element:
+            document.getElementById('business-header').style.background="url('"+url+"') center center";
+            document.getElementById('business-header').style.backgroundSize="cover";
+            
+            var usersRef = new Firebase("https://karmics.firebaseio.com/posts/"+postKey);
+            var objToWrite = new Object();
+            objToWrite.url = url;
+            console.log(objToWrite);
+            usersRef.once("value", function(snapshot) {
+                usersRef.update(objToWrite,function(error) {
+                    if (error) {
+                        console.log("Data could not be saved. "+error);
+                    } else {
+                        console.log("Data saved successfully.");
+                    }
+                });
+            });
+
+            }).catch(function(error) {
+            // Handle any errors
+            });
+        });
+    }
 };
