@@ -2,12 +2,10 @@ $(function() {
             $( "#datepicker" ).datepicker({ dateFormat:'dd/mm/yy', maxDate:0, showAnim:'fadeIn' });
         });
 
-var approveTitle=false;
-var approveInstructions=false;
-var approveDate=false;
+var approveTitle; var approveInstructions; var approveDate; var approveImage;
 var helpOfOthers="no";
 var snapshotkey; var postKey; var starsClicked; var starsRated=3;
-var user; var user2; var referencePost=false;
+var user; var user2; var referencePost=false; var imageURL;
 
     $(document).ready(function() {
         console.log("READY");
@@ -112,6 +110,7 @@ function myFunction() {
         objToWrite.experience = document.getElementById("instructions").innerHTML;
         objToWrite.date = document.getElementById("datepicker").value;
         objToWrite.rating=starsRated;
+        objToWrite.url=imageURL;
         console.log(objToWrite);
         usersRef.once("value", function(snapshot) {
             usersRef.update(objToWrite,function(error) {
@@ -203,7 +202,7 @@ function myFunction() {
 function Checking(){
       console.log("Checking...");
 
-          if(((approveTitle)&&(approveInstructions)&&(approveDate)&&(starsClicked))/*&&((document.getElementById("title").innerHTML!="")&&(document.getElementById("instructions").innerHTML!="")&&(document.getElementById("date").innerHTML!=""))*/)
+          if(((approveTitle)&&(approveInstructions)&&(approveDate)&&(starsClicked)&&(approveImage))/*&&((document.getElementById("title").innerHTML!="")&&(document.getElementById("instructions").innerHTML!="")&&(document.getElementById("date").innerHTML!=""))*/)
             {
                 document.getElementById("CommitBtn").disabled=false;
 
@@ -272,21 +271,10 @@ var uploadFile=function(){
             // Or inserted into an <img> element:
             document.getElementById('business-header').style.background="url('"+url+"') center center";
             document.getElementById('business-header').style.backgroundSize="cover";
-            
-            var usersRef = new Firebase("https://karmics.firebaseio.com/posts/"+postKey);
-            var objToWrite = new Object();
-            objToWrite.url = url;
-            console.log(objToWrite);
-            usersRef.once("value", function(snapshot) {
-                usersRef.update(objToWrite,function(error) {
-                    if (error) {
-                        console.log("Data could not be saved. "+error);
-                    } else {
-                        console.log("Data saved successfully.");
-                    }
-                });
-            });
-
+            document.getElementById('uploadImageDiv').className="panel panel-success";
+            window.imageURL=url;
+            approveImage=true;
+            Checking();
             }).catch(function(error) {
             // Handle any errors
             });
