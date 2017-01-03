@@ -31,7 +31,7 @@ var user; var snapshotkey="";
                             comments++;
                         });
                 console.log(snapshotkey);
-                    $("#posts").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="img/'+newPost.url+'"  style="display: block; object-fit:cover;"><div class="caption"><h6 class="pull-right">'+newPost.user+'<button type="button" class="btn btn-xs btn-info"><img src="img/flag-icon.png" style="width:15px; height:15px"></button></h6><h4 onclick="postFn(\''+snapshotkey+'\')"><a >'+newPost.title+'</a></h4><p>'+newPost.experience+'<span onclick="postFn(\''+snapshotkey+'\')"><a ><font size="4">[...]</font></a></span></p></div><div class="ratings"><p class="pull-right" onclick="postFn(\''+snapshotkey+'\')"><a  style="color:#B40404">'+comments+' comments</a></p><p>'+starsHTML(newPost.rating)+'</p></div></div></div>'); console.log("___");
+                    $("#posts").append('<div class="col-sm-4 col-lg-4 col-md-4"><div class="thumbnail"><img src="'+newPost.url+'"  style="display: block; object-fit:cover;"><div class="caption"><h6 class="pull-right">'+newPost.user+'<button type="button" class="btn btn-xs btn-info"><img src="img/flag-icon.png" style="width:15px; height:15px"></button></h6><h4 onclick="postFn(\''+snapshotkey+'\')"><a >'+newPost.title+'</a></h4><p>'+newPost.experience+'<span onclick="postFn(\''+snapshotkey+'\')"><a ><font size="4">[...]</font></a></span></p></div><div class="ratings"><p class="pull-right" onclick="postFn(\''+snapshotkey+'\')"><a  style="color:#B40404">'+comments+' comments</a></p><p>'+starsHTML(newPost.rating)+'</p></div></div></div>'); console.log("___");
                 comments=0;
             });
             

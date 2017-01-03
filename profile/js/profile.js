@@ -374,7 +374,7 @@ var user; var snapshotkey; var userKey;
         }
         
         var image=function(status,url){
-                    return (status=="post")?'<img src="'+"img/"+url+'" style="display: block; object-fit:cover;">':"";
+                    return (status=="post")?'<img src="'+url+'" style="display: block; object-fit:cover;">':"";
                 }
         
         // Initialize Firebase
