@@ -48,8 +48,11 @@ $(window).load(function() {
             ref.on("child_added", function(snapshot, prevChildKey) {
                 var newComment = snapshot.val();
                 var profilePic;
-
-                $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='https://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+                var usersRef = new Firebase("https://karmics.firebaseio.com/users");
+                usersRef.orderByChild("username").equalTo(newComment.user).on("child_added", function(snapshot) {
+                    profilePic=snapshot.val().profilePicture;
+                    $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='"+profilePic+"' alt='User Avatar' class='img-circle' style='height:55px; width:55px; display: block; object-fit:cover;'/></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+                });
             });
         }
     });
@@ -84,7 +87,7 @@ var newCommentFn = function(){
     document.getElementById('btn-chat').disabled=true;
 };
 var enterPress=function(e){
-    if (event.which == 13 || event.keyCode == 13) {
+    if ((event.which == 13 || event.keyCode == 13)&&(document.getElementById('comment-input').value!="")) {
     //code to execute here
     return true;
     }
@@ -105,8 +108,11 @@ var changeChat=function(chatKey){
         ref.on("child_added", function(snapshot, prevChildKey) {
             var newComment = snapshot.val();
             var profilePic;
-
-            $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='http://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+            var usersRef = new Firebase("https://karmics.firebaseio.com/users");
+            usersRef.orderByChild("username").equalTo(newComment.user).on("child_added", function(snapshot) {
+                profilePic=snapshot.val().profilePicture;
+                $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='"+profilePic+"' alt='User Avatar' class='img-circle' style='height:55px; width:55px; display: block; object-fit:cover;'/></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+            });
         });
 };
 var rearrangeChats=function(){
