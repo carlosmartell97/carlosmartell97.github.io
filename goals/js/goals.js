@@ -13,6 +13,7 @@ var user;
             //document.getElementById('user').style.up = "100%";
             //hi
             document.getElementById('user').style.color="#E5E4E2";
+            document.getElementById('welcoming').innerHTML = 'What will you accomplish today, '+user+'?';
                         
                         var urlinicial = new Firebase("https://karmics.firebaseio.com/users");
                         var ObtenerSnapshotkey=urlinicial.orderByChild("username").equalTo(user).on("child_added", function(snapshot) {
