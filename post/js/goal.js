@@ -66,17 +66,6 @@ var user2; var user2Found=false;
                     else if(key=="completions"){
                             window.completions=val;
                         }
-                    else if(key=="url"){
-                        //$('business-header').css('background', 'url(http://placehold.it/1920x200)');
-                        //$('business-header').css('background', '"img/cake.jpg"');
-                        document.getElementById('business-header').style.background="url('img/"+val+"') center center";
-                        document.getElementById('business-header').style.backgroundSize="cover";
-                        //flex-shrink:0;
-                        //min-width:100%;
-                        //min-height:100%
-                            //document.getElementById('business-header').style.backgroundPosition"center center";
-                        console.log("YA");
-                    }
                     if(user2Found){
                             document.getElementById('commitDetails').innerHTML = "Join <a>"+user2+"</a> and <a>"+completions+" others</a>!";
                     }
