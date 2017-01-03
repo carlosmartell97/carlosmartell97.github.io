@@ -112,19 +112,10 @@ var user; var user2; var user2Found; var referencePost=false;
                         }
                         else if(key=="completions"){
                                 //window.completions=val;
+                                if(referencePost){
+                                    alert("If you don't have the exact same goal as this person, just change the details to match your own!");
+                                }
                             }
-                        else if(key=="url"){
-                            document.getElementById('business-header').style.background="url('img/"+val+"') center center";
-                            document.getElementById('business-header').style.backgroundSize="cover";
-                            if(referencePost){
-                    alert("If you don't have the exact same goal as this person, just change the details to match your own!");
-                }
-                                //flex-shrink:0;
-                                //min-width:100%;
-                                //min-height:100%
-                                //document.getElementById('business-header').style.backgroundPosition"center center";
-                            console.log("YA");
-                        }
                         if(user2Found){
                                 //document.getElementById('helpDetailsText').innerHTML = "Join <a>"+user2+"</a> and <a>"+completions+" others</a>!"
                         }
