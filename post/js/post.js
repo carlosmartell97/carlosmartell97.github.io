@@ -147,7 +147,7 @@ var newCommentFn = function(){
     document.getElementById('btn-chat').disabled=true;
 };
 var enterPress=function(e){
-    if (event.which == 13 || event.keyCode == 13) {
+    if ((event.which == 13 || event.keyCode == 13)&&(document.getElementById('comment-input').value!="")) {
     //code to execute here
     return true;
     }
