@@ -27,8 +27,6 @@ document.getElementById('user').style.color="#E5E4E2";
 });
 ///////////////////////////////////////////////////////
 $(window).load(function() {
-        //console.log(normalNavbar());
-        //$("#toBeHidden").append(normalNavbar());
         console.log("stKey: "+snapshotkey);
 
         var ref = new Firebase("https://karmics.firebaseio.com/chats");
@@ -47,12 +45,13 @@ $(window).load(function() {
             ref=ref.child(snapshotkey);
             ref.on("child_added", function(snapshot, prevChildKey) {
                 var newComment = snapshot.val();
-                var profilePic;
-                var usersRef = new Firebase("https://karmics.firebaseio.com/users");
-                usersRef.orderByChild("username").equalTo(newComment.user).on("child_added", function(snapshot) {
-                    profilePic=snapshot.val().profilePicture;
-                    $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='"+profilePic+"' alt='User Avatar' class='img-circle' style='height:55px; width:55px; display: block; object-fit:cover;'/></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
-                });
+                imageURL(newComment.user).fail(function(returndata){
+                //an error ocurred, therefore profile picture should be the default one
+                $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='"+"img/profile_250x250.jpg"+"' alt='User Avatar' class='img-circle' style='height:55px; width:55px; display: block; object-fit:cover;'/></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+            }).then(function(returndata){
+                // no error ocurred, then picture's URL is what imageURL() returned
+                $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='"+returndata+"' alt='User Avatar' class='img-circle' style='height:55px; width:55px; display: block; object-fit:cover;'/></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+            });
             });
         }
     });
@@ -107,11 +106,12 @@ var changeChat=function(chatKey){
     var ref = new Firebase("https://karmics.firebaseio.com/chats/"+chatKey);
         ref.on("child_added", function(snapshot, prevChildKey) {
             var newComment = snapshot.val();
-            var profilePic;
-            var usersRef = new Firebase("https://karmics.firebaseio.com/users");
-            usersRef.orderByChild("username").equalTo(newComment.user).on("child_added", function(snapshot) {
-                profilePic=snapshot.val().profilePicture;
-                $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='"+profilePic+"' alt='User Avatar' class='img-circle' style='height:55px; width:55px; display: block; object-fit:cover;'/></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+            imageURL(newComment.user).fail(function(returndata){
+                //an error ocurred, therefore profile picture should be the default one
+                $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='"+"img/profile_250x250.jpg"+"' alt='User Avatar' class='img-circle' style='height:55px; width:55px; display: block; object-fit:cover;'/></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+            }).then(function(returndata){
+                // no error ocurred, then picture's URL is what imageURL() returned
+                $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='"+returndata+"' alt='User Avatar' class='img-circle' style='height:55px; width:55px; display: block; object-fit:cover;'/></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
             });
         });
 };
@@ -136,4 +136,9 @@ var checkSize=function(){
 ///////                            <li><a >Chat</a></li><li><a onclick="changePage('profile')">My Profile</a></li><li><a >Settings</a></li><li id="user"><div></div></li>
 var normalNavbar=function(){
     return "<li><a >Chat</a></li><li><a onclick="+'"'+"changePage('profile')"+'"'+">My Profile</a></li><li><a >Settings</a></li><li id="+'"'+"user"+'"'+"><div></div></li>";
-}
+};
+var imageURL=function(user){
+        return $.getJSON("https://firebasestorage.googleapis.com/v0/b/firebase-karmics.appspot.com/o/"+user+"%2FprofilePic.jpg").then(function( data ) {
+            return "https://firebasestorage.googleapis.com/v0/b/firebase-karmics.appspot.com/o/"+user+"%2FprofilePic.jpg"+"?alt=media&token="+data.downloadTokens;
+        });  
+};
