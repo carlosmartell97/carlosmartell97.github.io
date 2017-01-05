@@ -89,9 +89,13 @@ var helpDetails="none";
         var ref = new Firebase("https://karmics.firebaseio.com/posts/"+snapshotkey+"/comments/");
         ref.on("child_added", function(snapshot, prevChildKey) {
             var newComment = snapshot.val();
-            var profilePic;
-
-            $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='http://placehold.it/50/55C1E7/fff' alt='User Avatar' class='img-circle' /></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+            imageURL(newComment.user).fail(function(returndata){
+                //an error ocurred, therefore profile picture should be the default one
+                $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='"+"img/profile_250x250.jpg"+"' alt='User Avatar' class='img-circle' style='height:55px; width:55px; display: block; object-fit:cover;'/></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+            }).then(function(returndata){
+                // no error ocurred, then picture's URL is what imageURL() returned
+                $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='"+returndata+"' alt='User Avatar' class='img-circle' style='height:55px; width:55px; display: block; object-fit:cover;'/></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+            });
         });
     });
 
@@ -170,4 +174,9 @@ var starsHTML = function(stars){
         result+='<span class="glyphicon glyphicon-star-empty"></span>';
     }
     return result;
+};
+var imageURL=function(user){
+        return $.getJSON("https://firebasestorage.googleapis.com/v0/b/firebase-karmics.appspot.com/o/"+user+"%2FprofilePic.jpg").then(function( data ) {
+            return "https://firebasestorage.googleapis.com/v0/b/firebase-karmics.appspot.com/o/"+user+"%2FprofilePic.jpg"+"?alt=media&token="+data.downloadTokens;
+        });  
 };
