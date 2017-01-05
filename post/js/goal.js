@@ -74,10 +74,13 @@ var user2; var user2Found=false;
         var ref = new Firebase("https://karmics.firebaseio.com/posts/"+snapshotkey+"/comments/");
         ref.on("child_added", function(snapshot, prevChildKey) {
             var newComment = snapshot.val();
-            var profilePic;
-            
-            $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='"+imageURL(newComment.user)+"' alt='User Avatar' class='img-circle' style='height:55px; width:55px; display: block; object-fit:cover;'/></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
-            
+            imageURL(newComment.user).fail(function(returndata){
+                //an error ocurred, therefore profile picture should be the default one
+                $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='"+"img/profile_250x250.jpg"+"' alt='User Avatar' class='img-circle' style='height:55px; width:55px; display: block; object-fit:cover;'/></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+            }).then(function(returndata){
+                // no error ocurred, then picture's URL is what imageURL() returned
+                $("#Chat").append("<li class='left clearfix'><span class='chat-img pull-left'><img src='"+returndata+"' alt='User Avatar' class='img-circle' style='height:55px; width:55px; display: block; object-fit:cover;'/></span><div class='chat-body clearfix'><div class='header'><strong class='primary-font'>"+newComment.user+"</strong><small class='pull-right text-muted'><i class='fa fa-clock-o fa-fw'></i>"+newComment.date+"</small></div><p>"+newComment.comment+"</p></div></li>");
+            });
         });
     });
 
@@ -140,20 +143,8 @@ var checkComment = function(){
     }
 };
 var imageURL=function(user){
-        var token;
-        $.getJSON("https://firebasestorage.googleapis.com/v0/b/firebase-karmics.appspot.com/o/"+user+"%2FprofilePic.jpg", function( data ) {
-//            console.log(data.dataType);
-            token=data.downloadTokens;
-        }).done(function() {
-            console.log( "second success" );
-        }).fail(function() {
-            console.log( "error" );
+        return $.getJSON("https://firebasestorage.googleapis.com/v0/b/firebase-karmics.appspot.com/o/"+user+"%2FprofilePic.jpg").then(function( data ) {
+            return "https://firebasestorage.googleapis.com/v0/b/firebase-karmics.appspot.com/o/"+user+"%2FprofilePic.jpg"+"?alt=media&token="+data.downloadTokens;
         });
-        if(token!=undefined){
-            return "img/profile_250x250.jpg";
-        }
-        else{
-            return "https://firebasestorage.googleapis.com/v0/b/firebase-karmics.appspot.com/o/"+user+"%2FprofilePic.jpg"+"?alt=media&token="+token;
-        }
     
 };
